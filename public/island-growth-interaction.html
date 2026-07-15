@@ -792,15 +792,19 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .list-row:last-child { border-bottom:0; }
     #island-growth-interaction .list-copy strong { display:block; font-weight:500; }
     #island-growth-interaction .list-copy span { display:block; color:var(--muted-foreground); }
-    #island-growth-interaction .badge-toolbar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 14px; }
+    #island-growth-interaction .badge-toolbar { display:grid; gap:8px; margin:0 0 14px; }
+    #island-growth-interaction .badge-toolbar .viz-controls { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); width:100%; }
+    #island-growth-interaction .badge-toolbar .btn { width:100%; min-width:0; justify-content:center; padding-inline:4px; }
     #island-growth-interaction .badge-grid { display:grid; grid-template-columns:repeat(6,minmax(0,1fr)); gap:10px; }
-    #island-growth-interaction .badge-item { width:100%; min-width:0; min-height:132px; padding-inline:6px; text-align:center; align-items:center; justify-content:flex-start; }
-    #island-growth-interaction .badge-mark { display:grid; place-items:center; width:64px; height:64px; margin:2px auto 10px; border:2px dashed var(--muted-foreground); border-radius:12px; background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .badge-item { position:relative; width:100%; min-width:0; min-height:104px; padding:4px 2px; text-align:center; align-items:center; justify-content:flex-start; }
+    #island-growth-interaction .badge-mark { display:grid; place-items:center; width:56px; height:56px; margin:2px auto 7px; border:2px dashed var(--muted-foreground); border-radius:50%; background:var(--muted); color:var(--muted-foreground); }
     #island-growth-interaction .badge-mark::after { content:&quot;徽章图&quot;; }
     #island-growth-interaction .badge-mark &gt; i, #island-growth-interaction .badge-mark &gt; svg { display:none; }
-    #island-growth-interaction .badge-item strong, #island-growth-interaction .badge-item span { display:block; width:100%; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
-    #island-growth-interaction .badge-item span { color:inherit; opacity:.75; }
-    #island-growth-interaction .badge-item[aria-pressed=&quot;true&quot;] .badge-mark { border-color:var(--primary); color:var(--foreground); }
+    #island-growth-interaction .badge-item strong { display:-webkit-box; width:100%; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; white-space:normal; }
+    #island-growth-interaction .badge-state { position:absolute; top:2px; right:8px; width:8px; height:8px; border-radius:50%; background:var(--muted-foreground); }
+    #island-growth-interaction .badge-state.earned { background:var(--viz-series-1); }
+    #island-growth-interaction .badge-state.progress { background:var(--viz-series-2); }
+    #island-growth-interaction .badge-item[aria-pressed=&quot;true&quot;] .badge-mark { border-color:var(--primary); box-shadow:0 0 0 3px var(--accent); color:var(--foreground); }
     #island-growth-interaction .badge-detail { margin-top:14px; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:center; }
     #island-growth-interaction .badge-detail h3 { margin:0 0 4px; }
     #island-growth-interaction .badge-detail p { margin:0; color:var(--muted-foreground); }
@@ -819,8 +823,8 @@ html&gt;body{padding:0}&lt;/style&gt;
       #island-growth-interaction .profile-meta { grid-column:1/-1; width:100%; }
       #island-growth-interaction .meters, #island-growth-interaction .section-grid { grid-template-columns:1fr; }
       #island-growth-interaction .badge-grid { grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
-      #island-growth-interaction .badge-item { min-height:116px; padding-inline:3px; }
-      #island-growth-interaction .badge-mark { width:54px; height:54px; margin-bottom:8px; }
+      #island-growth-interaction .badge-item { min-height:98px; }
+      #island-growth-interaction .badge-mark { width:52px; height:52px; }
       #island-growth-interaction .badge-detail { grid-template-columns:1fr; }
     }
     @media (max-width:430px) {
@@ -968,7 +972,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       }
       function renderBadges(){
         const visible=badges.map((b,i)=&gt;({...b,i})).filter(b=&gt;filter===&#x27;all&#x27;||b.type===filter);
-        root.querySelector(&#x27;#badge-grid&#x27;).innerHTML=visible.map(b=&gt;`&lt;button type=&quot;button&quot; class=&quot;btn viz-tile badge-item&quot; data-badge=&quot;${b.i}&quot; aria-pressed=&quot;${b.i===selectedBadge}&quot;&gt;&lt;span class=&quot;badge-mark ${b.type} tone-${b.i%3+1}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${b.status}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;);
+        root.querySelector(&#x27;#badge-grid&#x27;).innerHTML=visible.map(b=&gt;`&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost badge-item&quot; data-badge=&quot;${b.i}&quot; aria-pressed=&quot;${b.i===selectedBadge}&quot; aria-label=&quot;${b.name}，${b.status}&quot;&gt;&lt;span class=&quot;badge-state ${b.status===&#x27;已获得&#x27;?&#x27;earned&#x27;:(b.status.includes(&#x27;/&#x27;)||b.status.includes(&#x27;%&#x27;))?&#x27;progress&#x27;:&#x27;&#x27;}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;span class=&quot;badge-mark ${b.type}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;/button&gt;`).join(&#x27;&#x27;);
         root.querySelectorAll(&#x27;[data-badge]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{selectedBadge=Number(btn.dataset.badge);equipped=false;renderBadges();}));
         const b=badges[selectedBadge]; root.querySelector(&#x27;#badge-title&#x27;).textContent=b.name; root.querySelector(&#x27;#badge-desc&#x27;).textContent=b.desc; root.querySelector(&#x27;#equip-badge&#x27;).textContent=equipped?&#x27;当前佩戴&#x27;:&#x27;更改佩戴&#x27;; root.querySelector(&#x27;#remove-badge&#x27;).disabled=!equipped;
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
