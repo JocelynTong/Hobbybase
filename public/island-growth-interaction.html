@@ -1,180 +1,22 @@
 <!doctype html>
-<html lang="zh-CN">
+<html lang="en">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>island-growth-interaction.html</title>
-<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:1rem;background:inherit}iframe{display:block;width:100%;max-width:736px;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
+<title>Island Growth Interaction</title>
+<style>:root{color-scheme:light dark;background:light-dark(rgb(255 255 255), rgb(24 24 24))}html,body{margin:0}body{box-sizing:border-box;padding:clamp(.75rem,2vw,1.5rem);background:inherit}iframe{display:block;width:100%;max-width:1180px;height:calc(100vh - 2rem);margin:0 auto;border:0}</style>
 </head>
 <body>
-<iframe id="codex-visualization" sandbox="allow-scripts" scrolling="no" referrerpolicy="no-referrer" title="island-growth-interaction.html" data-srcdoc="&lt;!doctype html&gt;
-&lt;html lang=&quot;zh-CN&quot;&gt;
+<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Island Growth Interaction" srcdoc="&lt;!doctype html&gt;
+&lt;html lang=&quot;en&quot;&gt;
 &lt;head&gt;
 &lt;meta charset=&quot;utf-8&quot;&gt;
 &lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
 &lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'none'; object-src 'none'; base-uri 'none'; form-action 'none'&quot;&gt;
-&lt;title&gt;island-growth-interaction.html&lt;/title&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;script&gt;(() =&gt; {
-  const root = document.documentElement;
-  const mediaQuery = globalThis.matchMedia(&quot;(prefers-color-scheme: dark)&quot;);
-  const apply = Reflect.apply;
-  const isArray = Array.isArray;
-  const parentWindow = globalThis.parent;
-  /**
-   * @param {object} prototype
-   * @param {string} property
-   */
-  const getPrototypeGetter = (prototype, property) =&gt; {
-    // oxlint-disable-next-line typescript/unbound-method -- invoked through captured Reflect.apply
-    const getter = Object.getOwnPropertyDescriptor(prototype, property)?.get;
-    if (getter == null) {
-      throw new Error(`Missing ${property} getter`);
-    }
-    return getter;
-  };
-  const getMessageData = getPrototypeGetter(MessageEvent.prototype, &quot;data&quot;);
-  const getMessagePorts = getPrototypeGetter(MessageEvent.prototype, &quot;ports&quot;);
-  const getMessageSource = getPrototypeGetter(MessageEvent.prototype, &quot;source&quot;);
-  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
-  const addHostMessageListener = MessagePort.prototype.addEventListener;
-  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
-  const postHostMessage = MessagePort.prototype.postMessage;
-  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
-  const startHostPort = MessagePort.prototype.start;
-  // oxlint-disable-next-line typescript/unbound-method -- captured before the untrusted fragment runs
-  const stopMessagePropagation = Event.prototype.stopImmediatePropagation;
-  /** @type {MessagePort | null} */
-  let hostPort = null;
-  const postToHost = (type, payload) =&gt; {
-    if (hostPort != null) {
-      apply(postHostMessage, hostPort, [{ type, ...payload }]);
-    }
-  };
-  const openExternal = ({ href }) =&gt; {
-    if (globalThis.navigator.userActivation?.isActive === true) {
-      postToHost(&quot;open-external&quot;, { href });
-    }
-  };
-  const sendFollowUpMessage = ({ prompt, title }) =&gt; {
-    if (globalThis.navigator.userActivation?.isActive === true) {
-      postToHost(&quot;follow-up&quot;, { prompt, title });
-    }
-    return Promise.resolve();
-  };
-  const syncTheme = () =&gt; {
-    const theme = mediaQuery.matches ? &quot;dark&quot; : &quot;light&quot;;
-    root.dataset.theme = theme;
-    globalThis.openai = {
-      ...globalThis.openai,
-      openExternal,
-      sendFollowUpMessage,
-      theme,
-      visualizationStyleVariables: {},
-      visualizationTheme: theme,
-    };
-    globalThis.dispatchEvent(
-      new CustomEvent(&quot;openai:set_globals&quot;, {
-        detail: { globals: globalThis.openai },
-      }),
-    );
-  };
-  const sendHeight = () =&gt; {
-    postToHost(&quot;height&quot;, {
-      height: Math.ceil(
-        Math.max(
-          document.body.scrollHeight,
-          document.body.getBoundingClientRect().height,
-        ),
-      ),
-    });
-  };
-
-  globalThis.addEventListener(
-    &quot;message&quot;,
-    (event) =&gt; {
-      const data = apply(getMessageData, event, []);
-      const ports = apply(getMessagePorts, event, []);
-      const source = apply(getMessageSource, event, []);
-      if (
-        source !== parentWindow ||
-        typeof data !== &quot;object&quot; ||
-        data == null ||
-        data.type !== &quot;codex-visualization-initialize&quot; ||
-        !isArray(ports) ||
-        ports.length !== 1
-      ) {
-        return;
-      }
-      apply(stopMessagePropagation, event, []);
-      const nextHostPort = ports[0];
-      try {
-        apply(addHostMessageListener, nextHostPort, [
-          &quot;message&quot;,
-          (event) =&gt; {
-            const data = apply(getMessageData, event, []);
-            if (typeof data === &quot;object&quot; &amp;&amp; data?.type === &quot;measure&quot;) {
-              sendHeight();
-            }
-          },
-        ]);
-        apply(startHostPort, nextHostPort, []);
-      } catch {
-        return;
-      }
-      hostPort = nextHostPort;
-      sendHeight();
-    },
-    { capture: true },
-  );
-  document.currentScript?.remove();
-  mediaQuery.addEventListener(&quot;change&quot;, syncTheme);
-  globalThis.addEventListener(&quot;click&quot;, (event) =&gt; {
-    if (event.defaultPrevented) {
-      return;
-    }
-    let element = null;
-    if (event.target instanceof globalThis.Element) {
-      element = event.target;
-    } else if (event.target instanceof globalThis.Node) {
-      element = event.target.parentElement;
-    }
-    const link = element?.closest(&quot;a[href]&quot;);
-    const href = link?.getAttribute(&quot;href&quot;);
-    if (href == null) {
-      return;
-    }
-    if (href.startsWith(&quot;#&quot;)) {
-      let id;
-      try {
-        id = decodeURIComponent(href.slice(1));
-      } catch {
-        return;
-      }
-      const target = id.length === 0 ? root : document.getElementById(id);
-      if (
-        target == null ||
-        globalThis.navigator.userActivation?.isActive !== true
-      ) {
-        return;
-      }
-      event.preventDefault();
-      postToHost(&quot;scroll-to&quot;, {
-        top: target.getBoundingClientRect().top + globalThis.scrollY,
-      });
-      return;
-    }
-    event.preventDefault();
-    openExternal({ href });
-  });
-  new ResizeObserver(sendHeight).observe(document.body);
-  syncTheme();
-})();
-&lt;/script&gt;
+&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
+&lt;title&gt;Island Growth Interaction&lt;/title&gt;
 &lt;style&gt;:root {
   color-scheme: light dark;
   background-color: var(--background) !important;
@@ -235,7 +77,7 @@
   --radius-2xl: calc(var(--radius) * 1.6);
   --radius-full: 9999px;
   --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
-  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 17 17'%3E%3Cpath d='M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z'/%3E%3C/svg%3E&quot;);
+  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
 
   /* Legacy aliases; not part of the current agent contract. */
   --viz-bg: transparent;
@@ -904,47 +746,15 @@ svg {
 }
 
 html&gt;body{padding:0}&lt;/style&gt;
-&lt;script&gt;
-(() =&gt; {
-  const root = document.documentElement;
-  const initialGlobals =
-    globalThis.__codexVisualizationInitialGlobals ?? globalThis.openai;
-  delete globalThis.__codexVisualizationInitialGlobals;
-  let appliedProperties = [];
-
-  const applyHostStyleVariables = (styleVariables) =&gt; {
-    if (styleVariables == null || typeof styleVariables !== &quot;object&quot;) {
-      return;
-    }
-    for (const property of appliedProperties) {
-      root.style.removeProperty(property);
-    }
-    appliedProperties = [];
-    for (const [property, value] of Object.entries(styleVariables)) {
-      if (property.startsWith(&quot;--&quot;) &amp;&amp; typeof value === &quot;string&quot;) {
-        root.style.setProperty(property, value);
-        appliedProperties.push(property);
-      }
-    }
-  };
-
-  const syncHostStyles = (globals) =&gt; {
-    applyHostStyleVariables(globals?.visualizationStyleVariables);
-  };
-
-  syncHostStyles(initialGlobals);
-  globalThis.addEventListener(&quot;openai:set_globals&quot;, (event) =&gt; {
-    syncHostStyles(event.detail?.globals);
-  });
-})();
-&lt;/script&gt;
-
+&lt;/head&gt;
+&lt;body&gt;
 &lt;div id=&quot;island-growth-interaction&quot;&gt;
   &lt;style&gt;
-    #island-growth-interaction { color:var(--foreground); }
+    #island-growth-interaction { color:var(--foreground); width:100%; }
     #island-growth-interaction .topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
     #island-growth-interaction .island-name { display:flex; align-items:center; gap:8px; }
-    #island-growth-interaction .shell { display:grid; grid-template-columns:210px minmax(0,1fr); gap:18px; align-items:start; }
+    #island-growth-interaction .shell { display:grid; grid-template-columns:minmax(210px,240px) minmax(0,1fr); gap:18px; align-items:start; }
+    #island-growth-interaction main { min-width:0; }
     #island-growth-interaction .profile { text-align:center; }
     #island-growth-interaction .avatar-wrap { position:relative; width:112px; height:112px; margin:4px auto 12px; display:grid; place-items:center; }
     #island-growth-interaction .avatar { width:78px; height:78px; border-radius:50%; background:var(--muted); display:grid; place-items:center; color:var(--muted-foreground); }
@@ -956,7 +766,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .profile p { margin:0; color:var(--muted-foreground); }
     #island-growth-interaction .profile-meta { display:grid; gap:8px; margin-top:16px; text-align:left; }
     #island-growth-interaction .meta-row { display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid var(--border); }
-    #island-growth-interaction .main-tabs { margin-bottom:14px; }
+    #island-growth-interaction .main-tabs { margin-bottom:14px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
+    #island-growth-interaction .main-tabs .btn { justify-content:center; }
     #island-growth-interaction .hero-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:start; }
     #island-growth-interaction .hero-row h2 { margin:0; }
     #island-growth-interaction .hero-row p { margin:4px 0 0; color:var(--muted-foreground); }
@@ -966,7 +777,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .meter-fill { display:block; height:100%; width:0; border-radius:inherit; background:var(--viz-series-1); transition:width .25s ease; }
     #island-growth-interaction .meter-fill.contribution { background:var(--viz-series-2); }
     #island-growth-interaction .metric-note { margin-top:6px; color:var(--muted-foreground); }
-    #island-growth-interaction .ladder { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; margin:16px 0; }
+    #island-growth-interaction .ladder { display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:8px; margin:16px 0; }
     #island-growth-interaction .stage { text-align:left; min-width:0; justify-content:flex-start; }
     #island-growth-interaction .stage span { display:block; }
     #island-growth-interaction .stage small { display:block; color:inherit; opacity:.75; }
@@ -978,27 +789,43 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .list-copy strong { display:block; font-weight:500; }
     #island-growth-interaction .list-copy span { display:block; color:var(--muted-foreground); }
     #island-growth-interaction .badge-toolbar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 14px; }
-    #island-growth-interaction .badge-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
-    #island-growth-interaction .badge-item { min-height:138px; text-align:left; align-items:flex-start; justify-content:flex-start; }
-    #island-growth-interaction .badge-mark { display:grid; place-items:center; width:44px; height:44px; border-radius:50%; background:color-mix(in srgb,var(--viz-series-2) 20%,transparent); margin-bottom:8px; }
+    #island-growth-interaction .badge-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:10px; }
+    #island-growth-interaction .badge-item { min-height:176px; text-align:center; align-items:center; justify-content:flex-start; }
+    #island-growth-interaction .badge-mark { position:relative; display:grid; place-items:center; width:76px; height:76px; margin:2px auto 12px; isolation:isolate; }
+    #island-growth-interaction .badge-mark::before, #island-growth-interaction .badge-mark::after { content:&quot;&quot;; position:absolute; z-index:-1; }
+    #island-growth-interaction .badge-mark.achievement::before { inset:4px; border-radius:50%; background:color-mix(in srgb,var(--viz-series-1) 24%,var(--card)); border:2px solid color-mix(in srgb,var(--viz-series-1) 60%,var(--border)); box-shadow:inset 0 0 0 6px var(--card), inset 0 0 0 8px color-mix(in srgb,var(--viz-series-1) 34%,var(--border)); }
+    #island-growth-interaction .badge-mark.achievement::after { width:30px; height:20px; bottom:-3px; background:var(--viz-series-1); clip-path:polygon(0 0,100% 0,82% 100%,50% 68%,18% 100%); }
+    #island-growth-interaction .badge-mark.event::before { inset:3px; background:color-mix(in srgb,var(--viz-series-2) 28%,var(--card)); border:2px solid color-mix(in srgb,var(--viz-series-2) 64%,var(--border)); clip-path:polygon(50% 0,62% 12%,79% 8%,86% 24%,100% 34%,93% 51%,100% 68%,84% 78%,78% 96%,59% 91%,45% 100%,33% 85%,14% 86%,10% 67%,0 54%,11% 39%,5% 21%,25% 16%,35% 1%); }
+    #island-growth-interaction .badge-mark.event::after { inset:13px; border-radius:50%; background:var(--card); border:1px solid color-mix(in srgb,var(--viz-series-2) 44%,var(--border)); }
+    #island-growth-interaction .badge-mark &gt; i, #island-growth-interaction .badge-mark &gt; svg { z-index:1; }
+    #island-growth-interaction .badge-mark.tone-2 { transform:rotate(-4deg); }
+    #island-growth-interaction .badge-mark.tone-3 { transform:rotate(4deg); }
     #island-growth-interaction .badge-item strong, #island-growth-interaction .badge-item span { display:block; }
     #island-growth-interaction .badge-item span { color:inherit; opacity:.75; }
-    #island-growth-interaction .badge-item[aria-pressed=&quot;true&quot;] .badge-mark { background:var(--primary-foreground); color:var(--primary); }
+    #island-growth-interaction .badge-item[aria-pressed=&quot;true&quot;] .badge-mark { color:var(--primary); transform:scale(1.06); }
     #island-growth-interaction .badge-detail { margin-top:14px; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:center; }
     #island-growth-interaction .badge-detail h3 { margin:0 0 4px; }
     #island-growth-interaction .badge-detail p { margin:0; color:var(--muted-foreground); }
     #island-growth-interaction .notice { margin-top:14px; padding-top:12px; border-top:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; color:var(--muted-foreground); }
     #island-growth-interaction .hidden { display:none; }
-    @media (max-width:680px) {
+    @media (min-width:1000px) {
+      #island-growth-interaction .section-grid { grid-template-columns:repeat(2,minmax(280px,1fr)); }
+      #island-growth-interaction .badge-grid { grid-template-columns:repeat(3,minmax(180px,1fr)); }
+    }
+    @media (max-width:780px) {
       #island-growth-interaction .shell { grid-template-columns:1fr; }
       #island-growth-interaction .profile { text-align:left; display:grid; grid-template-columns:auto minmax(0,1fr); gap:12px; align-items:center; }
       #island-growth-interaction .avatar-wrap { width:90px; height:90px; margin:0; }
       #island-growth-interaction .avatar { width:62px; height:62px; }
       #island-growth-interaction .profile-meta { grid-column:1/-1; width:100%; }
       #island-growth-interaction .meters, #island-growth-interaction .section-grid { grid-template-columns:1fr; }
-      #island-growth-interaction .ladder { grid-template-columns:repeat(2,minmax(0,1fr)); }
+      #island-growth-interaction .ladder { grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); }
       #island-growth-interaction .badge-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       #island-growth-interaction .badge-detail { grid-template-columns:1fr; }
+    }
+    @media (max-width:430px) {
+      #island-growth-interaction .badge-grid { grid-template-columns:1fr; }
+      #island-growth-interaction .hero-row { grid-template-columns:1fr; }
     }
   &lt;/style&gt;
 
@@ -1092,54 +919,51 @@ html&gt;body{padding:0}&lt;/style&gt;
 
   &lt;script&gt;
     (() =&gt; {
-      const root = document.getElementById('island-growth-interaction');
+      const root = document.getElementById(&#x27;island-growth-interaction&#x27;);
       const levels = [
-        {name:'普通用户',desc:'进入本岛，尚未形成稳定参与。',method:'系统自动进入',a:'35 / 100',ap:35,c:'0 / 1000',cp:0,up:[['首次发帖','增加活跃度'],['首次新增资料','审核通过后增加贡献度'],['首次获得互动','确认内容被看见']],benefits:[['基础功能','浏览、互动、发帖与提交资料'],['兴趣推荐','推荐本岛帖子和款式'],['徽章可见','查看全部徽章条件']],note:'本阶段不要求贡献度，重点完成首次有效参与。'},
-        {name:'活跃用户',desc:'在本岛持续发帖、互动或获得真实互动。',method:'按近期活跃动态判断',a:'680 / 1000',ap:68,c:'120 / 1000',cp:12,up:[['持续发帖','有效内容增加活跃度'],['获得真实互动','按有效互动人数计算'],['保持参与','不活跃时活跃度下降']],benefits:[['活跃身份','在本岛场景展示'],['推荐增强','强化个性化推荐'],['基础分发','优质内容获得额外分发']],note:'活跃度可增可减，但不能消费、转赠，也不会跨岛累计。'},
-        {name:'贡献用户',desc:'持续为本岛提供可沉淀的资料与内容。',method:'达到门槛后自动升级',a:'680 / 1000',ap:68,c:'3200 / 5000',cp:64,up:[['资料新增','审核通过后增加贡献度'],['资料字段编辑','修改被保留后结算'],['优质发帖','根据内容质量和真实互动加权']],benefits:[['官方身份','展示贡献用户身份'],['流量扶持','进入贡献用户流量池'],['创作权益','扩大资料编辑范围']],note:'贡献度只增不减；治理类权限仍需人工审核。'},
-        {name:'专业用户',desc:'具备本兴趣领域的专业能力，并持续参与共建。',method:'贡献门槛 + 专业认证',a:'720 / 1000',ap:72,c:'7600 / 10000',cp:76,up:[['专业内容','高质量内容获得贡献加权'],['资料审核','有效审核形成专业贡献记录'],['完成认证','考试、申请或人工认证']],benefits:[['专业认证','展示专业用户身份'],['流量扶持','进入专业用户流量池'],['共建申请','申请审核、置顶、加精权限']],note:'专业称号可保留；长期不活跃时，运营和审核权益可以暂停。'},
-        {name:'名人用户',desc:'在本兴趣领域具有较高影响力、号召力或代表性。',method:'人工认证或定向邀请',a:'820 / 1000',ap:82,c:'16800 / 50000',cp:34,up:[['代表内容','真实传播和互动形成影响力'],['有效粉丝','作为影响力认证条件'],['人工认证','由平台或岛内定向确认']],benefits:[['名人认证','展示稀缺代表身份'],['专属活动','重要活动优先参与'],['治理申请','申请更高层级岛内共建']],note:'名人用户是具体岛内身份；治理权限可单独撤销。'}
+        {name:&#x27;普通用户&#x27;,desc:&#x27;进入本岛，尚未形成稳定参与。&#x27;,method:&#x27;系统自动进入&#x27;,a:&#x27;35 / 100&#x27;,ap:35,c:&#x27;0 / 1000&#x27;,cp:0,up:[[&#x27;首次发帖&#x27;,&#x27;增加活跃度&#x27;],[&#x27;首次新增资料&#x27;,&#x27;审核通过后增加贡献度&#x27;],[&#x27;首次获得互动&#x27;,&#x27;确认内容被看见&#x27;]],benefits:[[&#x27;基础功能&#x27;,&#x27;浏览、互动、发帖与提交资料&#x27;],[&#x27;兴趣推荐&#x27;,&#x27;推荐本岛帖子和款式&#x27;],[&#x27;徽章可见&#x27;,&#x27;查看全部徽章条件&#x27;]],note:&#x27;本阶段不要求贡献度，重点完成首次有效参与。&#x27;},
+        {name:&#x27;活跃用户&#x27;,desc:&#x27;在本岛持续发帖、互动或获得真实互动。&#x27;,method:&#x27;按近期活跃动态判断&#x27;,a:&#x27;680 / 1000&#x27;,ap:68,c:&#x27;120 / 1000&#x27;,cp:12,up:[[&#x27;持续发帖&#x27;,&#x27;有效内容增加活跃度&#x27;],[&#x27;获得真实互动&#x27;,&#x27;按有效互动人数计算&#x27;],[&#x27;保持参与&#x27;,&#x27;不活跃时活跃度下降&#x27;]],benefits:[[&#x27;活跃身份&#x27;,&#x27;在本岛场景展示&#x27;],[&#x27;推荐增强&#x27;,&#x27;强化个性化推荐&#x27;],[&#x27;基础分发&#x27;,&#x27;优质内容获得额外分发&#x27;]],note:&#x27;活跃度可增可减，但不能消费、转赠，也不会跨岛累计。&#x27;},
+        {name:&#x27;贡献用户&#x27;,desc:&#x27;持续为本岛提供可沉淀的资料与内容。&#x27;,method:&#x27;达到门槛后自动升级&#x27;,a:&#x27;680 / 1000&#x27;,ap:68,c:&#x27;3200 / 5000&#x27;,cp:64,up:[[&#x27;资料新增&#x27;,&#x27;审核通过后增加贡献度&#x27;],[&#x27;资料字段编辑&#x27;,&#x27;修改被保留后结算&#x27;],[&#x27;优质发帖&#x27;,&#x27;根据内容质量和真实互动加权&#x27;]],benefits:[[&#x27;官方身份&#x27;,&#x27;展示贡献用户身份&#x27;],[&#x27;流量扶持&#x27;,&#x27;进入贡献用户流量池&#x27;],[&#x27;创作权益&#x27;,&#x27;扩大资料编辑范围&#x27;]],note:&#x27;贡献度只增不减；治理类权限仍需人工审核。&#x27;},
+        {name:&#x27;专业用户&#x27;,desc:&#x27;具备本兴趣领域的专业能力，并持续参与共建。&#x27;,method:&#x27;贡献门槛 + 专业认证&#x27;,a:&#x27;720 / 1000&#x27;,ap:72,c:&#x27;7600 / 10000&#x27;,cp:76,up:[[&#x27;专业内容&#x27;,&#x27;高质量内容获得贡献加权&#x27;],[&#x27;资料审核&#x27;,&#x27;有效审核形成专业贡献记录&#x27;],[&#x27;完成认证&#x27;,&#x27;考试、申请或人工认证&#x27;]],benefits:[[&#x27;专业认证&#x27;,&#x27;展示专业用户身份&#x27;],[&#x27;流量扶持&#x27;,&#x27;进入专业用户流量池&#x27;],[&#x27;共建申请&#x27;,&#x27;申请审核、置顶、加精权限&#x27;]],note:&#x27;专业称号可保留；长期不活跃时，运营和审核权益可以暂停。&#x27;},
+        {name:&#x27;名人用户&#x27;,desc:&#x27;在本兴趣领域具有较高影响力、号召力或代表性。&#x27;,method:&#x27;人工认证或定向邀请&#x27;,a:&#x27;820 / 1000&#x27;,ap:82,c:&#x27;16800 / 50000&#x27;,cp:34,up:[[&#x27;代表内容&#x27;,&#x27;真实传播和互动形成影响力&#x27;],[&#x27;有效粉丝&#x27;,&#x27;作为影响力认证条件&#x27;],[&#x27;人工认证&#x27;,&#x27;由平台或岛内定向确认&#x27;]],benefits:[[&#x27;名人认证&#x27;,&#x27;展示稀缺代表身份&#x27;],[&#x27;专属活动&#x27;,&#x27;重要活动优先参与&#x27;],[&#x27;治理申请&#x27;,&#x27;申请更高层级岛内共建&#x27;]],note:&#x27;名人用户是具体岛内身份；治理权限可单独撤销。&#x27;}
       ];
       const badges = [
-        {name:'夏日登岛者',type:'event',status:'已获得',desc:'活动限定 · 当前以头像框形式佩戴',icon:'sun'},
-        {name:'角色生日纪念',type:'event',status:'未获得',desc:'活动限定 · 活动期间完成指定任务',icon:'cake-slice'},
-        {name:'限定测试员',type:'event',status:'已结束',desc:'活动限定 · 已绝版，规则仍可查看',icon:'ticket-check'},
-        {name:'资料贡献者',type:'achievement',status:'已获得',desc:'成就徽章 · 新增资料累计达到 20 条',icon:'database'},
-        {name:'优质作者',type:'achievement',status:'7 / 10',desc:'成就徽章 · 发布 10 篇有效优质内容',icon:'pen-line'},
-        {name:'系列全收集',type:'achievement',status:'68%',desc:'成就徽章 · 完成指定系列收藏',icon:'gallery-vertical-end'}
+        {name:&#x27;夏日登岛者&#x27;,type:&#x27;event&#x27;,status:&#x27;已获得&#x27;,desc:&#x27;活动限定 · 当前以头像框形式佩戴&#x27;,icon:&#x27;sun&#x27;},
+        {name:&#x27;角色生日纪念&#x27;,type:&#x27;event&#x27;,status:&#x27;未获得&#x27;,desc:&#x27;活动限定 · 活动期间完成指定任务&#x27;,icon:&#x27;cake-slice&#x27;},
+        {name:&#x27;限定测试员&#x27;,type:&#x27;event&#x27;,status:&#x27;已结束&#x27;,desc:&#x27;活动限定 · 已绝版，规则仍可查看&#x27;,icon:&#x27;ticket-check&#x27;},
+        {name:&#x27;资料贡献者&#x27;,type:&#x27;achievement&#x27;,status:&#x27;已获得&#x27;,desc:&#x27;成就徽章 · 新增资料累计达到 20 条&#x27;,icon:&#x27;database&#x27;},
+        {name:&#x27;优质作者&#x27;,type:&#x27;achievement&#x27;,status:&#x27;7 / 10&#x27;,desc:&#x27;成就徽章 · 发布 10 篇有效优质内容&#x27;,icon:&#x27;pen-line&#x27;},
+        {name:&#x27;系列全收集&#x27;,type:&#x27;achievement&#x27;,status:&#x27;68%&#x27;,desc:&#x27;成就徽章 · 完成指定系列收藏&#x27;,icon:&#x27;gallery-vertical-end&#x27;}
       ];
-      let selectedBadge=0, filter='all', equipped=true;
-      function row(items,icon){return items.map(x=&gt;`&lt;div class=&quot;list-row&quot;&gt;&lt;i data-lucide=&quot;${icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;div class=&quot;list-copy&quot;&gt;&lt;strong&gt;${x[0]}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${x[1]}&lt;/span&gt;&lt;/div&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;`).join('');}
+      let selectedBadge=0, filter=&#x27;all&#x27;, equipped=true;
+      function row(items,icon){return items.map(x=&gt;`&lt;div class=&quot;list-row&quot;&gt;&lt;i data-lucide=&quot;${icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;div class=&quot;list-copy&quot;&gt;&lt;strong&gt;${x[0]}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${x[1]}&lt;/span&gt;&lt;/div&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;`).join(&#x27;&#x27;);}
       function renderLevel(i){
         const d=levels[i];
-        root.querySelectorAll('[data-level]').forEach((b,n)=&gt;{const on=n===i;b.classList.toggle('btn-primary',on);b.setAttribute('aria-pressed',String(on));});
-        root.querySelector('#current-level').textContent=d.name; root.querySelector('#profile-level').textContent=d.name; root.querySelector('#level-desc').textContent=d.desc; root.querySelector('#level-method').textContent=d.method;
-        root.querySelector('#activity-text').textContent=d.a; root.querySelector('#activity-fill').style.width=d.ap+'%'; root.querySelector('#contribution-text').textContent=d.c; root.querySelector('#contribution-fill').style.width=d.cp+'%';
-        root.querySelector('#upgrade-list').innerHTML=row(d.up,'circle-plus'); root.querySelector('#benefit-list').innerHTML=row(d.benefits,'sparkles'); root.querySelector('#rule-note').textContent=d.note;
+        root.querySelectorAll(&#x27;[data-level]&#x27;).forEach((b,n)=&gt;{const on=n===i;b.classList.toggle(&#x27;btn-primary&#x27;,on);b.setAttribute(&#x27;aria-pressed&#x27;,String(on));});
+        root.querySelector(&#x27;#current-level&#x27;).textContent=d.name; root.querySelector(&#x27;#profile-level&#x27;).textContent=d.name; root.querySelector(&#x27;#level-desc&#x27;).textContent=d.desc; root.querySelector(&#x27;#level-method&#x27;).textContent=d.method;
+        root.querySelector(&#x27;#activity-text&#x27;).textContent=d.a; root.querySelector(&#x27;#activity-fill&#x27;).style.width=d.ap+&#x27;%&#x27;; root.querySelector(&#x27;#contribution-text&#x27;).textContent=d.c; root.querySelector(&#x27;#contribution-fill&#x27;).style.width=d.cp+&#x27;%&#x27;;
+        root.querySelector(&#x27;#upgrade-list&#x27;).innerHTML=row(d.up,&#x27;circle-plus&#x27;); root.querySelector(&#x27;#benefit-list&#x27;).innerHTML=row(d.benefits,&#x27;sparkles&#x27;); root.querySelector(&#x27;#rule-note&#x27;).textContent=d.note;
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
       }
       function renderBadges(){
-        const visible=badges.map((b,i)=&gt;({...b,i})).filter(b=&gt;filter==='all'||b.type===filter);
-        root.querySelector('#badge-grid').innerHTML=visible.map(b=&gt;`&lt;button type=&quot;button&quot; class=&quot;btn viz-tile badge-item&quot; data-badge=&quot;${b.i}&quot; aria-pressed=&quot;${b.i===selectedBadge}&quot;&gt;&lt;span class=&quot;badge-mark&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${b.type==='event'?'活动限定':'成就徽章'} · ${b.status}&lt;/span&gt;&lt;/button&gt;`).join('');
-        root.querySelectorAll('[data-badge]').forEach(btn=&gt;btn.addEventListener('click',()=&gt;{selectedBadge=Number(btn.dataset.badge);equipped=false;renderBadges();}));
-        const b=badges[selectedBadge]; root.querySelector('#badge-title').textContent=b.name; root.querySelector('#badge-desc').textContent=b.desc; root.querySelector('#equip-badge').textContent=equipped?'当前佩戴':'更改佩戴'; root.querySelector('#remove-badge').disabled=!equipped;
+        const visible=badges.map((b,i)=&gt;({...b,i})).filter(b=&gt;filter===&#x27;all&#x27;||b.type===filter);
+        root.querySelector(&#x27;#badge-grid&#x27;).innerHTML=visible.map(b=&gt;`&lt;button type=&quot;button&quot; class=&quot;btn viz-tile badge-item&quot; data-badge=&quot;${b.i}&quot; aria-pressed=&quot;${b.i===selectedBadge}&quot;&gt;&lt;span class=&quot;badge-mark ${b.type} tone-${b.i%3+1}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${b.type===&#x27;event&#x27;?&#x27;活动限定&#x27;:&#x27;成就徽章&#x27;} · ${b.status}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;);
+        root.querySelectorAll(&#x27;[data-badge]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{selectedBadge=Number(btn.dataset.badge);equipped=false;renderBadges();}));
+        const b=badges[selectedBadge]; root.querySelector(&#x27;#badge-title&#x27;).textContent=b.name; root.querySelector(&#x27;#badge-desc&#x27;).textContent=b.desc; root.querySelector(&#x27;#equip-badge&#x27;).textContent=equipped?&#x27;当前佩戴&#x27;:&#x27;更改佩戴&#x27;; root.querySelector(&#x27;#remove-badge&#x27;).disabled=!equipped;
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
       }
-      root.querySelectorAll('[data-level]').forEach((b,i)=&gt;b.addEventListener('click',()=&gt;renderLevel(i)));
-      root.querySelectorAll('[data-main-tab]').forEach(btn=&gt;btn.addEventListener('click',()=&gt;{
-        const tab=btn.dataset.mainTab; root.querySelectorAll('[data-main-tab]').forEach(b=&gt;{const on=b===btn;b.classList.toggle('btn-primary',on);b.setAttribute('aria-pressed',String(on));});
-        root.querySelector('#growth-panel').classList.toggle('hidden',tab!=='growth'); root.querySelector('#badges-panel').classList.toggle('hidden',tab!=='badges');
+      root.querySelectorAll(&#x27;[data-level]&#x27;).forEach((b,i)=&gt;b.addEventListener(&#x27;click&#x27;,()=&gt;renderLevel(i)));
+      root.querySelectorAll(&#x27;[data-main-tab]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{
+        const tab=btn.dataset.mainTab; root.querySelectorAll(&#x27;[data-main-tab]&#x27;).forEach(b=&gt;{const on=b===btn;b.classList.toggle(&#x27;btn-primary&#x27;,on);b.setAttribute(&#x27;aria-pressed&#x27;,String(on));});
+        root.querySelector(&#x27;#growth-panel&#x27;).classList.toggle(&#x27;hidden&#x27;,tab!==&#x27;growth&#x27;); root.querySelector(&#x27;#badges-panel&#x27;).classList.toggle(&#x27;hidden&#x27;,tab!==&#x27;badges&#x27;);
       }));
-      root.querySelectorAll('[data-badge-filter]').forEach(btn=&gt;btn.addEventListener('click',()=&gt;{filter=btn.dataset.badgeFilter;root.querySelectorAll('[data-badge-filter]').forEach(b=&gt;{const on=b===btn;b.classList.toggle('btn-primary',on);b.setAttribute('aria-pressed',String(on));});renderBadges();}));
-      root.querySelector('#equip-badge').addEventListener('click',()=&gt;{equipped=true;const b=badges[selectedBadge];root.querySelector('#equipped-name').textContent='佩戴：'+b.name;root.querySelector('#avatar-frame').classList.toggle('hidden',b.type!=='event');renderBadges();});
-      root.querySelector('#remove-badge').addEventListener('click',()=&gt;{equipped=false;root.querySelector('#equipped-name').textContent='未佩戴徽章';root.querySelector('#avatar-frame').classList.add('hidden');renderBadges();});
+      root.querySelectorAll(&#x27;[data-badge-filter]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{filter=btn.dataset.badgeFilter;root.querySelectorAll(&#x27;[data-badge-filter]&#x27;).forEach(b=&gt;{const on=b===btn;b.classList.toggle(&#x27;btn-primary&#x27;,on);b.setAttribute(&#x27;aria-pressed&#x27;,String(on));});renderBadges();}));
+      root.querySelector(&#x27;#equip-badge&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{equipped=true;const b=badges[selectedBadge];root.querySelector(&#x27;#equipped-name&#x27;).textContent=&#x27;佩戴：&#x27;+b.name;root.querySelector(&#x27;#avatar-frame&#x27;).classList.toggle(&#x27;hidden&#x27;,b.type!==&#x27;event&#x27;);renderBadges();});
+      root.querySelector(&#x27;#remove-badge&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{equipped=false;root.querySelector(&#x27;#equipped-name&#x27;).textContent=&#x27;未佩戴徽章&#x27;;root.querySelector(&#x27;#avatar-frame&#x27;).classList.add(&#x27;hidden&#x27;);renderBadges();});
       renderLevel(2); renderBadges();
     })();
   &lt;/script&gt;
 &lt;/div&gt;
-
-
-&lt;style id=&quot;codex-visualization-document-scrollbar&quot;&gt;html,body{scrollbar-width:none!important}html::-webkit-scrollbar,body::-webkit-scrollbar{display:none!important}&lt;/style&gt;
 
 &lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
 &lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
@@ -1383,112 +1207,5 @@ html&gt;body{padding:0}&lt;/style&gt;
 &lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
-<script>(() => {
-  const frame = document.getElementById("codex-visualization");
-  if (!(frame instanceof HTMLIFrameElement)) {
-    return;
-  }
-  let viewportHeight = globalThis.innerHeight;
-
-  const channel = new MessageChannel();
-  channel.port1.addEventListener("message", (event) => {
-    const data = event.data;
-    if (typeof data !== "object" || data == null) {
-      return;
-    }
-    if (data.type === "height") {
-      const height = data.height;
-      if (
-        typeof height === "number" &&
-        Number.isFinite(height) &&
-        height >= 0 &&
-        height <= 10_000
-      ) {
-        frame.style.height = Math.ceil(height) + "px";
-      }
-      return;
-    }
-    if (data.type === "scroll-to") {
-      const top = data.top;
-      if (
-        typeof top === "number" &&
-        Number.isFinite(top) &&
-        top >= 0 &&
-        globalThis.navigator.userActivation?.isActive === true
-      ) {
-        globalThis.scrollTo({
-          top: Math.ceil(
-            globalThis.scrollY + frame.getBoundingClientRect().top + top,
-          ),
-        });
-      }
-      return;
-    }
-    if (data.type === "open-external") {
-      const rawHref = data.href;
-      if (typeof rawHref !== "string") {
-        return;
-      }
-      let href;
-      try {
-        const url = new URL(rawHref, document.baseURI);
-        if (url.protocol !== "https:") {
-          return;
-        }
-        href = url.href;
-      } catch {
-        return;
-      }
-      if (globalThis.navigator.userActivation?.isActive === true) {
-        const anchor = document.createElement("a");
-        anchor.href = href;
-        anchor.rel = "noopener noreferrer";
-        anchor.target = "_blank";
-        document.body.appendChild(anchor);
-        anchor.click();
-        anchor.remove();
-      }
-      return;
-    }
-    if (data.type === "follow-up") {
-      const prompt = data.prompt;
-      if (
-        typeof prompt !== "string" ||
-        globalThis.navigator.userActivation?.isActive !== true
-      ) {
-        return;
-      }
-      const title = data.title;
-      globalThis.prompt(typeof title === "string" ? title : prompt, prompt);
-    }
-  });
-  channel.port1.start();
-  const srcdoc = frame.dataset.srcdoc;
-  if (srcdoc == null) {
-    return;
-  }
-  globalThis.addEventListener("resize", () => {
-    const height = Number.parseFloat(frame.style.height);
-    if (!Number.isFinite(height) || height <= viewportHeight) {
-      frame.style.removeProperty("height");
-    }
-    viewportHeight = globalThis.innerHeight;
-    channel.port1.postMessage({ type: "measure" });
-  });
-  frame.addEventListener(
-    "load",
-    () => {
-      frame.contentWindow?.postMessage(
-        { type: "codex-visualization-initialize" },
-        "*",
-        [channel.port2],
-      );
-    },
-    { once: true },
-  );
-  frame.srcdoc = srcdoc;
-  delete frame.dataset.srcdoc;
-})();
-</script>
 </body>
 </html>
