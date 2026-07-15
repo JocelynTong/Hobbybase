@@ -753,21 +753,19 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction { color:var(--foreground); width:100%; }
     #island-growth-interaction .topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
     #island-growth-interaction .island-name { display:flex; align-items:center; gap:8px; }
-    #island-growth-interaction .shell { display:grid; grid-template-columns:minmax(210px,240px) minmax(0,1fr); gap:18px; align-items:start; }
-    #island-growth-interaction main { min-width:0; }
-    #island-growth-interaction .profile { text-align:center; }
-    #island-growth-interaction .avatar-wrap { position:relative; width:112px; height:112px; margin:4px auto 12px; display:grid; place-items:center; }
+    #island-growth-interaction .shell { display:block; }
+    #island-growth-interaction main { min-width:0; margin-top:14px; }
+    #island-growth-interaction .profile { display:grid; grid-template-columns:auto minmax(160px,1fr) minmax(280px,.8fr); gap:18px; align-items:center; text-align:left; }
+    #island-growth-interaction .avatar-wrap { position:relative; width:96px; height:96px; margin:0; display:grid; place-items:center; }
     #island-growth-interaction .avatar { width:78px; height:78px; border-radius:50%; background:var(--muted); display:grid; place-items:center; color:var(--muted-foreground); }
-    #island-growth-interaction .avatar-frame { position:absolute; inset:0; border:7px solid var(--viz-series-2); border-radius:38% 38% 46% 46%; transform:rotate(4deg); box-shadow:inset 0 0 0 3px var(--background); }
-    #island-growth-interaction .avatar-frame::before, #island-growth-interaction .avatar-frame::after { content:&quot;&quot;; position:absolute; top:-12px; width:28px; height:28px; background:var(--viz-series-2); border-radius:8px 20px 8px 20px; }
-    #island-growth-interaction .avatar-frame::before { left:3px; transform:rotate(-22deg); }
-    #island-growth-interaction .avatar-frame::after { right:3px; transform:scaleX(-1) rotate(-22deg); }
+    #island-growth-interaction .avatar-frame { position:absolute; inset:0; border:2px dashed var(--muted-foreground); border-radius:50%; }
+    #island-growth-interaction .avatar-frame::after { content:&quot;头像框占位&quot;; position:absolute; left:50%; bottom:-7px; transform:translateX(-50%); white-space:nowrap; padding:1px 6px; background:var(--card); color:var(--muted-foreground); font-size:11px; }
     #island-growth-interaction .profile h2 { margin:0 0 4px; }
     #island-growth-interaction .profile p { margin:0; color:var(--muted-foreground); }
-    #island-growth-interaction .profile-meta { display:grid; gap:8px; margin-top:16px; text-align:left; }
+    #island-growth-interaction .profile-meta { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; text-align:left; }
     #island-growth-interaction .meta-row { display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid var(--border); }
-    #island-growth-interaction .main-tabs { margin-bottom:14px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); }
-    #island-growth-interaction .main-tabs .btn { justify-content:center; }
+    #island-growth-interaction .main-tabs { width:100%; margin-bottom:14px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    #island-growth-interaction .main-tabs .btn { width:100%; min-width:0; justify-content:center; }
     #island-growth-interaction .hero-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:start; }
     #island-growth-interaction .hero-row h2 { margin:0; }
     #island-growth-interaction .hero-row p { margin:4px 0 0; color:var(--muted-foreground); }
@@ -790,19 +788,13 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .list-copy span { display:block; color:var(--muted-foreground); }
     #island-growth-interaction .badge-toolbar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin:0 0 14px; }
     #island-growth-interaction .badge-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(168px,1fr)); gap:10px; }
-    #island-growth-interaction .badge-item { min-height:176px; text-align:center; align-items:center; justify-content:flex-start; }
-    #island-growth-interaction .badge-mark { position:relative; display:grid; place-items:center; width:76px; height:76px; margin:2px auto 12px; isolation:isolate; }
-    #island-growth-interaction .badge-mark::before, #island-growth-interaction .badge-mark::after { content:&quot;&quot;; position:absolute; z-index:-1; }
-    #island-growth-interaction .badge-mark.achievement::before { inset:4px; border-radius:50%; background:color-mix(in srgb,var(--viz-series-1) 24%,var(--card)); border:2px solid color-mix(in srgb,var(--viz-series-1) 60%,var(--border)); box-shadow:inset 0 0 0 6px var(--card), inset 0 0 0 8px color-mix(in srgb,var(--viz-series-1) 34%,var(--border)); }
-    #island-growth-interaction .badge-mark.achievement::after { width:30px; height:20px; bottom:-3px; background:var(--viz-series-1); clip-path:polygon(0 0,100% 0,82% 100%,50% 68%,18% 100%); }
-    #island-growth-interaction .badge-mark.event::before { inset:3px; background:color-mix(in srgb,var(--viz-series-2) 28%,var(--card)); border:2px solid color-mix(in srgb,var(--viz-series-2) 64%,var(--border)); clip-path:polygon(50% 0,62% 12%,79% 8%,86% 24%,100% 34%,93% 51%,100% 68%,84% 78%,78% 96%,59% 91%,45% 100%,33% 85%,14% 86%,10% 67%,0 54%,11% 39%,5% 21%,25% 16%,35% 1%); }
-    #island-growth-interaction .badge-mark.event::after { inset:13px; border-radius:50%; background:var(--card); border:1px solid color-mix(in srgb,var(--viz-series-2) 44%,var(--border)); }
-    #island-growth-interaction .badge-mark &gt; i, #island-growth-interaction .badge-mark &gt; svg { z-index:1; }
-    #island-growth-interaction .badge-mark.tone-2 { transform:rotate(-4deg); }
-    #island-growth-interaction .badge-mark.tone-3 { transform:rotate(4deg); }
+    #island-growth-interaction .badge-item { min-height:156px; text-align:center; align-items:center; justify-content:flex-start; }
+    #island-growth-interaction .badge-mark { display:grid; place-items:center; width:72px; height:72px; margin:2px auto 12px; border:2px dashed var(--muted-foreground); border-radius:12px; background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .badge-mark::after { content:&quot;徽章图&quot;; }
+    #island-growth-interaction .badge-mark &gt; i, #island-growth-interaction .badge-mark &gt; svg { display:none; }
     #island-growth-interaction .badge-item strong, #island-growth-interaction .badge-item span { display:block; }
     #island-growth-interaction .badge-item span { color:inherit; opacity:.75; }
-    #island-growth-interaction .badge-item[aria-pressed=&quot;true&quot;] .badge-mark { color:var(--primary); transform:scale(1.06); }
+    #island-growth-interaction .badge-item[aria-pressed=&quot;true&quot;] .badge-mark { border-color:var(--primary); color:var(--foreground); }
     #island-growth-interaction .badge-detail { margin-top:14px; display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:center; }
     #island-growth-interaction .badge-detail h3 { margin:0 0 4px; }
     #island-growth-interaction .badge-detail p { margin:0; color:var(--muted-foreground); }
@@ -813,8 +805,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       #island-growth-interaction .badge-grid { grid-template-columns:repeat(3,minmax(180px,1fr)); }
     }
     @media (max-width:780px) {
-      #island-growth-interaction .shell { grid-template-columns:1fr; }
-      #island-growth-interaction .profile { text-align:left; display:grid; grid-template-columns:auto minmax(0,1fr); gap:12px; align-items:center; }
+      #island-growth-interaction .profile { grid-template-columns:auto minmax(0,1fr); gap:12px; }
       #island-growth-interaction .avatar-wrap { width:90px; height:90px; margin:0; }
       #island-growth-interaction .avatar { width:62px; height:62px; }
       #island-growth-interaction .profile-meta { grid-column:1/-1; width:100%; }
@@ -824,6 +815,9 @@ html&gt;body{padding:0}&lt;/style&gt;
       #island-growth-interaction .badge-detail { grid-template-columns:1fr; }
     }
     @media (max-width:430px) {
+      #island-growth-interaction .profile { grid-template-columns:1fr; text-align:center; }
+      #island-growth-interaction .avatar-wrap { margin:0 auto; }
+      #island-growth-interaction .profile-meta { grid-template-columns:1fr; }
       #island-growth-interaction .badge-grid { grid-template-columns:1fr; }
       #island-growth-interaction .hero-row { grid-template-columns:1fr; }
     }
