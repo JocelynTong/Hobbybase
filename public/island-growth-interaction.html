@@ -775,10 +775,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .meter-fill { display:block; height:100%; width:0; border-radius:inherit; background:var(--viz-series-1); transition:width .25s ease; }
     #island-growth-interaction .meter-fill.contribution { background:var(--viz-series-2); }
     #island-growth-interaction .metric-note { margin-top:6px; color:var(--muted-foreground); }
-    #island-growth-interaction .ladder { display:grid; grid-template-columns:repeat(auto-fit,minmax(128px,1fr)); gap:8px; margin:16px 0; }
-    #island-growth-interaction .stage { text-align:left; min-width:0; justify-content:flex-start; }
-    #island-growth-interaction .stage span { display:block; }
-    #island-growth-interaction .stage small { display:block; color:inherit; opacity:.75; }
+    #island-growth-interaction .ladder { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:8px; margin:16px 0; }
+    #island-growth-interaction .stage { width:100%; min-width:0; justify-content:center; text-align:center; }
+    #island-growth-interaction .stage span { display:block; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    #island-growth-interaction .stage small { display:block; overflow:hidden; text-overflow:ellipsis; color:inherit; opacity:.75; }
     #island-growth-interaction .section-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:18px; }
     #island-growth-interaction .section-title { display:flex; align-items:center; gap:8px; margin:0 0 10px; }
     #island-growth-interaction .list { display:grid; gap:0; }
@@ -810,7 +810,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       #island-growth-interaction .avatar { width:62px; height:62px; }
       #island-growth-interaction .profile-meta { grid-column:1/-1; width:100%; }
       #island-growth-interaction .meters, #island-growth-interaction .section-grid { grid-template-columns:1fr; }
-      #island-growth-interaction .ladder { grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); }
+      #island-growth-interaction .ladder { grid-template-columns:repeat(3,minmax(0,1fr)); }
       #island-growth-interaction .badge-grid { grid-template-columns:repeat(2,minmax(0,1fr)); }
       #island-growth-interaction .badge-detail { grid-template-columns:1fr; }
     }
@@ -820,6 +820,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       #island-growth-interaction .profile-meta { grid-template-columns:1fr; }
       #island-growth-interaction .badge-grid { grid-template-columns:1fr; }
       #island-growth-interaction .hero-row { grid-template-columns:1fr; }
+      #island-growth-interaction .ladder { grid-template-columns:repeat(2,minmax(0,1fr)); }
     }
   &lt;/style&gt;
 
