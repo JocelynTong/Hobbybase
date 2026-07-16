@@ -807,6 +807,17 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .badge-detail h3 { margin:0 0 4px; }
     #island-growth-interaction .badge-detail p { margin:0; color:var(--muted-foreground); }
     #island-growth-interaction .notice { margin-top:14px; padding-top:12px; border-top:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; color:var(--muted-foreground); }
+    #island-growth-interaction .page-title { display:flex; align-items:center; gap:8px; }
+    #island-growth-interaction .page-title h2 { margin:0; }
+    #island-growth-interaction .home-profile { display:grid; grid-template-columns:auto minmax(0,1fr); gap:14px; align-items:center; }
+    #island-growth-interaction .home-profile h2, #island-growth-interaction .home-profile p { margin:0; }
+    #island-growth-interaction .home-profile p { margin-top:4px; color:var(--muted-foreground); }
+    #island-growth-interaction .home-section { margin-top:14px; }
+    #island-growth-interaction .home-row { width:100%; display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:12px; align-items:center; text-align:left; }
+    #island-growth-interaction .home-row-copy strong, #island-growth-interaction .home-row-copy span { display:block; }
+    #island-growth-interaction .home-row-copy span { color:var(--muted-foreground); }
+    #island-growth-interaction .mini-badge { display:grid; place-items:center; width:52px; height:52px; border:2px dashed var(--muted-foreground); border-radius:50%; background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .global-detail-actions { margin-top:10px; }
     #island-growth-interaction .hidden { display:none; }
     @media (min-width:1000px) {
       #island-growth-interaction .section-grid { grid-template-columns:repeat(2,minmax(280px,1fr)); }
@@ -837,8 +848,67 @@ html&gt;body{padding:0}&lt;/style&gt;
     }
   &lt;/style&gt;
 
+  &lt;section id=&quot;page-home&quot; class=&quot;app-page&quot;&gt;
+    &lt;div class=&quot;topbar&quot;&gt;
+      &lt;div class=&quot;page-title&quot;&gt;&lt;h2&gt;个人主页&lt;/h2&gt;&lt;/div&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;global&quot;&gt;全部徽章&lt;/button&gt;
+    &lt;/div&gt;
+    &lt;header class=&quot;card home-profile&quot;&gt;
+      &lt;div class=&quot;avatar-wrap&quot; aria-label=&quot;个人主页头像与当前佩戴头像框&quot;&gt;
+        &lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+        &lt;div class=&quot;avatar-frame&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div&gt;&lt;h2&gt;岛民 0721&lt;/h2&gt;&lt;p&gt;关注 126 · 粉丝 1,286&lt;/p&gt;&lt;/div&gt;
+    &lt;/header&gt;
+
+    &lt;section class=&quot;card home-section&quot;&gt;
+      &lt;h3 class=&quot;section-title&quot;&gt;&lt;i data-lucide=&quot;award&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;当前佩戴&lt;/h3&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost home-row&quot; data-page-target=&quot;global&quot;&gt;
+        &lt;span class=&quot;mini-badge&quot;&gt;徽章&lt;/span&gt;
+        &lt;span class=&quot;home-row-copy&quot;&gt;&lt;strong&gt;夏日登岛者&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;来自 Labubu 岛 · 活动限定&lt;/span&gt;&lt;/span&gt;
+        &lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+      &lt;/button&gt;
+    &lt;/section&gt;
+
+    &lt;section class=&quot;card home-section&quot;&gt;
+      &lt;h3 class=&quot;section-title&quot;&gt;&lt;i data-lucide=&quot;map-pin&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;我的岛内身份&lt;/h3&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost home-row&quot; data-page-target=&quot;growth&quot;&gt;
+        &lt;span class=&quot;mini-badge&quot;&gt;岛&lt;/span&gt;
+        &lt;span class=&quot;home-row-copy&quot;&gt;&lt;strong&gt;Labubu 岛 · 贡献用户&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;活跃度 680 · 贡献度 3200&lt;/span&gt;&lt;/span&gt;
+        &lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
+      &lt;/button&gt;
+    &lt;/section&gt;
+  &lt;/section&gt;
+
+  &lt;section id=&quot;page-global&quot; class=&quot;app-page hidden&quot;&gt;
+    &lt;div class=&quot;topbar&quot;&gt;
+      &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;
+      &lt;span class=&quot;viz-badge&quot;&gt;全平台资产&lt;/span&gt;
+    &lt;/div&gt;
+    &lt;div class=&quot;card&quot;&gt;
+      &lt;div class=&quot;hero-row&quot;&gt;&lt;div&gt;&lt;h2&gt;全部徽章&lt;/h2&gt;&lt;p&gt;来自各兴趣岛和平台活动&lt;/p&gt;&lt;/div&gt;&lt;strong&gt;11 枚&lt;/strong&gt;&lt;/div&gt;
+      &lt;div class=&quot;badge-toolbar&quot;&gt;
+        &lt;div class=&quot;viz-controls&quot; role=&quot;group&quot; aria-label=&quot;全平台徽章类型&quot;&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-global-filter=&quot;all&quot; aria-pressed=&quot;true&quot;&gt;全部&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-global-filter=&quot;achievement&quot; aria-pressed=&quot;false&quot;&gt;成就徽章&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-global-filter=&quot;event&quot; aria-pressed=&quot;false&quot;&gt;活动限定&lt;/button&gt;
+        &lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;badge-grid&quot; id=&quot;global-badge-grid&quot;&gt;&lt;/div&gt;
+      &lt;div class=&quot;badge-detail&quot;&gt;
+        &lt;div&gt;&lt;h3 id=&quot;global-badge-title&quot;&gt;夏日登岛者&lt;/h3&gt;&lt;p id=&quot;global-badge-desc&quot;&gt;活动限定 · 来自 Labubu 岛&lt;/p&gt;&lt;/div&gt;
+      &lt;/div&gt;
+      &lt;div class=&quot;viz-controls global-detail-actions&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; id=&quot;global-source-button&quot;&gt;查看来源岛&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; id=&quot;global-equip-button&quot;&gt;当前佩戴&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  &lt;/section&gt;
+
+  &lt;section id=&quot;page-growth&quot; class=&quot;app-page hidden&quot;&gt;
+
   &lt;div class=&quot;topbar&quot;&gt;
-    &lt;div class=&quot;island-name&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span class=&quot;text-muted&quot;&gt;个人主页&lt;/span&gt;&lt;span&gt;/&lt;/span&gt;&lt;strong&gt;Labubu 岛成长档案&lt;/strong&gt;&lt;/div&gt;
+    &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;
     &lt;span class=&quot;viz-badge&quot;&gt;仅记录 Labubu 岛&lt;/span&gt;
   &lt;/div&gt;
 
@@ -862,7 +932,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     &lt;main&gt;
       &lt;div class=&quot;viz-controls main-tabs&quot; role=&quot;group&quot; aria-label=&quot;岛内成长档案与徽章墙&quot;&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-main-tab=&quot;growth&quot; aria-pressed=&quot;true&quot;&gt;岛内成长&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-main-tab=&quot;badges&quot; aria-pressed=&quot;false&quot;&gt;徽章墙&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-main-tab=&quot;badges&quot; aria-pressed=&quot;false&quot;&gt;本岛徽章&lt;/button&gt;
       &lt;/div&gt;
 
       &lt;section id=&quot;growth-panel&quot; class=&quot;card&quot; aria-live=&quot;polite&quot;&gt;
@@ -935,6 +1005,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/section&gt;
     &lt;/main&gt;
   &lt;/div&gt;
+  &lt;/section&gt;
 
   &lt;script&gt;
     (() =&gt; {
@@ -947,18 +1018,21 @@ html&gt;body{padding:0}&lt;/style&gt;
         {name:&#x27;名人用户&#x27;,desc:&#x27;在本兴趣领域具有较高影响力、号召力或代表性。&#x27;,method:&#x27;人工认证或定向邀请&#x27;,a:&#x27;820 / 1000&#x27;,ap:82,c:&#x27;16800 / 50000&#x27;,cp:34,up:[[&#x27;代表内容&#x27;,&#x27;真实传播和互动形成影响力&#x27;],[&#x27;有效粉丝&#x27;,&#x27;作为影响力认证条件&#x27;],[&#x27;人工认证&#x27;,&#x27;由平台或岛内定向确认&#x27;]],benefits:[[&#x27;名人认证&#x27;,&#x27;展示稀缺代表身份&#x27;],[&#x27;专属活动&#x27;,&#x27;重要活动优先参与&#x27;],[&#x27;治理申请&#x27;,&#x27;申请更高层级岛内共建&#x27;]],note:&#x27;名人用户是具体岛内身份；治理权限可单独撤销。&#x27;}
       ];
       const badges = [
-        {name:&#x27;夏日登岛者&#x27;,type:&#x27;event&#x27;,status:&#x27;已获得&#x27;,desc:&#x27;活动限定 · 当前以头像框形式佩戴&#x27;,icon:&#x27;sun&#x27;},
-        {name:&#x27;角色生日纪念&#x27;,type:&#x27;event&#x27;,status:&#x27;未获得&#x27;,desc:&#x27;活动限定 · 活动期间完成指定任务&#x27;,icon:&#x27;cake-slice&#x27;},
-        {name:&#x27;限定测试员&#x27;,type:&#x27;event&#x27;,status:&#x27;已结束&#x27;,desc:&#x27;活动限定 · 已绝版，规则仍可查看&#x27;,icon:&#x27;ticket-check&#x27;},
-        {name:&#x27;Labubu 爱好者&#x27;,type:&#x27;achievement&#x27;,status:&#x27;已获得&#x27;,desc:&#x27;深度成就 · 在 Labubu 岛累计标记 20 个&#x27;,icon:&#x27;bookmark-check&#x27;},
-        {name:&#x27;Labubu 真爱粉&#x27;,type:&#x27;achievement&#x27;,status:&#x27;86 / 100&#x27;,desc:&#x27;深度成就 · 在 Labubu 岛累计标记 100 个&#x27;,icon:&#x27;heart&#x27;},
-        {name:&#x27;理发店全收集&#x27;,type:&#x27;achievement&#x27;,status:&#x27;68%&#x27;,desc:&#x27;进度成就 · 完成理发店系列指定款式标记&#x27;,icon:&#x27;layout-grid&#x27;},
-        {name:&#x27;Zimomo 单推人&#x27;,type:&#x27;achievement&#x27;,status:&#x27;72%&#x27;,desc:&#x27;偏好成就 · Zimomo 标记占比达到指定条件&#x27;,icon:&#x27;star&#x27;},
-        {name:&#x27;资料贡献者&#x27;,type:&#x27;achievement&#x27;,status:&#x27;已获得&#x27;,desc:&#x27;成就徽章 · 新增资料累计达到 20 条&#x27;,icon:&#x27;database&#x27;},
-        {name:&#x27;优质作者&#x27;,type:&#x27;achievement&#x27;,status:&#x27;7 / 10&#x27;,desc:&#x27;成就徽章 · 发布 10 篇有效优质内容&#x27;,icon:&#x27;pen-line&#x27;},
-        {name:&#x27;系列全收集&#x27;,type:&#x27;achievement&#x27;,status:&#x27;68%&#x27;,desc:&#x27;成就徽章 · 完成指定系列收藏&#x27;,icon:&#x27;gallery-vertical-end&#x27;}
+        {name:&#x27;夏日登岛者&#x27;,type:&#x27;event&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,desc:&#x27;活动限定 · 来自 Labubu 岛 · 当前佩戴&#x27;,icon:&#x27;sun&#x27;},
+        {name:&#x27;角色生日纪念&#x27;,type:&#x27;event&#x27;,source:&#x27;labubu&#x27;,status:&#x27;未获得&#x27;,desc:&#x27;活动限定 · 来自 Labubu 岛 · 活动期间完成指定任务&#x27;,icon:&#x27;cake-slice&#x27;},
+        {name:&#x27;限定测试员&#x27;,type:&#x27;event&#x27;,source:&#x27;platform&#x27;,status:&#x27;已结束&#x27;,desc:&#x27;活动限定 · 千岛平台活动 · 已绝版&#x27;,icon:&#x27;ticket-check&#x27;},
+        {name:&#x27;千岛三周年&#x27;,type:&#x27;event&#x27;,source:&#x27;platform&#x27;,status:&#x27;已获得&#x27;,desc:&#x27;活动限定 · 千岛平台三周年纪念&#x27;,icon:&#x27;party-popper&#x27;},
+        {name:&#x27;Labubu 爱好者&#x27;,type:&#x27;achievement&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,desc:&#x27;深度成就 · 来自 Labubu 岛 · 累计标记 20 个&#x27;,icon:&#x27;bookmark-check&#x27;},
+        {name:&#x27;Labubu 真爱粉&#x27;,type:&#x27;achievement&#x27;,source:&#x27;labubu&#x27;,status:&#x27;86 / 100&#x27;,desc:&#x27;深度成就 · 来自 Labubu 岛 · 累计标记 100 个&#x27;,icon:&#x27;heart&#x27;},
+        {name:&#x27;理发店全收集&#x27;,type:&#x27;achievement&#x27;,source:&#x27;labubu&#x27;,status:&#x27;68%&#x27;,desc:&#x27;进度成就 · 来自 Labubu 岛 · 完成系列标记&#x27;,icon:&#x27;layout-grid&#x27;},
+        {name:&#x27;Zimomo 单推人&#x27;,type:&#x27;achievement&#x27;,source:&#x27;labubu&#x27;,status:&#x27;72%&#x27;,desc:&#x27;偏好成就 · 来自 Labubu 岛 · 标记占比达标&#x27;,icon:&#x27;star&#x27;},
+        {name:&#x27;资料贡献者&#x27;,type:&#x27;achievement&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,desc:&#x27;贡献成就 · 来自 Labubu 岛 · 新增资料 20 条&#x27;,icon:&#x27;database&#x27;},
+        {name:&#x27;优质作者&#x27;,type:&#x27;achievement&#x27;,source:&#x27;labubu&#x27;,status:&#x27;7 / 10&#x27;,desc:&#x27;创作成就 · 来自 Labubu 岛 · 发布 10 篇优质内容&#x27;,icon:&#x27;pen-line&#x27;},
+        {name:&#x27;系列全收集&#x27;,type:&#x27;achievement&#x27;,source:&#x27;labubu&#x27;,status:&#x27;68%&#x27;,desc:&#x27;收集成就 · 来自 Labubu 岛 · 完成指定系列&#x27;,icon:&#x27;gallery-vertical-end&#x27;}
       ];
-      let selectedBadge=0, filter=&#x27;all&#x27;, equipped=true;
+      let selectedBadge=0, selectedGlobalBadge=0, filter=&#x27;all&#x27;, globalFilter=&#x27;all&#x27;, equipped=true;
+      function badgeMarkup(b,index,selected,scope){return `&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost badge-item&quot; data-${scope}-badge=&quot;${index}&quot; aria-pressed=&quot;${index===selected}&quot; aria-label=&quot;${b.name}，${b.status}&quot;&gt;&lt;span class=&quot;badge-mark ${b.type}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;badge-status text-small&quot;&gt;${b.status}&lt;/span&gt;&lt;/button&gt;`;}
+      function showPage(page){root.querySelectorAll(&#x27;.app-page&#x27;).forEach(section=&gt;section.classList.toggle(&#x27;hidden&#x27;,section.id!==`page-${page}`));}
       function row(items,icon){return items.map(x=&gt;`&lt;div class=&quot;list-row&quot;&gt;&lt;i data-lucide=&quot;${icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;div class=&quot;list-copy&quot;&gt;&lt;strong&gt;${x[0]}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${x[1]}&lt;/span&gt;&lt;/div&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;`).join(&#x27;&#x27;);}
       function renderLevel(i){
         const d=levels[i];
@@ -969,18 +1043,33 @@ html&gt;body{padding:0}&lt;/style&gt;
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
       }
       function renderBadges(){
-        const visible=badges.map((b,i)=&gt;({...b,i})).filter(b=&gt;filter===&#x27;all&#x27;||b.type===filter);
-        root.querySelector(&#x27;#badge-grid&#x27;).innerHTML=visible.map(b=&gt;`&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost badge-item&quot; data-badge=&quot;${b.i}&quot; aria-pressed=&quot;${b.i===selectedBadge}&quot; aria-label=&quot;${b.name}，${b.status}&quot;&gt;&lt;span class=&quot;badge-mark ${b.type}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;badge-status text-small&quot;&gt;${b.status}&lt;/span&gt;&lt;/button&gt;`).join(&#x27;&#x27;);
-        root.querySelectorAll(&#x27;[data-badge]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{selectedBadge=Number(btn.dataset.badge);equipped=false;renderBadges();}));
+        const visible=badges.map((b,i)=&gt;({...b,i})).filter(b=&gt;b.source===&#x27;labubu&#x27;&amp;&amp;(filter===&#x27;all&#x27;||b.type===filter));
+        root.querySelector(&#x27;#badge-grid&#x27;).innerHTML=visible.map(b=&gt;badgeMarkup(b,b.i,selectedBadge,&#x27;local&#x27;)).join(&#x27;&#x27;);
+        root.querySelectorAll(&#x27;[data-local-badge]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{selectedBadge=Number(btn.dataset.localBadge);equipped=false;renderBadges();}));
         const b=badges[selectedBadge]; root.querySelector(&#x27;#badge-title&#x27;).textContent=b.name; root.querySelector(&#x27;#badge-desc&#x27;).textContent=b.desc; root.querySelector(&#x27;#equip-badge&#x27;).textContent=equipped?&#x27;当前佩戴&#x27;:&#x27;更改佩戴&#x27;; root.querySelector(&#x27;#remove-badge&#x27;).disabled=!equipped;
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
       }
+      function renderGlobalBadges(){
+        const visible=badges.map((b,i)=&gt;({...b,i})).filter(b=&gt;globalFilter===&#x27;all&#x27;||b.type===globalFilter);
+        root.querySelector(&#x27;#global-badge-grid&#x27;).innerHTML=visible.map(b=&gt;badgeMarkup(b,b.i,selectedGlobalBadge,&#x27;global&#x27;)).join(&#x27;&#x27;);
+        root.querySelectorAll(&#x27;[data-global-badge]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{selectedGlobalBadge=Number(btn.dataset.globalBadge);renderGlobalBadges();}));
+        const b=badges[selectedGlobalBadge];
+        root.querySelector(&#x27;#global-badge-title&#x27;).textContent=b.name;
+        root.querySelector(&#x27;#global-badge-desc&#x27;).textContent=b.desc;
+        root.querySelector(&#x27;#global-source-button&#x27;).classList.toggle(&#x27;hidden&#x27;,b.source!==&#x27;labubu&#x27;);
+        root.querySelector(&#x27;#global-equip-button&#x27;).textContent=selectedGlobalBadge===0?&#x27;当前佩戴&#x27;:&#x27;更改佩戴&#x27;;
+        if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
+      }
+      root.querySelectorAll(&#x27;[data-page-target]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;showPage(btn.dataset.pageTarget)));
       root.querySelectorAll(&#x27;[data-level]&#x27;).forEach((b,i)=&gt;b.addEventListener(&#x27;click&#x27;,()=&gt;renderLevel(i)));
       root.querySelectorAll(&#x27;[data-main-tab]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{
         const tab=btn.dataset.mainTab; root.querySelectorAll(&#x27;[data-main-tab]&#x27;).forEach(b=&gt;{const on=b===btn;b.classList.toggle(&#x27;btn-primary&#x27;,on);b.setAttribute(&#x27;aria-pressed&#x27;,String(on));});
         root.querySelector(&#x27;#growth-panel&#x27;).classList.toggle(&#x27;hidden&#x27;,tab!==&#x27;growth&#x27;); root.querySelector(&#x27;#badges-panel&#x27;).classList.toggle(&#x27;hidden&#x27;,tab!==&#x27;badges&#x27;);
       }));
       root.querySelectorAll(&#x27;[data-badge-filter]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{filter=btn.dataset.badgeFilter;root.querySelectorAll(&#x27;[data-badge-filter]&#x27;).forEach(b=&gt;{const on=b===btn;b.classList.toggle(&#x27;btn-primary&#x27;,on);b.setAttribute(&#x27;aria-pressed&#x27;,String(on));});renderBadges();}));
+      root.querySelectorAll(&#x27;[data-global-filter]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{globalFilter=btn.dataset.globalFilter;root.querySelectorAll(&#x27;[data-global-filter]&#x27;).forEach(b=&gt;{const on=b===btn;b.classList.toggle(&#x27;btn-primary&#x27;,on);b.setAttribute(&#x27;aria-pressed&#x27;,String(on));});renderGlobalBadges();}));
+      root.querySelector(&#x27;#global-source-button&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;showPage(&#x27;growth&#x27;));
+      root.querySelector(&#x27;#global-equip-button&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{selectedBadge=selectedGlobalBadge;equipped=true;root.querySelector(&#x27;#equipped-name&#x27;).textContent=&#x27;当前佩戴：&#x27;+badges[selectedGlobalBadge].name;renderGlobalBadges();});
       root.querySelector(&#x27;#marking-badges&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{
         const badgeTab=root.querySelector(&#x27;[data-main-tab=&quot;badges&quot;]&#x27;);
         const achievementFilter=root.querySelector(&#x27;[data-badge-filter=&quot;achievement&quot;]&#x27;);
@@ -989,7 +1078,7 @@ html&gt;body{padding:0}&lt;/style&gt;
       });
       root.querySelector(&#x27;#equip-badge&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{equipped=true;const b=badges[selectedBadge];root.querySelector(&#x27;#equipped-name&#x27;).textContent=&#x27;佩戴：&#x27;+b.name;root.querySelector(&#x27;#avatar-frame&#x27;).classList.toggle(&#x27;hidden&#x27;,b.type!==&#x27;event&#x27;);renderBadges();});
       root.querySelector(&#x27;#remove-badge&#x27;).addEventListener(&#x27;click&#x27;,()=&gt;{equipped=false;root.querySelector(&#x27;#equipped-name&#x27;).textContent=&#x27;未佩戴徽章&#x27;;root.querySelector(&#x27;#avatar-frame&#x27;).classList.add(&#x27;hidden&#x27;);renderBadges();});
-      renderLevel(2); renderBadges();
+      renderLevel(2); renderBadges(); renderGlobalBadges(); showPage(&#x27;home&#x27;);
     })();
   &lt;/script&gt;
 &lt;/div&gt;
