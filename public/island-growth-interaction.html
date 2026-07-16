@@ -1002,8 +1002,8 @@ html&gt;body{padding:0}&lt;/style&gt;
         {name:&#x27;名人用户&#x27;,desc:&#x27;在本兴趣领域具有较高影响力、号召力或代表性。&#x27;,method:&#x27;人工认证或定向邀请&#x27;,a:&#x27;820 / 1000&#x27;,ap:82,c:&#x27;16800 / 50000&#x27;,cp:34,up:[[&#x27;代表内容&#x27;,&#x27;真实传播和互动形成影响力&#x27;],[&#x27;有效粉丝&#x27;,&#x27;作为影响力认证条件&#x27;],[&#x27;人工认证&#x27;,&#x27;由平台或岛内定向确认&#x27;]],benefits:[[&#x27;名人认证&#x27;,&#x27;展示稀缺代表身份&#x27;],[&#x27;专属活动&#x27;,&#x27;重要活动优先参与&#x27;],[&#x27;治理申请&#x27;,&#x27;申请更高层级岛内共建&#x27;]],note:&#x27;名人用户是具体岛内身份；治理权限可单独撤销。&#x27;}
       ];
       const badges = [
-        {name:&#x27;角色生日徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;社区 IP 活动&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,icon:&#x27;cake-slice&#x27;},
-        {name:&#x27;头部画师合作徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;社区 IP 活动&#x27;,source:&#x27;labubu&#x27;,status:&#x27;官方联动&#x27;,icon:&#x27;brush&#x27;},
+        {name:&#x27;角色生日徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,icon:&#x27;cake-slice&#x27;},
+        {name:&#x27;头部画师合作徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;官方联动&#x27;,icon:&#x27;brush&#x27;},
         {name:&#x27;年度报告限定&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;年度限定&#x27;,source:&#x27;platform&#x27;,status:&#x27;未获得&#x27;,icon:&#x27;calendar-heart&#x27;},
         {name:&#x27;心测徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;功能推广&#x27;,source:&#x27;platform&#x27;,status:&#x27;已获得&#x27;,icon:&#x27;heart-pulse&#x27;},
         {name:&#x27;扩列名片徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;功能推广&#x27;,source:&#x27;platform&#x27;,status:&#x27;未获得&#x27;,icon:&#x27;contact-round&#x27;},
@@ -1033,13 +1033,13 @@ html&gt;body{padding:0}&lt;/style&gt;
         {name:&#x27;《琳琅》首车玩家&#x27;,type:&#x27;achievement&#x27;,category:&#x27;标记&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,icon:&#x27;flag&#x27;},
         {name:&#x27;开发者徽章&#x27;,type:&#x27;achievement&#x27;,category:&#x27;开放平台&#x27;,source:&#x27;platform&#x27;,status:&#x27;未获得&#x27;,icon:&#x27;code-xml&#x27;}
       ];
-      const categoryNotes={&#x27;社区 IP 活动&#x27;:&#x27;角色生日 · 画师合作&#x27;,年度限定:&#x27;年度报告&#x27;,功能推广:&#x27;心测 · 扩列名片等&#x27;, &#x27;QDF &amp; 小程序&#x27;:&#x27;参与联动活动&#x27;,特殊活动参与:&#x27;有效参与记录可置换&#x27;,资料库:&#x27;词条贡献&#x27;,社区:&#x27;存图 · 发帖 · 活动 · 回答 · 互动 · 纠察&#x27;,交易:&#x27;接单 · 购买 · 公审审核&#x27;,标记:&#x27;深度 · 偏好 · 进度 · 节点&#x27;,开放平台:&#x27;完成千岛第一小程序时创建&#x27;};
+      const categoryNotes={年度限定:&#x27;年度报告&#x27;,功能推广:&#x27;心测 · 扩列名片等&#x27;, &#x27;QDF &amp; 小程序&#x27;:&#x27;参与联动活动&#x27;,特殊活动参与:&#x27;有效参与记录可置换&#x27;,资料库:&#x27;词条贡献&#x27;,社区:&#x27;角色生日 · 画师合作 · 存图 · 发帖 · 活动 · 回答 · 互动 · 纠察&#x27;,交易:&#x27;接单 · 购买 · 公审审核&#x27;,标记:&#x27;深度 · 偏好 · 进度 · 节点&#x27;,开放平台:&#x27;完成千岛第一小程序时创建&#x27;};
       let filter=&#x27;all&#x27;, globalFilter=&#x27;all&#x27;;
       function badgeMarkup(b){return `&lt;div class=&quot;badge-item&quot; aria-label=&quot;${b.name}，${b.status}&quot;&gt;&lt;span class=&quot;badge-mark ${b.type}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;badge-status text-small&quot;&gt;${b.status}&lt;/span&gt;&lt;/div&gt;`;}
       function groupedBadgeMarkup(items,activeFilter){
-        const eventGroups=[&#x27;社区 IP 活动&#x27;,&#x27;年度限定&#x27;,&#x27;功能推广&#x27;,&#x27;QDF &amp; 小程序&#x27;,&#x27;特殊活动参与&#x27;];
+        const eventGroups=[&#x27;社区&#x27;,&#x27;年度限定&#x27;,&#x27;功能推广&#x27;,&#x27;QDF &amp; 小程序&#x27;,&#x27;特殊活动参与&#x27;];
         const achievementGroups=[&#x27;资料库&#x27;,&#x27;社区&#x27;,&#x27;交易&#x27;,&#x27;标记&#x27;,&#x27;开放平台&#x27;];
-        const order=activeFilter===&#x27;event&#x27;?eventGroups:activeFilter===&#x27;achievement&#x27;?achievementGroups:[...eventGroups,...achievementGroups];
+        const order=activeFilter===&#x27;event&#x27;?eventGroups:activeFilter===&#x27;achievement&#x27;?achievementGroups:[...new Set([...eventGroups,...achievementGroups])];
         return order.map(category=&gt;{
           const group=items.filter(b=&gt;b.eventCategory===category||b.category===category);
           if(!group.length)return &#x27;&#x27;;
