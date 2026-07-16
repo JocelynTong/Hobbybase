@@ -755,16 +755,17 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .island-name { display:flex; align-items:center; gap:8px; }
     #island-growth-interaction .shell { display:block; }
     #island-growth-interaction main { min-width:0; margin-top:14px; }
-    #island-growth-interaction .profile { display:grid; grid-template-columns:auto minmax(160px,1fr) minmax(300px,.9fr); gap:14px; align-items:center; text-align:left; }
+    #island-growth-interaction .growth-header { display:grid; gap:12px; padding-bottom:10px; }
+    #island-growth-interaction .growth-person { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; text-align:left; }
+    #island-growth-interaction .growth-person .avatar-wrap { width:48px; height:48px; }
+    #island-growth-interaction .growth-person .avatar { width:36px; height:36px; }
+    #island-growth-interaction .growth-person h2 { margin:0 0 3px; font-size:1rem; }
+    #island-growth-interaction .growth-person p { margin:0; color:var(--muted-foreground); }
     #island-growth-interaction .avatar-wrap { position:relative; width:58px; height:58px; margin:0; display:grid; place-items:center; }
     #island-growth-interaction .avatar { width:44px; height:44px; border-radius:50%; background:var(--muted); display:grid; place-items:center; color:var(--muted-foreground); }
     #island-growth-interaction .avatar-frame { position:absolute; inset:0; border:2px dashed var(--muted-foreground); border-radius:50%; }
     #island-growth-interaction .avatar-frame::after { content:&quot;&quot;; }
-    #island-growth-interaction .profile h2 { margin:0 0 4px; }
-    #island-growth-interaction .profile p { margin:0; color:var(--muted-foreground); }
-    #island-growth-interaction .profile-meta { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; margin:0; text-align:left; }
-    #island-growth-interaction .meta-row { display:flex; justify-content:space-between; gap:12px; padding:8px 0; border-bottom:1px solid var(--border); }
-    #island-growth-interaction .main-tabs { width:100%; margin-bottom:14px; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    #island-growth-interaction .main-tabs { width:100%; margin:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
     #island-growth-interaction .main-tabs .btn { width:100%; min-width:0; justify-content:center; }
     #island-growth-interaction .hero-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:start; }
     #island-growth-interaction .hero-row h2 { margin:0; }
@@ -826,10 +827,10 @@ html&gt;body{padding:0}&lt;/style&gt;
       #island-growth-interaction .badge-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
     }
     @media (max-width:780px) {
-      #island-growth-interaction .profile { grid-template-columns:auto minmax(0,1fr); gap:12px; }
       #island-growth-interaction .avatar-wrap { width:58px; height:58px; margin:0; }
       #island-growth-interaction .avatar { width:44px; height:44px; }
-      #island-growth-interaction .profile-meta { grid-column:1/-1; width:100%; }
+      #island-growth-interaction .growth-person .avatar-wrap { width:48px; height:48px; }
+      #island-growth-interaction .growth-person .avatar { width:36px; height:36px; }
       #island-growth-interaction .meters, #island-growth-interaction .section-grid { grid-template-columns:1fr; }
       #island-growth-interaction .badge-grid { grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
       #island-growth-interaction .badge-item { min-height:128px; }
@@ -837,9 +838,8 @@ html&gt;body{padding:0}&lt;/style&gt;
       #island-growth-interaction .badge-detail { grid-template-columns:1fr; }
     }
     @media (max-width:430px) {
-      #island-growth-interaction .profile { grid-template-columns:1fr; text-align:center; }
-      #island-growth-interaction .avatar-wrap { margin:0 auto; }
-      #island-growth-interaction .profile-meta { grid-template-columns:1fr; }
+      #island-growth-interaction .growth-person { grid-template-columns:auto minmax(0,1fr) auto; }
+      #island-growth-interaction .growth-person .avatar-wrap { margin:0; }
       #island-growth-interaction .badge-grid { grid-template-columns:repeat(3,minmax(0,1fr)); }
       #island-growth-interaction .hero-row { grid-template-columns:1fr; }
       #island-growth-interaction .ladder { gap:4px; }
@@ -913,28 +913,25 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;/div&gt;
 
   &lt;div class=&quot;shell&quot;&gt;
-    &lt;header class=&quot;card profile&quot;&gt;
-      &lt;div class=&quot;avatar-wrap&quot; aria-label=&quot;用户小头像与当前佩戴漏出&quot;&gt;
-        &lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;
-        &lt;div class=&quot;avatar-frame&quot; id=&quot;avatar-frame&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+    &lt;header class=&quot;card growth-header&quot;&gt;
+      &lt;div class=&quot;growth-person&quot;&gt;
+        &lt;div class=&quot;avatar-wrap&quot; aria-label=&quot;用户小头像与当前佩戴漏出&quot;&gt;
+          &lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;
+          &lt;div class=&quot;avatar-frame&quot; id=&quot;avatar-frame&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div&gt;
+          &lt;h2&gt;Labubu 岛 · 岛民 0721&lt;/h2&gt;
+          &lt;p id=&quot;equipped-name&quot;&gt;当前佩戴：夏日登岛者&lt;/p&gt;
+        &lt;/div&gt;
+        &lt;span class=&quot;viz-badge&quot; id=&quot;profile-level&quot;&gt;贡献用户&lt;/span&gt;
       &lt;/div&gt;
-      &lt;div&gt;
-        &lt;h2&gt;Labubu 岛 · 岛民 0721&lt;/h2&gt;
-        &lt;p id=&quot;equipped-name&quot;&gt;当前佩戴：夏日登岛者&lt;/p&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;profile-meta&quot;&gt;
-        &lt;div class=&quot;meta-row&quot;&gt;&lt;span&gt;岛内身份&lt;/span&gt;&lt;strong id=&quot;profile-level&quot;&gt;贡献用户&lt;/strong&gt;&lt;/div&gt;
-        &lt;div class=&quot;meta-row&quot;&gt;&lt;span&gt;岛内徽章&lt;/span&gt;&lt;strong&gt;8 枚&lt;/strong&gt;&lt;/div&gt;
-        &lt;div class=&quot;meta-row&quot;&gt;&lt;span&gt;加入本岛&lt;/span&gt;&lt;strong&gt;326 天&lt;/strong&gt;&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/header&gt;
-
-    &lt;main&gt;
       &lt;div class=&quot;viz-controls main-tabs&quot; role=&quot;group&quot; aria-label=&quot;岛内成长档案与徽章墙&quot;&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-main-tab=&quot;growth&quot; aria-pressed=&quot;true&quot;&gt;岛内成长&lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-main-tab=&quot;badges&quot; aria-pressed=&quot;false&quot;&gt;本岛徽章&lt;/button&gt;
       &lt;/div&gt;
+    &lt;/header&gt;
 
+    &lt;main&gt;
       &lt;section id=&quot;growth-panel&quot; class=&quot;card&quot; aria-live=&quot;polite&quot;&gt;
         &lt;div class=&quot;hero-row&quot;&gt;
           &lt;div&gt;&lt;h2 id=&quot;current-level&quot;&gt;贡献用户&lt;/h2&gt;&lt;p id=&quot;level-desc&quot;&gt;持续为本岛提供可沉淀的资料与内容。&lt;/p&gt;&lt;/div&gt;
