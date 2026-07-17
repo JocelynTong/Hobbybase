@@ -815,8 +815,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .badge-item strong { display:-webkit-box; width:100%; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; white-space:normal; }
     #island-growth-interaction .badge-status { display:block; width:100%; margin-top:4px; overflow:hidden; color:var(--muted-foreground); }
     #island-growth-interaction .badge-state-chip { display:inline-flex; margin:-3px 0 6px; padding:2px 6px; border-radius:999px; background:var(--muted); color:var(--muted-foreground); }
-    #island-growth-interaction .badge-item.is-earned .badge-mark { border-style:solid; border-color:var(--primary); background:var(--accent); color:var(--accent-foreground); box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 22%,transparent); }
-    #island-growth-interaction .badge-item.is-earned .badge-state-chip { background:var(--primary); color:var(--primary-foreground); }
+    #island-growth-interaction .badge-item.is-earned .badge-mark { border-style:solid; border-color:var(--primary); background:var(--accent); color:var(--accent-foreground); box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 22%,transparent); animation:earned-float 2.8s ease-in-out infinite,earned-glow 2.8s ease-in-out infinite; }
+    #island-growth-interaction .badge-item.is-earned .badge-state-chip { background:var(--primary); color:var(--primary-foreground); animation:earned-chip 2.8s ease-in-out infinite; }
     #island-growth-interaction .badge-item.is-progress .badge-mark { border-style:solid; border-color:var(--viz-series-1); background:color-mix(in srgb,var(--viz-series-1) 18%,var(--muted)); box-shadow:inset 0 -7px 0 color-mix(in srgb,var(--viz-series-1) 30%,transparent); }
     #island-growth-interaction .badge-item.is-progress .badge-state-chip { background:var(--accent); color:var(--accent-foreground); }
     #island-growth-interaction .badge-item.is-locked { opacity:.62; }
@@ -826,6 +826,10 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .badge-legend i { width:8px; height:8px; border-radius:50%; background:var(--muted-foreground); }
     #island-growth-interaction .badge-legend .earned i { background:var(--primary); }
     #island-growth-interaction .badge-legend .progress i { background:var(--viz-series-1); }
+    @keyframes earned-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-4px); } }
+    @keyframes earned-glow { 0%,100% { box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 18%,transparent); } 50% { box-shadow:0 0 0 6px color-mix(in srgb,var(--primary) 34%,transparent); } }
+    @keyframes earned-chip { 0%,100% { opacity:.82; } 50% { opacity:1; } }
+    @media (prefers-reduced-motion:reduce) { #island-growth-interaction .badge-item.is-earned .badge-mark, #island-growth-interaction .badge-item.is-earned .badge-state-chip { animation:none; } }
     #island-growth-interaction .notice { margin-top:14px; padding-top:12px; border-top:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; color:var(--muted-foreground); }
     #island-growth-interaction .page-title { display:flex; align-items:center; gap:8px; }
     #island-growth-interaction .page-title h2 { margin:0; }
