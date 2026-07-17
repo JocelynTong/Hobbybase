@@ -1,756 +1,40 @@
-<!doctype html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="referrer" content="no-referrer">
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
-<title>Island Growth Interaction</title>
-<style>:root{color-scheme:light dark;background:light-dark(rgb(245 245 245), rgb(18 18 18))}html,body{margin:0;min-height:100%}body{box-sizing:border-box;padding:0;background:inherit}iframe{display:block;width:100%;max-width:430px;height:100vh;min-height:100vh;margin:0 auto;border:0;background:light-dark(rgb(255 255 255),rgb(24 24 24))}</style>
-</head>
-<body>
-<iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Island Growth Interaction" srcdoc="&lt;!doctype html&gt;
-&lt;html lang=&quot;en&quot;&gt;
-&lt;head&gt;
-&lt;meta charset=&quot;utf-8&quot;&gt;
-&lt;meta name=&quot;viewport&quot; content=&quot;width=device-width, initial-scale=1&quot;&gt;
-&lt;meta name=&quot;referrer&quot; content=&quot;no-referrer&quot;&gt;
-&lt;meta http-equiv=&quot;Content-Security-Policy&quot; content=&quot;default-src &#x27;none&#x27;; script-src &#x27;unsafe-inline&#x27; &#x27;unsafe-eval&#x27; &#x27;wasm-unsafe-eval&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src &#x27;unsafe-inline&#x27; blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src &#x27;none&#x27;; object-src &#x27;none&#x27;; base-uri &#x27;none&#x27;; form-action &#x27;none&#x27;&quot;&gt;
-&lt;title&gt;Island Growth Interaction&lt;/title&gt;
-&lt;style&gt;:root {
-  color-scheme: light dark;
-  background-color: var(--background) !important;
-
-  /* Agent-facing contract; keep in sync with SKILL.md. */
-  --background: light-dark(rgb(255 255 255), rgb(24 24 24));
-  --foreground: light-dark(rgb(26 28 31), rgb(255 255 255));
-  --card: color-mix(in oklab, var(--foreground) 5%, transparent);
-  --card-foreground: var(--foreground);
-  --popover: light-dark(rgb(255 255 255), rgb(45 45 45));
-  --popover-foreground: var(--foreground);
-  --primary: light-dark(rgb(51 156 255), rgb(131 195 255));
-  --primary-foreground: light-dark(rgb(255 255 255), rgb(13 13 13));
-  --secondary: light-dark(rgb(255 255 255 / 96%), rgb(54 54 54 / 96%));
-  --secondary-foreground: var(--foreground);
-  --muted: color-mix(in srgb, var(--foreground) 10%, transparent);
-  --muted-foreground: light-dark(
-    rgb(26 28 31 / 49.4%),
-    rgb(255 255 255 / 49.8%)
-  );
-  --accent: light-dark(rgb(229 242 255), rgb(13 39 63));
-  --accent-foreground: var(--primary);
-  --destructive: light-dark(rgb(226 85 7), rgb(255 133 73));
-  --border: light-dark(rgb(26 28 31 / 8%), rgb(255 255 255 / 8.2%));
-  --input: light-dark(
-    rgb(26 28 31 / 11.8%),
-    color-mix(in oklab, rgb(0 0 0) 10%, transparent)
-  );
-  --ring: light-dark(rgb(51 156 255), rgb(131 195 255 / 76%));
-  --font-size-base: 14px;
-  --viz-series-1: var(--primary);
-  --viz-series-2: light-dark(rgb(243 136 59), rgb(245 154 86));
-  --viz-series-3: light-dark(rgb(93 201 119), rgb(116 213 139));
-  --viz-series-4: light-dark(rgb(235 119 177), rgb(240 143 192));
-  --viz-series-5: light-dark(rgb(155 121 236), rgb(170 145 239));
-  --viz-series-6: light-dark(rgb(58 185 177), rgb(90 203 194));
-
-  /* Internal implementation variables; not part of the agent contract. */
-  --font-sans: -apple-system, system-ui, &quot;Segoe UI&quot;, sans-serif;
-  --font-mono:
-    ui-monospace, SFMono-Regular, &quot;SF Mono&quot;, Menlo, Consolas, &quot;Liberation Mono&quot;,
-    monospace;
-  --font-size-normal: max(11px, var(--font-size-base));
-  --font-size-tooltip: calc(var(--font-size-base) - 1px);
-  --font-size-small: max(11px, calc(var(--font-size-base) - 2px));
-  --font-size-h1: calc(var(--font-size-normal) * 1.7142857143);
-  --font-size-h2: calc(var(--font-size-normal) * 1.4285714286);
-  --font-size-h3: calc(var(--font-size-normal) * 1.2857142857);
-  --font-weight-normal: 430;
-  --font-weight-medium: 500;
-  --line-height-normal: calc(var(--font-size-normal) * 1.5);
-  --line-height-tooltip: calc(var(--font-size-tooltip) * 1.4285714286);
-  --line-height-small: calc(var(--font-size-small) + 4px);
-  --radius: 12.5px;
-  --radius-sm: calc(var(--radius) * 0.6);
-  --radius-md: calc(var(--radius) * 0.8);
-  --radius-lg: var(--radius);
-  --radius-2xl: calc(var(--radius) * 1.6);
-  --radius-full: 9999px;
-  --shadow-sm: 0 1px 2px -1px rgb(0 0 0 / 8%);
-  --checkmark-image: url(&quot;data:image/svg+xml,%3Csvg xmlns=&#x27;http://www.w3.org/2000/svg&#x27; viewBox=&#x27;0 0 17 17&#x27;%3E%3Cpath d=&#x27;M12.8961 3.64101C13.1297 3.41418 13.4984 3.37523 13.7779 3.56581C14.0571 3.75635 14.1554 4.11331 14.0299 4.41347L13.9615 4.53847L7.71151 13.7045C7.59411 13.8767 7.4063 13.9877 7.19881 14.0072C6.99136 14.0267 6.78564 13.9533 6.63826 13.806L2.88826 10.056L2.79842 9.9457C2.6192 9.67407 2.64927 9.30496 2.88826 9.06581C3.12738 8.82669 3.49647 8.79676 3.76815 8.97597L3.8785 9.06581L7.03084 12.2182L12.8053 3.74941L12.8961 3.64101Z&#x27;/%3E%3C/svg%3E&quot;);
-
-  /* Legacy aliases; not part of the current agent contract. */
-  --viz-bg: transparent;
-  --viz-panel: var(--card);
-  --viz-border: var(--border);
-  --viz-text: var(--foreground);
-  --viz-muted: var(--muted-foreground);
-  --viz-accent: var(--primary);
-  --viz-accent-text: var(--primary-foreground);
-  --viz-accent-bg: var(--accent);
-  --viz-font-size: var(--font-size-base);
-  --viz-warning: var(--destructive);
-  --color-background-primary: var(--background);
-  --color-text-primary: var(--foreground);
-  --color-border-secondary: var(--border);
-}
-
-:root[data-theme=&quot;light&quot;] {
-  color-scheme: light;
-}
-
-:root[data-theme=&quot;dark&quot;] {
-  color-scheme: dark;
-}
-
-* {
-  box-sizing: border-box;
-}
-
-html &gt; body {
-  margin: 0;
-  padding: 5px;
-  color: var(--foreground);
-  background: transparent !important;
-  font-family: var(--font-sans);
-  font-size: var(--font-size-normal);
-  font-weight: var(--font-weight-normal);
-  line-height: var(--line-height-normal);
-}
-
-a {
-  color: color-mix(in srgb, var(--viz-accent) 80%, var(--viz-text) 20%);
-  cursor: pointer;
-  font-weight: var(--viz-font-weight-medium);
-  text-decoration: none;
-  text-underline-offset: 2px;
-}
-
-a:is(:hover, :focus-visible) {
-  text-decoration-line: underline;
-  text-decoration-style: dashed;
-  text-decoration-thickness: 0.5px;
-}
-
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-  margin-block: 0;
-}
-
-h1 {
-  font-size: var(--font-size-h1);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.25;
-}
-
-h2 {
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.25;
-}
-
-h3,
-h4,
-h5,
-h6 {
-  font-size: var(--font-size-h3);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.3;
-}
-
-b,
-strong,
-th {
-  font-weight: var(--font-weight-medium);
-}
-
-code:not(pre code) {
-  display: inline;
-  padding: 1px 6px;
-  border-radius: var(--radius-sm);
-  corner-shape: superellipse(1.5);
-  background: var(--muted);
-  font-family: var(--font-mono);
-  font-size: 0.92em;
-  overflow-wrap: anywhere;
-  -webkit-box-decoration-break: clone;
-  box-decoration-break: clone;
-  word-break: break-word;
-}
-
-#widget {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  width: 100%;
-  padding: 0;
-  background: transparent !important;
-}
-
-.card {
-  min-width: 0;
-  padding: 12px;
-  overflow: hidden;
-  overflow-wrap: break-word;
-  border-radius: var(--radius-2xl);
-  corner-shape: superellipse(1.5);
-  color: var(--card-foreground);
-  background: var(--card);
-}
-
-#widget &gt; :not(.card) {
-  width: 100% !important;
-  max-width: none !important;
-  margin: 0 !important;
-  padding: 0 !important;
-  border: 0 !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-}
-
-.tooltip {
-  position: fixed;
-  z-index: 50;
-  top: 0;
-  left: 0;
-  width: max-content;
-  max-width: min(
-    20rem,
-    var(--tooltip-available-width, calc(100vw - 10px)),
-    calc(100vw - 10px)
-  );
-  max-height: min(
-    var(--tooltip-available-height, calc(100vh - 10px)),
-    calc(100vh - 10px)
-  );
-  padding: 4px 8px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-lg);
-  corner-shape: superellipse(1.5);
-  color: var(--popover-foreground);
-  background: var(--popover);
-  box-shadow: none;
-  font-size: var(--font-size-tooltip);
-  line-height: var(--line-height-tooltip);
-  overflow-wrap: break-word;
-  white-space: normal;
-  pointer-events: none;
-  user-select: none;
-}
-
-.viz-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(max(180px, 24%), 1fr));
-  gap: 10px;
-}
-
-.viz-stat {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-
-.viz-stat-value {
-  font-size: var(--font-size-h2);
-  font-weight: var(--font-weight-medium);
-  line-height: 1.25;
-}
-
-.viz-row {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 10px;
-}
-
-.viz-badge {
-  padding: 3px 8px;
-  border-radius: var(--radius-full);
-  color: var(--accent-foreground);
-  background: var(--accent);
-  font-weight: var(--font-weight-medium);
-}
-
-small,
-.text-small,
-.viz-badge {
-  font-size: var(--font-size-small);
-  line-height: var(--line-height-small);
-}
-
-.text-muted {
-  color: var(--muted-foreground);
-}
-
-.sr-only {
-  position: absolute;
-  width: 1px;
-  height: 1px;
-  padding: 0;
-  overflow: hidden;
-  clip: rect(0, 0, 0, 0);
-  white-space: nowrap;
-  border: 0;
-}
-
-.viz-controls {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  gap: 8px;
-}
-
-.viz-controls &gt; .form-label {
-  display: grid;
-  min-width: min(100%, 260px);
-  flex: 1 1 280px;
-  grid-template-columns: minmax(0, 1fr) auto;
-  align-items: baseline;
-  gap: 2px 12px;
-  margin-bottom: 0;
-}
-
-.viz-controls &gt; .form-label &gt; :is(.form-control, .form-range, .form-select) {
-  grid-column: 1 / -1;
-}
-
-.btn,
-.form-check-input,
-.form-control,
-.form-range,
-.form-select {
-  font: inherit;
-}
-
-.btn {
-  appearance: button;
-  display: inline-flex;
-  inline-size: fit-content;
-  max-inline-size: 100%;
-  min-height: 28px;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  margin: 0;
-  padding: 0 8px;
-  -webkit-app-region: no-drag;
-  border: 1px solid var(--input);
-  border-radius: var(--radius-lg);
-  corner-shape: superellipse(1.5);
-  color: var(--secondary-foreground);
-  background: var(--secondary);
-  cursor: var(--cursor-interaction, pointer);
-  text-align: center;
-  text-decoration: none;
-  white-space: nowrap;
-  user-select: none;
-  -webkit-font-smoothing: antialiased;
-}
-
-.btn:is(.btn-block, .viz-tile) {
-  inline-size: 100%;
-}
-
-.btn.viz-tile {
-  min-width: 0;
-  overflow-wrap: anywhere;
-  white-space: normal;
-}
-
-a.btn {
-  cursor: pointer;
-  text-decoration: none;
-}
-
-.btn:not(:disabled):hover {
-  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
-}
-
-.btn-primary {
-  border-color: transparent;
-  color: var(--primary-foreground);
-  background: var(--foreground);
-  background-clip: padding-box;
-}
-
-.btn-primary .text-muted {
-  color: color-mix(in srgb, var(--primary-foreground) 50%, transparent);
-}
-
-.btn-primary:not(:disabled):hover {
-  background: color-mix(in srgb, var(--foreground) 80%, transparent);
-  background-clip: padding-box;
-}
-
-.btn-ghost {
-  border-color: transparent;
-  color: var(--muted-foreground);
-  background: transparent;
-}
-
-.btn-ghost:not(:disabled):hover {
-  color: var(--foreground);
-  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
-}
-
-.btn:disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-[data-lucide] {
-  stroke-width: 1.6;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 6px;
-  color: var(--foreground);
-}
-
-.form-control {
-  display: block;
-  width: 100%;
-  min-height: 28px;
-  padding: 0 8px;
-  outline: none;
-  border: 1px solid var(--input);
-  border-radius: var(--radius-lg);
-  corner-shape: superellipse(1.5);
-  color: var(--foreground);
-  background: var(--secondary);
-}
-
-.form-control::placeholder {
-  color: var(--muted-foreground);
-}
-
-.form-control[type=&quot;file&quot;] {
-  padding: 0;
-  overflow: hidden;
-  cursor: var(--cursor-interaction, pointer);
-}
-
-.form-control[type=&quot;file&quot;]::file-selector-button {
-  min-height: 26px;
-  margin-right: 8px;
-  padding: 0 8px;
-  border: 0;
-  border-right: 1px solid var(--input);
-  color: var(--secondary-foreground);
-  background: var(--secondary);
-  cursor: inherit;
-  font: inherit;
-}
-
-.form-control[type=&quot;file&quot;]:not(:disabled):hover::file-selector-button {
-  background: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
-}
-
-.form-control-color[type=&quot;color&quot;] {
-  width: 40px;
-  height: 28px;
-  padding: 3px;
-  cursor: var(--cursor-interaction, pointer);
-}
-
-.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch-wrapper {
-  padding: 0;
-}
-
-.form-control-color[type=&quot;color&quot;]::-webkit-color-swatch {
-  border: 0;
-  border-radius: calc(var(--radius-lg) - 4px);
-  corner-shape: superellipse(1.5);
-}
-
-textarea.form-control {
-  height: auto;
-  min-height: 72px;
-  padding: 8px 10px;
-  resize: vertical;
-}
-
-.form-control:focus-visible {
-  border-color: var(--ring);
-  box-shadow: inset 0 0 0 1px var(--ring);
-}
-
-.form-control:disabled,
-.form-select:disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-.form-select {
-  appearance: none;
-  display: block;
-  width: 100%;
-  min-height: 28px;
-  margin: 0;
-  padding: 0 32px 0 8px;
-  outline: none;
-  border: 1px solid var(--input);
-  border-radius: var(--radius-lg);
-  corner-shape: superellipse(1.5);
-  color: var(--foreground);
-  background-color: var(--secondary);
-  background-image:
-    linear-gradient(45deg, transparent 50%, var(--muted-foreground) 50%),
-    linear-gradient(135deg, var(--muted-foreground) 50%, transparent 50%);
-  background-position:
-    calc(100% - 14px) 50%,
-    calc(100% - 10px) 50%;
-  background-repeat: no-repeat;
-  background-size: 4px 4px;
-  cursor: var(--cursor-interaction, default);
-}
-
-.form-select:not(:disabled):hover {
-  background-color: color-mix(in srgb, var(--foreground) 6%, var(--secondary));
-}
-
-.form-select:focus-visible {
-  border-color: var(--ring);
-  box-shadow: inset 0 0 0 1px var(--ring);
-}
-
-.form-check {
-  display: flex;
-  min-height: 20px;
-  align-items: center;
-  gap: 6px;
-}
-
-.form-check-input {
-  appearance: none;
-  width: 14px;
-  height: 14px;
-  flex: 0 0 auto;
-  margin: 0;
-  border: 1px solid var(--input);
-  color: var(--primary-foreground);
-  background-color: transparent;
-  cursor: var(--cursor-interaction, default);
-  transition:
-    background-color 150ms,
-    border-color 150ms,
-    box-shadow 150ms;
-}
-
-.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;] {
-  border-color: var(--input);
-  border-radius: var(--radius-sm);
-  corner-shape: superellipse(1.5);
-  background-color: var(--secondary);
-  box-shadow: var(--shadow-sm);
-}
-
-.form-check:not(.form-switch)
-  .form-check-input:not(:disabled):not(:checked):hover {
-  background-color: var(--card);
-}
-
-.form-check:not(.form-switch) .form-check-input[type=&quot;checkbox&quot;]:checked {
-  border-color: var(--primary);
-  background-color: var(--primary);
-}
-
-.form-check:not(.form-switch)
-  .form-check-input[type=&quot;checkbox&quot;]:checked::before {
-  display: block;
-  width: 100%;
-  height: 100%;
-  background: var(--primary-foreground);
-  content: &quot;&quot;;
-  mask: var(--checkmark-image) center / 12px 12px no-repeat;
-}
-
-.form-check-input[type=&quot;radio&quot;] {
-  width: 14px;
-  height: 14px;
-  border-radius: var(--radius-full);
-}
-
-.form-check-input[type=&quot;radio&quot;]:checked {
-  border: 2px solid var(--primary);
-  background:
-    radial-gradient(circle, var(--primary-foreground) 0 2.5px, transparent 3px),
-    var(--primary);
-}
-
-.form-check:not(.form-switch) .form-check-input:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-.form-check:not(.form-switch) .form-check-input:disabled {
-  cursor: not-allowed;
-  pointer-events: none;
-}
-
-.form-check:not(.form-switch) .form-check-input:disabled + .form-check-label {
-  cursor: not-allowed;
-}
-
-.form-switch .form-check-input:disabled,
-.form-switch .form-check-input:disabled + .form-check-label {
-  cursor: not-allowed;
-  opacity: 0.6;
-}
-
-.form-check-label {
-  color: var(--foreground);
-  cursor: var(--cursor-interaction, default);
-}
-
-.form-switch .form-check-input {
-  position: relative;
-  width: 32px;
-  height: 20px;
-  border: 0;
-  border-radius: var(--radius-full);
-  background: var(--muted);
-  box-shadow: none;
-  transition: background-color 200ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.form-switch .form-check-input::before {
-  position: absolute;
-  top: 50%;
-  left: 0;
-  width: 16px;
-  height: 16px;
-  box-sizing: border-box;
-  border: 1px solid light-dark(var(--primary-foreground), var(--foreground));
-  border-radius: var(--radius-full);
-  background: light-dark(var(--primary-foreground), var(--foreground));
-  box-shadow: var(--shadow-sm);
-  content: &quot;&quot;;
-  transform: translate(2px, -50%);
-  transition: transform 200ms cubic-bezier(0, 0, 0.2, 1);
-}
-
-.form-switch .form-check-input:checked {
-  background: var(--primary);
-}
-
-.form-switch .form-check-input:checked::before {
-  transform: translate(14px, -50%);
-}
-
-.form-switch .form-check-input:focus-visible {
-  box-shadow: 0 0 0 2px var(--ring);
-}
-
-.form-range {
-  appearance: none;
-  display: block;
-  width: 100%;
-  height: 28px;
-  flex: 1;
-  margin: 0;
-  padding: 0;
-  outline: none;
-  border: 0;
-  accent-color: var(--primary);
-  background: linear-gradient(
-      color-mix(in srgb, var(--foreground) 7%, transparent),
-      color-mix(in srgb, var(--foreground) 7%, transparent)
-    )
-    center / 100% 2px no-repeat;
-}
-
-.form-range::-webkit-slider-runnable-track {
-  height: 28px;
-  background: transparent;
-}
-
-.form-range::-webkit-slider-thumb {
-  appearance: none;
-  width: 20px;
-  height: 20px;
-  margin-top: 4px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  background: light-dark(var(--primary-foreground), var(--foreground));
-}
-
-.form-range:focus-visible::-webkit-slider-thumb {
-  border-color: var(--ring);
-  box-shadow: inset 0 0 0 1px var(--ring);
-}
-
-.form-range::-moz-range-track {
-  height: 28px;
-  background: transparent;
-}
-
-.form-range::-moz-range-thumb {
-  width: 20px;
-  height: 20px;
-  border: 1px solid var(--border);
-  border-radius: var(--radius-full);
-  background: light-dark(var(--primary-foreground), var(--foreground));
-}
-
-.form-range:focus-visible::-moz-range-thumb {
-  border-color: var(--ring);
-  box-shadow: inset 0 0 0 1px var(--ring);
-}
-
-.form-range:disabled {
-  cursor: not-allowed;
-  opacity: 0.4;
-}
-
-.btn:not(.btn-primary, .viz-tile):is(
-    [aria-pressed=&quot;true&quot;],
-    [aria-selected=&quot;true&quot;],
-    .is-selected
-  ) {
-  border-color: var(--primary);
-  color: var(--primary-foreground);
-  background: var(--primary);
-}
-
-.btn.viz-tile:is([aria-pressed=&quot;true&quot;], [aria-selected=&quot;true&quot;], .is-selected) {
-  border-color: var(--primary);
-  box-shadow: inset 0 0 0 1px var(--primary);
-}
-
-.btn:focus-visible {
-  outline: 2px solid var(--ring);
-  outline-offset: 2px;
-}
-
-svg {
-  display: block;
-  max-width: 100%;
-  height: auto;
-}
-
-#widget &gt; svg {
-  width: 100%;
-}
-
-.text-warning,
-.text-destructive {
-  color: var(--destructive);
-}
-
-html&gt;body{padding:0}&lt;/style&gt;
-&lt;/head&gt;
-&lt;body&gt;
-&lt;div id=&quot;island-growth-interaction&quot;&gt;
-  &lt;style&gt;
-    #island-growth-interaction { color:var(--foreground); width:100%; max-width:430px; margin-inline:auto; }
+<div id="island-growth-interaction">
+  <style>
+    #island-growth-interaction { color:var(--foreground); width:100%; max-width:920px; margin-inline:auto; }
+    #island-growth-interaction .prototype-layout { display:grid; grid-template-columns:minmax(0,430px) minmax(230px,1fr); gap:18px; align-items:start; }
+    #island-growth-interaction .phone-screen { width:100%; max-width:430px; min-width:0; }
+    #island-growth-interaction .side-rail { display:grid; gap:18px; min-width:0; }
+    #island-growth-interaction .decision-panel { position:static; display:grid; gap:14px; }
+    #island-growth-interaction .decision-panel h3, #island-growth-interaction .decision-panel p { margin:0; }
+    #island-growth-interaction .decision-option { padding-top:12px; border-top:1px solid var(--border); }
+    #island-growth-interaction .decision-option strong, #island-growth-interaction .decision-option span { display:block; }
+    #island-growth-interaction .decision-option span { margin-top:5px; color:var(--muted-foreground); }
+    #island-growth-interaction .decision-preview { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+    #island-growth-interaction .decision-preview span { display:inline-flex; align-items:center; width:auto; margin:0; padding:4px 7px; border-radius:999px; color:var(--foreground); white-space:nowrap; }
+    #island-growth-interaction .decision-preview-slang span { background:var(--muted); }
+    #island-growth-interaction .decision-question { padding-top:12px; border-top:1px solid var(--border); }
+    #island-growth-interaction .decision-question summary { cursor:pointer; font-weight:500; }
+    #island-growth-interaction .decision-question[open] summary { margin-bottom:10px; }
+    #island-growth-interaction .wear-flow { display:grid; gap:7px; }
+    #island-growth-interaction .flow-node { padding:7px 9px; border:1px dashed var(--border); border-radius:var(--radius); color:var(--muted-foreground); }
+    #island-growth-interaction .flow-node.is-active { border-style:solid; border-color:var(--primary); background:var(--accent); color:var(--accent-foreground); }
+    #island-growth-interaction .flow-arrow { text-align:center; color:var(--muted-foreground); }
+    #island-growth-interaction .benefit-ladder { display:grid; gap:8px; }
+    #island-growth-interaction .benefit-level { display:grid; grid-template-columns:auto minmax(0,1fr); gap:8px; align-items:start; }
+    #island-growth-interaction .benefit-level span { color:var(--muted-foreground); }
+    #island-growth-interaction .research-plan { margin:8px 0 0; padding-left:20px; color:var(--muted-foreground); }
+    #island-growth-interaction .research-plan li + li { margin-top:6px; }
+    #island-growth-interaction .flow-overview { display:grid; gap:14px; }
+    #island-growth-interaction .flow-overview h3, #island-growth-interaction .flow-overview p { margin:0; }
+    #island-growth-interaction .overview-flow { display:grid; gap:6px; padding-top:10px; border-top:1px solid var(--border); }
+    #island-growth-interaction .overview-flow-track { display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
+    #island-growth-interaction .overview-node { padding:4px 7px; border-radius:999px; background:var(--muted); color:var(--foreground); }
+    #island-growth-interaction .overview-arrow { color:var(--muted-foreground); }
+    #island-growth-interaction .decision-current { color:var(--muted-foreground); }
+    #island-growth-interaction .decision-link { display:none; position:absolute; left:-220px; width:220px; border-top:2px dashed var(--primary); pointer-events:none; }
+    #island-growth-interaction .decision-link::before { content:""; position:absolute; left:-1px; top:-5px; border-top:4px solid transparent; border-bottom:4px solid transparent; border-right:8px solid var(--primary); }
+    #island-growth-interaction[data-active-page="home"] .decision-link-profile { display:block; top:218px; }
+    #island-growth-interaction[data-active-page="growth"] .decision-link-levels { display:block; top:305px; }
     #island-growth-interaction .topbar { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin-bottom:14px; }
     #island-growth-interaction .island-name { display:flex; align-items:center; gap:8px; }
     #island-growth-interaction .shell { display:block; }
@@ -764,7 +48,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .avatar-wrap { position:relative; width:58px; height:58px; margin:0; display:grid; place-items:center; }
     #island-growth-interaction .avatar { width:44px; height:44px; border-radius:50%; background:var(--muted); display:grid; place-items:center; color:var(--muted-foreground); }
     #island-growth-interaction .avatar-frame { position:absolute; inset:0; border:2px dashed var(--muted-foreground); border-radius:50%; }
-    #island-growth-interaction .avatar-frame::after { content:&quot;&quot;; }
+    #island-growth-interaction .avatar-frame::after { content:""; }
     #island-growth-interaction .main-tabs { width:100%; margin:0; display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
     #island-growth-interaction .main-tabs .btn { width:100%; min-width:0; justify-content:center; }
     #island-growth-interaction .hero-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:start; }
@@ -786,6 +70,8 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .stage { width:100%; min-width:0; justify-content:center; text-align:center; }
     #island-growth-interaction .stage span { display:block; min-width:0; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     #island-growth-interaction .stage small { display:block; overflow:hidden; text-overflow:ellipsis; color:inherit; opacity:.75; }
+    #island-growth-interaction .stage.is-complete { opacity:1; filter:none; }
+    #island-growth-interaction .stage.is-upcoming { opacity:.42; filter:saturate(.35); }
     #island-growth-interaction .section-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:18px; }
     #island-growth-interaction .section-title { display:flex; align-items:center; gap:8px; margin:0 0 10px; }
     #island-growth-interaction .list { display:grid; gap:0; }
@@ -810,12 +96,13 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .badge-group-head span { color:var(--muted-foreground); }
     #island-growth-interaction .badge-item { display:flex; width:100%; min-width:0; min-height:136px; padding:8px 4px; text-align:center; align-items:center; justify-content:flex-start; flex-direction:column; }
     #island-growth-interaction .badge-mark { display:grid; place-items:center; width:68px; height:68px; margin:2px auto 9px; border:2px dashed var(--muted-foreground); border-radius:50%; background:var(--muted); color:var(--muted-foreground); }
-    #island-growth-interaction .badge-mark::after { content:&quot;徽章图&quot;; }
-    #island-growth-interaction .badge-mark &gt; i, #island-growth-interaction .badge-mark &gt; svg { display:none; }
+    #island-growth-interaction .badge-mark::after { content:"徽章图"; }
+    #island-growth-interaction .badge-mark > i, #island-growth-interaction .badge-mark > svg { display:none; }
     #island-growth-interaction .badge-item strong { display:-webkit-box; width:100%; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; white-space:normal; }
     #island-growth-interaction .badge-status { display:block; width:100%; margin-top:4px; overflow:hidden; color:var(--muted-foreground); }
     #island-growth-interaction .badge-state-chip { display:inline-flex; margin:-3px 0 6px; padding:2px 6px; border-radius:999px; background:var(--muted); color:var(--muted-foreground); }
-    #island-growth-interaction .badge-item.is-earned .badge-mark { border-style:solid; border-color:var(--primary); background:var(--accent); color:var(--accent-foreground); box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 22%,transparent); animation:earned-float 2.8s ease-in-out infinite,earned-glow 2.8s ease-in-out infinite; }
+    #island-growth-interaction .badge-item.is-earned .badge-mark { position:relative; border-style:solid; border-color:var(--primary); background:var(--accent); color:var(--accent-foreground); box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 22%,transparent); animation:earned-glow 2.8s ease-in-out infinite; }
+    #island-growth-interaction .badge-item.is-earned .badge-mark::before { content:"✦"; position:absolute; top:-8px; right:0; color:var(--primary); opacity:.35; transform:scale(.7) rotate(-12deg); animation:earned-sparkle 2.8s ease-in-out infinite; }
     #island-growth-interaction .badge-item.is-earned .badge-state-chip { background:var(--primary); color:var(--primary-foreground); animation:earned-chip 2.8s ease-in-out infinite; }
     #island-growth-interaction .badge-item.is-progress .badge-mark { border-style:solid; border-color:var(--viz-series-1); background:color-mix(in srgb,var(--viz-series-1) 18%,var(--muted)); box-shadow:inset 0 -7px 0 color-mix(in srgb,var(--viz-series-1) 30%,transparent); }
     #island-growth-interaction .badge-item.is-progress .badge-state-chip { background:var(--accent); color:var(--accent-foreground); }
@@ -826,8 +113,13 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .badge-legend i { width:8px; height:8px; border-radius:50%; background:var(--muted-foreground); }
     #island-growth-interaction .badge-legend .earned i { background:var(--primary); }
     #island-growth-interaction .badge-legend .progress i { background:var(--viz-series-1); }
-    @keyframes earned-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-4px); } }
+    #island-growth-interaction .wear-action { display:flex; justify-content:space-between; align-items:center; gap:10px; padding:10px 0; border-block:1px solid var(--border); }
+    #island-growth-interaction .wear-action strong, #island-growth-interaction .wear-action span { display:block; }
+    #island-growth-interaction .wear-action span { color:var(--muted-foreground); }
+    #island-growth-interaction .badge-item.is-selected .badge-mark { outline:2px solid var(--foreground); outline-offset:3px; }
+    #island-growth-interaction .badge-item.is-worn .badge-state-chip::after { content:" · 佩戴中"; }
     @keyframes earned-glow { 0%,100% { box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 18%,transparent); } 50% { box-shadow:0 0 0 6px color-mix(in srgb,var(--primary) 34%,transparent); } }
+    @keyframes earned-sparkle { 0%,35%,100% { opacity:.22; transform:scale(.65) rotate(-12deg); } 50% { opacity:1; transform:scale(1.15) rotate(8deg); } 65% { opacity:.42; transform:scale(.8) rotate(20deg); } }
     @keyframes earned-chip { 0%,100% { opacity:.82; } 50% { opacity:1; } }
     @media (prefers-reduced-motion:reduce) { #island-growth-interaction .badge-item.is-earned .badge-mark, #island-growth-interaction .badge-item.is-earned .badge-state-chip { animation:none; } }
     #island-growth-interaction .notice { margin-top:14px; padding-top:12px; border-top:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; color:var(--muted-foreground); }
@@ -842,12 +134,35 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .home-row-copy span { color:var(--muted-foreground); }
     #island-growth-interaction .interest-tabs { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; }
     #island-growth-interaction .interest-tabs .btn { width:100%; min-width:0; justify-content:center; padding-inline:4px; }
-    #island-growth-interaction .archive-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:14px; }
+    #island-growth-interaction .archive-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:10px; margin-top:14px; }
     #island-growth-interaction .archive-item { min-width:0; }
-    #island-growth-interaction .archive-cover { aspect-ratio:1; display:grid; place-items:center; margin-bottom:8px; background:var(--muted); color:var(--muted-foreground); border-radius:var(--radius); }
+    #island-growth-interaction .archive-cover { width:100%; aspect-ratio:3/4; display:grid; place-items:center; margin-bottom:8px; background:var(--muted); color:var(--muted-foreground); border-radius:var(--radius); }
     #island-growth-interaction .archive-item strong, #island-growth-interaction .archive-item span { display:block; }
     #island-growth-interaction .archive-item span { color:var(--muted-foreground); }
     #island-growth-interaction .profile-hero { overflow:hidden; padding:0; }
+    #island-growth-interaction .island-hero { overflow:hidden; padding:0; }
+    #island-growth-interaction .island-cover { min-height:280px; padding:14px; display:flex; flex-direction:column; justify-content:space-between; background:linear-gradient(180deg,var(--muted),color-mix(in srgb,var(--background) 24%,var(--muted))); }
+    #island-growth-interaction .island-cover-top { display:flex; justify-content:space-between; align-items:center; gap:10px; }
+    #island-growth-interaction .island-cover-bottom { display:grid; grid-template-columns:auto minmax(0,1fr) auto; align-items:end; gap:12px; }
+    #island-growth-interaction .island-logo { width:64px; height:64px; border-radius:var(--radius); background:var(--primary); color:var(--primary-foreground); display:grid; place-items:center; }
+    #island-growth-interaction .island-summary h2, #island-growth-interaction .island-summary p { margin:0; }
+    #island-growth-interaction .island-summary p { margin-top:4px; color:var(--muted-foreground); }
+    #island-growth-interaction .island-body { padding:14px; }
+    #island-growth-interaction .island-shortcuts, #island-growth-interaction .island-products { display:flex; gap:8px; overflow-x:auto; scrollbar-width:none; }
+    #island-growth-interaction .island-shortcuts::-webkit-scrollbar, #island-growth-interaction .island-products::-webkit-scrollbar { display:none; }
+    #island-growth-interaction .island-shortcuts .btn { flex:0 0 auto; }
+    #island-growth-interaction .island-product { flex:0 0 94px; min-width:0; }
+    #island-growth-interaction .island-product-cover { aspect-ratio:3/4; display:grid; place-items:center; margin-bottom:6px; border-radius:var(--radius); background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .island-product strong, #island-growth-interaction .island-product span { display:block; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    #island-growth-interaction .island-feed-tabs { display:flex; gap:6px; overflow-x:auto; scrollbar-width:none; margin-bottom:12px; }
+    #island-growth-interaction .island-feed-tabs .btn { flex:0 0 auto; }
+    #island-growth-interaction .island-feed-head { display:flex; justify-content:space-between; align-items:center; gap:12px; margin-bottom:10px; }
+    #island-growth-interaction .island-feed { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; }
+    #island-growth-interaction .island-post { display:flex; flex-direction:column; align-items:stretch; width:100%; min-width:0; padding:0; text-align:left; white-space:normal; }
+    #island-growth-interaction .island-post-cover { width:100%; aspect-ratio:3/4; display:grid; place-items:center; margin-bottom:7px; border-radius:var(--radius); background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .island-post strong { display:-webkit-box; width:100%; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
+    #island-growth-interaction .island-post > .text-small { display:block; width:100%; margin-top:4px; color:var(--muted-foreground); }
+    #island-growth-interaction .island-action-result { margin:12px 0 0; padding-top:10px; border-top:1px solid var(--border); color:var(--muted-foreground); }
     #island-growth-interaction .profile-cover { min-height:170px; padding:14px; display:flex; justify-content:space-between; align-items:flex-start; background:var(--muted); color:var(--muted-foreground); }
     #island-growth-interaction .profile-cover-actions { display:flex; gap:6px; }
     #island-growth-interaction .profile-body { padding:14px; }
@@ -856,29 +171,29 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .profile-identity button.avatar-wrap { min-width:98px; padding:0; }
     #island-growth-interaction .profile-identity .avatar { width:82px; height:82px; background:var(--primary); color:var(--primary-foreground); }
     #island-growth-interaction .profile-identity .avatar-frame { inset:-2px; border:4px solid var(--viz-series-1); outline:2px solid var(--viz-series-3); box-shadow:0 0 0 4px var(--card),0 5px 16px color-mix(in srgb,var(--viz-series-1) 28%,transparent); }
-    #island-growth-interaction .profile-identity .avatar-frame::before { content:&quot;&quot;; position:absolute; inset:5px; border:1px solid var(--viz-series-3); border-radius:50%; }
-    #island-growth-interaction .profile-identity .avatar-frame::after { content:&quot;✦&quot;; position:absolute; right:-6px; top:9px; display:grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--primary); color:var(--primary-foreground); }
+    #island-growth-interaction .profile-identity .avatar-frame::before { content:""; position:absolute; inset:5px; border:1px solid var(--viz-series-3); border-radius:50%; }
+    #island-growth-interaction .profile-identity .avatar-frame::after { content:"✦"; position:absolute; right:-6px; top:9px; display:grid; place-items:center; width:22px; height:22px; border-radius:50%; background:var(--primary); color:var(--primary-foreground); }
     #island-growth-interaction .profile-frame-chip { position:absolute; left:50%; bottom:-7px; z-index:1; padding:2px 5px; border-radius:999px; background:var(--primary); color:var(--primary-foreground); transform:translateX(-50%); white-space:nowrap; }
     #island-growth-interaction .profile-identity-copy h2, #island-growth-interaction .profile-identity-copy p { margin:0; }
     #island-growth-interaction .profile-identity-copy p { margin-top:3px; color:var(--muted-foreground); }
     #island-growth-interaction .profile-admin { margin-top:8px; }
-    #island-growth-interaction .level-tag { border-left:4px solid var(--viz-series-3); }
-    #island-growth-interaction .label-mode-demo { display:flex; justify-content:space-between; align-items:center; gap:10px; margin-top:10px; }
-    #island-growth-interaction .label-mode-demo &gt; span { color:var(--muted-foreground); }
-    #island-growth-interaction .label-mode-demo .viz-controls { flex-wrap:nowrap; }
-    #island-growth-interaction .level-1 { border-top:3px solid var(--viz-series-1); }
-    #island-growth-interaction .level-2 { border-top:3px solid var(--viz-series-2); }
-    #island-growth-interaction .level-3 { border-top:3px solid var(--viz-series-3); }
-    #island-growth-interaction .level-4 { border-top:3px solid var(--viz-series-4); }
-    #island-growth-interaction .level-5 { border-top:3px solid var(--viz-series-5); }
-    #island-growth-interaction.scheme-free .level-tag, #island-growth-interaction.scheme-free .level-1, #island-growth-interaction.scheme-free .level-2, #island-growth-interaction.scheme-free .level-3, #island-growth-interaction.scheme-free .level-4, #island-growth-interaction.scheme-free .level-5 { border-color:transparent; }
+    #island-growth-interaction .level-tag { background:color-mix(in srgb,var(--viz-series-3) 68%,var(--card)); color:var(--foreground); }
+    #island-growth-interaction .level-1 { background:color-mix(in srgb,var(--viz-series-1) 68%,var(--card)); color:var(--foreground); }
+    #island-growth-interaction .level-2 { background:color-mix(in srgb,var(--viz-series-2) 68%,var(--card)); color:var(--foreground); }
+    #island-growth-interaction .level-3 { background:color-mix(in srgb,var(--viz-series-3) 68%,var(--card)); color:var(--foreground); }
+    #island-growth-interaction .level-4 { background:color-mix(in srgb,var(--viz-series-4) 68%,var(--card)); color:var(--foreground); }
+    #island-growth-interaction .level-5 { background:color-mix(in srgb,var(--viz-series-5) 68%,var(--card)); color:var(--foreground); }
+    #island-growth-interaction .stage.is-current { box-shadow:inset 0 0 0 2px var(--foreground); }
+    #island-growth-interaction .stage.btn-primary:not(.is-current) { box-shadow:inset 0 0 0 1px color-mix(in srgb,var(--foreground) 55%,transparent); }
+    #island-growth-interaction .stage.is-upcoming.btn-primary { opacity:.72; filter:saturate(.75); box-shadow:inset 0 0 0 2px var(--foreground); }
     #island-growth-interaction .profile-signature { margin:14px 0; }
-    #island-growth-interaction .interest-preview { display:grid; gap:10px; }
-    #island-growth-interaction .interest-preview-head { display:flex; justify-content:space-between; align-items:center; }
+    #island-growth-interaction .interest-preview { display:grid; width:100%; inline-size:100%; min-width:0; box-sizing:border-box; justify-self:stretch; align-items:stretch; justify-content:stretch; gap:10px; padding-inline:0; text-align:left; }
+    #island-growth-interaction .interest-preview-head { display:flex; width:100%; min-width:0; justify-content:space-between; align-items:center; }
     #island-growth-interaction .interest-preview-head strong { font-weight:500; }
-    #island-growth-interaction .interest-preview-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; }
-    #island-growth-interaction .interest-preview-item { min-width:0; text-align:center; }
-    #island-growth-interaction .interest-preview-thumb { aspect-ratio:1; display:grid; place-items:center; background:var(--muted); color:var(--muted-foreground); border-radius:var(--radius); }
+    #island-growth-interaction .interest-preview-grid { display:flex; width:100%; min-width:0; gap:7px; justify-content:flex-start; overflow-x:auto; overflow-y:hidden; overscroll-behavior-inline:contain; scroll-snap-type:x proximity; scrollbar-width:none; }
+    #island-growth-interaction .interest-preview-grid::-webkit-scrollbar { display:none; }
+    #island-growth-interaction .interest-preview-item { flex:0 0 clamp(56px,18%,72px); min-width:0; text-align:center; scroll-snap-align:start; }
+    #island-growth-interaction .interest-preview-thumb { width:100%; aspect-ratio:3/4; display:grid; place-items:center; background:var(--muted); color:var(--muted-foreground); border-radius:var(--radius); }
     #island-growth-interaction .interest-preview-item span { display:block; margin-top:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
     #island-growth-interaction .profile-stats { display:flex; align-items:center; gap:18px; margin-top:14px; }
     #island-growth-interaction .profile-stat strong, #island-growth-interaction .profile-stat span { display:block; }
@@ -890,6 +205,42 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .feed-cover { aspect-ratio:4/5; display:grid; place-items:center; background:var(--muted); color:var(--muted-foreground); border-radius:var(--radius); }
     #island-growth-interaction .feed-card strong, #island-growth-interaction .feed-card span { display:block; margin-top:6px; }
     #island-growth-interaction .feed-card span { color:var(--muted-foreground); }
+    #island-growth-interaction .feed-card.btn { display:block; inline-size:100%; padding:0; border:0; background:transparent; text-align:left; white-space:normal; }
+    #island-growth-interaction .post-author { display:flex; align-items:center; gap:10px; }
+    #island-growth-interaction .post-author-copy { min-width:0; flex:1; }
+    #island-growth-interaction .post-author-name { display:flex; align-items:center; gap:6px; flex-wrap:wrap; }
+    #island-growth-interaction .context-avatar { position:relative; flex:0 0 auto; display:grid; place-items:center; border-radius:50%; background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .context-avatar.large { width:42px; height:42px; }
+    #island-growth-interaction .context-avatar.medium { width:34px; height:34px; }
+    #island-growth-interaction .context-avatar.small { width:20px; height:20px; }
+    #island-growth-interaction .context-avatar .avatar-frame { inset:-3px; border-style:solid; border-color:var(--viz-series-1); }
+    #island-growth-interaction .inline-wear-chip { display:inline-flex; align-items:center; padding:2px 6px; border-radius:999px; background:var(--accent); color:var(--accent-foreground); }
+    #island-growth-interaction .post-placeholder { aspect-ratio:4/5; display:grid; place-items:center; margin:12px 0; border-radius:var(--radius); background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .comment-list { display:grid; gap:16px; margin-top:14px; }
+    #island-growth-interaction .comment { display:grid; grid-template-columns:auto minmax(0,1fr); gap:10px; }
+    #island-growth-interaction .comment p { margin:5px 0; }
+    #island-growth-interaction .reply { display:flex; align-items:flex-start; gap:7px; margin-top:10px; }
+    #island-growth-interaction .acquisition-hero { display:grid; justify-items:center; gap:10px; text-align:center; }
+    #island-growth-interaction .acquisition-mark { display:grid; place-items:center; width:92px; height:92px; border-radius:50%; border:2px solid var(--primary); background:var(--accent); color:var(--accent-foreground); box-shadow:0 0 0 6px color-mix(in srgb,var(--primary) 18%,transparent); }
+    #island-growth-interaction .acquisition-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; width:100%; }
+    #island-growth-interaction .acquisition-actions .btn { width:100%; justify-content:center; }
+    #island-growth-interaction .message-header { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; margin-bottom:18px; }
+    #island-growth-interaction .message-header strong { text-align:center; }
+    #island-growth-interaction .message-header .btn { justify-self:end; }
+    #island-growth-interaction .message-categories { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; text-align:center; }
+    #island-growth-interaction .message-category { display:grid; justify-items:center; gap:7px; }
+    #island-growth-interaction .message-category-icon { width:54px; height:54px; display:grid; place-items:center; border-radius:var(--radius); background:var(--muted); color:var(--foreground); }
+    #island-growth-interaction .message-list { display:grid; margin-top:20px; }
+    #island-growth-interaction .message-row { width:100%; display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; padding:12px 0; border-bottom:1px solid var(--border); text-align:left; }
+    #island-growth-interaction .message-avatar { width:46px; height:46px; display:grid; place-items:center; border-radius:50%; background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .message-copy { min-width:0; }
+    #island-growth-interaction .message-copy strong, #island-growth-interaction .message-copy span { display:block; }
+    #island-growth-interaction .message-copy span { margin-top:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--muted-foreground); }
+    #island-growth-interaction .message-time { align-self:start; color:var(--muted-foreground); white-space:nowrap; }
+    #island-growth-interaction .app-tabbar { position:sticky; bottom:0; z-index:10; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:3px; margin-top:8px; padding:8px 6px; background:var(--popover); border-top:1px solid var(--border); }
+    #island-growth-interaction .app-tabbar .btn { min-width:0; display:grid; justify-items:center; gap:3px; padding-inline:2px; color:var(--muted-foreground); }
+    #island-growth-interaction .app-tabbar .btn span { display:block; }
+    #island-growth-interaction .app-tabbar .btn.is-active { color:var(--foreground); background:var(--accent); }
     #island-growth-interaction .mini-badge { display:grid; place-items:center; width:52px; height:52px; border:2px dashed var(--muted-foreground); border-radius:50%; background:var(--muted); color:var(--muted-foreground); }
     #island-growth-interaction .hidden { display:none; }
     @media (min-width:1000px) {
@@ -908,6 +259,11 @@ html&gt;body{padding:0}&lt;/style&gt;
       #island-growth-interaction .badge-item { min-height:128px; }
       #island-growth-interaction .badge-mark { width:64px; height:64px; }
     }
+    @media (max-width:620px) {
+      #island-growth-interaction .prototype-layout { grid-template-columns:1fr; justify-items:center; }
+      #island-growth-interaction .decision-panel { position:static; width:100%; max-width:430px; }
+      #island-growth-interaction .decision-link { display:none !important; }
+    }
     @media (max-width:430px) {
       #island-growth-interaction .growth-person { grid-template-columns:auto minmax(0,1fr) auto; }
       #island-growth-interaction .growth-person .avatar-wrap { margin:0; }
@@ -917,506 +273,431 @@ html&gt;body{padding:0}&lt;/style&gt;
       #island-growth-interaction .stage { padding-inline:4px; }
       #island-growth-interaction .stage small { display:none; }
     }
-  &lt;/style&gt;
+  </style>
 
-  &lt;section id=&quot;page-home&quot; class=&quot;app-page&quot;&gt;
-    &lt;section class=&quot;card profile-hero&quot;&gt;
-      &lt;div class=&quot;profile-cover&quot;&gt;
-        &lt;span&gt;封面图&lt;/span&gt;
-        &lt;div class=&quot;profile-cover-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; aria-label=&quot;分享&quot;&gt;&lt;i data-lucide=&quot;share-2&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; aria-label=&quot;更多&quot;&gt;&lt;i data-lucide=&quot;ellipsis&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;profile-body&quot;&gt;
-        &lt;div class=&quot;profile-identity&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost avatar-wrap&quot; data-page-target=&quot;global&quot; aria-label=&quot;当前佩戴角色生日徽章头像框，查看徽章墙&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;avatar-frame&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;span class=&quot;profile-frame-chip text-small&quot;&gt;生日徽章&lt;/span&gt;&lt;/button&gt;
-          &lt;div class=&quot;profile-identity-copy&quot;&gt;&lt;h2&gt;活性氧&lt;/h2&gt;&lt;p&gt;上海 · 9 小时前来过&lt;/p&gt;&lt;button type=&quot;button&quot; class=&quot;btn profile-admin level-tag&quot; id=&quot;profile-growth-label&quot; data-page-target=&quot;growth&quot;&gt;Labubu 岛 · LV3 贡献用户&lt;/button&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;label-mode-demo&quot;&gt;&lt;span class=&quot;text-small&quot;&gt;用户体系标签预览&lt;/span&gt;&lt;div class=&quot;viz-controls&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-label-mode=&quot;unified&quot; aria-pressed=&quot;true&quot;&gt;颜色＋LV&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;btn&quot; data-label-mode=&quot;free&quot; aria-pressed=&quot;false&quot;&gt;圈内黑话&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
-        &lt;p class=&quot;profile-signature&quot;&gt;2026 放我一马，不是放马过来&lt;/p&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost interest-preview&quot; data-interest-type=&quot;拥有&quot;&gt;
-          &lt;span class=&quot;interest-preview-head&quot;&gt;&lt;strong&gt;兴趣档案&lt;/strong&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;
-          &lt;span class=&quot;interest-preview-grid&quot;&gt;
-            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;SKULL...&lt;/span&gt;&lt;/span&gt;
-            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;Molly&lt;/span&gt;&lt;/span&gt;
-            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;Hirono&lt;/span&gt;&lt;/span&gt;
-            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;THE M...&lt;/span&gt;&lt;/span&gt;
-            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;DIMOO&lt;/span&gt;&lt;/span&gt;
-          &lt;/span&gt;
-        &lt;/button&gt;
-        &lt;div class=&quot;profile-stats&quot;&gt;&lt;span class=&quot;profile-stat&quot;&gt;&lt;strong&gt;37&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;关注&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;profile-stat&quot;&gt;&lt;strong&gt;93&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;粉丝&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;profile-stat&quot;&gt;&lt;strong&gt;2452&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;获赞&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-      &lt;/div&gt;
-    &lt;/section&gt;
-    &lt;section class=&quot;card home-section&quot;&gt;
-      &lt;div class=&quot;profile-main-tabs&quot; role=&quot;group&quot; aria-label=&quot;个人主页内容分类&quot;&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-profile-tab=&quot;帖子&quot; aria-pressed=&quot;true&quot;&gt;帖子&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-profile-tab=&quot;在售&quot; aria-pressed=&quot;false&quot;&gt;在售&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-profile-tab=&quot;想要&quot; aria-pressed=&quot;false&quot;&gt;想要&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;拥有&quot;&gt;拥有&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;玩过&quot;&gt;玩过&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;去过&quot;&gt;去过&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;看过&quot;&gt;看过&lt;/button&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;profile-feed&quot; id=&quot;profile-feed&quot;&gt;&lt;/div&gt;
-    &lt;/section&gt;
-  &lt;/section&gt;
+  <div class="prototype-layout">
+  <div class="phone-screen">
+  <section id="page-island" class="app-page hidden">
+    <section class="card island-hero">
+      <div class="island-cover">
+        <div class="island-cover-top"><button type="button" class="btn btn-ghost" data-page-target="participate"><i data-lucide="chevron-left" aria-hidden="true"></i>返回</button><div class="profile-cover-actions"><button type="button" class="btn btn-ghost" aria-label="分享"><i data-lucide="share-2" aria-hidden="true"></i></button><button type="button" class="btn btn-ghost" aria-label="更多"><i data-lucide="ellipsis" aria-hidden="true"></i></button></div></div>
+        <div class="island-cover-bottom"><span class="island-logo">岛图</span><div class="island-summary"><h2>Labubu 岛</h2><p>16.7 万成员 · 贡献榜</p></div><button type="button" class="btn btn-primary">已加入</button></div>
+      </div>
+      <div class="island-body">
+        <div class="island-shortcuts" aria-label="岛内功能"><button type="button" class="btn" data-island-action="浏览图鉴">图鉴</button><button type="button" class="btn" data-island-action="查看角色">角色</button><button type="button" class="btn" data-island-action="使用工具">地图小抄</button><button type="button" class="btn" data-island-action="贡献资料">资料库</button></div>
+        <div class="island-products home-section" aria-label="岛内商品横滑"><div class="island-product"><div class="island-product-cover">款式</div><strong>最新款式</strong><span class="text-small">36 个想要</span></div><div class="island-product"><div class="island-product-cover">商品</div><strong>春日系列</strong><span class="text-small">128 个想要</span></div><div class="island-product"><div class="island-product-cover">商品</div><strong>Baby Molly</strong><span class="text-small">86 个想要</span></div><div class="island-product"><div class="island-product-cover">商品</div><strong>潮玩系列</strong><span class="text-small">63 个想要</span></div></div>
+        <p class="island-action-result text-small" id="island-action-result">浏览、发帖、互动、使用工具和资料共建均可形成有效行为。</p>
+      </div>
+    </section>
+    <section class="card home-section">
+      <div class="island-feed-tabs" role="group" aria-label="岛内内容分类"><button type="button" class="btn btn-primary">推荐</button><button type="button" class="btn">最新</button><button type="button" class="btn">晒娃</button><button type="button" class="btn">攻略</button><button type="button" class="btn">交易</button></div>
+      <div class="island-feed-head"><strong>推荐帖子</strong><button type="button" class="btn btn-primary" id="island-publish-post"><i data-lucide="plus" aria-hidden="true"></i>发帖</button></div>
+      <div class="island-feed"><button type="button" class="btn btn-ghost island-post" data-page-target="post"><span class="island-post-cover">帖子图片</span><strong>分享我的最新收藏</strong><span class="text-small">活性氧 · 53 赞 · 13 评论</span></button><button type="button" class="btn btn-ghost island-post" data-page-target="post"><span class="island-post-cover">帖子图片</span><strong>新品开箱与细节记录</strong><span class="text-small">岛民 0721 · 28 赞 · 7 评论</span></button><button type="button" class="btn btn-ghost island-post" data-page-target="post"><span class="island-post-cover">帖子图片</span><strong>角色生日活动现场返图</strong><span class="text-small">Molly 好友 · 86 赞 · 21 评论</span></button><button type="button" class="btn btn-ghost island-post" data-page-target="post"><span class="island-post-cover">帖子图片</span><strong>收藏柜整理与陈列攻略</strong><span class="text-small">收集家 · 34 赞 · 9 评论</span></button></div>
+    </section>
+  </section>
 
-  &lt;section id=&quot;page-global&quot; class=&quot;app-page hidden&quot;&gt;
-    &lt;div class=&quot;topbar&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;
-      &lt;span class=&quot;viz-badge&quot;&gt;全平台资产&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;card&quot;&gt;
-      &lt;div class=&quot;hero-row&quot;&gt;&lt;div&gt;&lt;h2&gt;徽章墙&lt;/h2&gt;&lt;p id=&quot;badge-wall-desc&quot;&gt;由有效行为解锁的成就&lt;/p&gt;&lt;/div&gt;&lt;strong id=&quot;badge-count&quot;&gt;22 枚&lt;/strong&gt;&lt;/div&gt;
-      &lt;div class=&quot;badge-toolbar&quot;&gt;
-        &lt;div class=&quot;viz-controls&quot; role=&quot;group&quot; aria-label=&quot;全平台徽章类型&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-global-filter=&quot;achievement&quot; aria-pressed=&quot;true&quot;&gt;成就徽章&lt;/button&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-global-filter=&quot;event&quot; aria-pressed=&quot;false&quot;&gt;活动限定&lt;/button&gt;
-        &lt;/div&gt;
-        &lt;div class=&quot;badge-legend text-small&quot; aria-label=&quot;徽章状态图例&quot;&gt;&lt;span class=&quot;earned&quot;&gt;&lt;i&gt;&lt;/i&gt;已获得&lt;/span&gt;&lt;span class=&quot;progress&quot;&gt;&lt;i&gt;&lt;/i&gt;进度中&lt;/span&gt;&lt;span&gt;&lt;i&gt;&lt;/i&gt;未获得&lt;/span&gt;&lt;/div&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;badge-grid&quot; id=&quot;global-badge-grid&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;
+  <section id="page-home" class="app-page">
+    <section class="card profile-hero">
+      <div class="profile-cover">
+        <span>封面图</span>
+        <div class="profile-cover-actions"><button type="button" class="btn btn-ghost" aria-label="分享"><i data-lucide="share-2" aria-hidden="true"></i></button><button type="button" class="btn btn-ghost" aria-label="更多"><i data-lucide="ellipsis" aria-hidden="true"></i></button></div>
+      </div>
+      <div class="profile-body">
+        <div class="profile-identity">
+          <button type="button" class="btn btn-ghost avatar-wrap" id="profile-wear-entry" data-page-target="global" aria-label="当前佩戴角色生日徽章头像框，查看徽章墙"><span class="avatar"><i data-lucide="user-round" aria-hidden="true"></i></span><span class="avatar-frame" data-wear-frame aria-hidden="true"></span><span class="profile-frame-chip text-small" id="worn-badge-chip">角色生日徽章</span></button>
+          <div class="profile-identity-copy"><h2>活性氧</h2><p>上海 · 9 小时前来过</p><button type="button" class="btn profile-admin level-tag level-3" id="profile-growth-label" data-page-target="growth">Labubu 岛 · LV3 贡献用户</button></div>
+        </div>
+        <p class="profile-signature">2026 放我一马，不是放马过来</p>
+        <button type="button" class="btn btn-ghost interest-preview" data-interest-type="拥有">
+          <span class="interest-preview-head"><strong>兴趣档案</strong><i data-lucide="chevron-right" aria-hidden="true"></i></span>
+          <span class="interest-preview-grid">
+            <span class="interest-preview-item"><span class="interest-preview-thumb">商品</span><span>SKULL...</span></span>
+            <span class="interest-preview-item"><span class="interest-preview-thumb">商品</span><span>Molly</span></span>
+            <span class="interest-preview-item"><span class="interest-preview-thumb">商品</span><span>Hirono</span></span>
+            <span class="interest-preview-item"><span class="interest-preview-thumb">商品</span><span>THE M...</span></span>
+            <span class="interest-preview-item"><span class="interest-preview-thumb">商品</span><span>DIMOO</span></span>
+          </span>
+        </button>
+        <div class="profile-stats"><span class="profile-stat"><strong>37</strong><span class="text-small">关注</span></span><span class="profile-stat"><strong>93</strong><span class="text-small">粉丝</span></span><span class="profile-stat"><strong>2452</strong><span class="text-small">获赞</span></span></div>
+      </div>
+    </section>
+    <section class="card home-section">
+      <div class="profile-main-tabs" role="group" aria-label="个人主页内容分类">
+        <button type="button" class="btn btn-primary" data-profile-tab="帖子" aria-pressed="true">帖子</button>
+        <button type="button" class="btn" data-profile-tab="在售" aria-pressed="false">在售</button>
+        <button type="button" class="btn" data-profile-tab="想要" aria-pressed="false">想要</button>
+        <button type="button" class="btn" data-interest-type="拥有">拥有</button>
+        <button type="button" class="btn" data-interest-type="玩过">玩过</button>
+        <button type="button" class="btn" data-interest-type="去过">去过</button>
+        <button type="button" class="btn" data-interest-type="看过">看过</button>
+      </div>
+      <div class="profile-feed" id="profile-feed"></div>
+    </section>
+  </section>
 
-  &lt;section id=&quot;page-interest&quot; class=&quot;app-page hidden&quot;&gt;
-    &lt;div class=&quot;topbar&quot;&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;
-      &lt;span class=&quot;viz-badge&quot;&gt;兴趣档案&lt;/span&gt;
-    &lt;/div&gt;
-    &lt;div class=&quot;card&quot;&gt;
-      &lt;div class=&quot;hero-row&quot;&gt;&lt;div&gt;&lt;h2 id=&quot;interest-title&quot;&gt;拥有&lt;/h2&gt;&lt;p id=&quot;interest-subtitle&quot;&gt;我拥有的 IP 商品&lt;/p&gt;&lt;/div&gt;&lt;strong id=&quot;interest-count&quot;&gt;86&lt;/strong&gt;&lt;/div&gt;
-      &lt;div class=&quot;interest-tabs&quot; role=&quot;group&quot; aria-label=&quot;兴趣档案分类&quot;&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-interest-type=&quot;拥有&quot; aria-pressed=&quot;true&quot;&gt;拥有&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;玩过&quot; aria-pressed=&quot;false&quot;&gt;玩过&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;去过&quot; aria-pressed=&quot;false&quot;&gt;去过&lt;/button&gt;
-        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;看过&quot; aria-pressed=&quot;false&quot;&gt;看过&lt;/button&gt;
-      &lt;/div&gt;
-      &lt;div class=&quot;archive-grid&quot; id=&quot;interest-grid&quot;&gt;&lt;/div&gt;
-    &lt;/div&gt;
-  &lt;/section&gt;
+  <section id="page-post" class="app-page hidden">
+    <div class="topbar"><button type="button" class="btn btn-ghost" data-page-target="home"><i data-lucide="chevron-left" aria-hidden="true"></i>个人主页</button><strong>Post 详情</strong><span class="viz-badge">露出示例</span></div>
+    <section class="card">
+      <div class="post-author">
+        <span class="context-avatar large"><i data-lucide="user-round" aria-hidden="true"></i><span class="avatar-frame" data-wear-frame aria-hidden="true"></span></span>
+        <div class="post-author-copy"><div class="post-author-name"><strong>活性氧</strong><span class="inline-wear-chip text-small" data-inline-wear></span><span class="viz-badge">贡献用户</span></div><span class="text-small">正文作者 · 42px 头像显示头像框</span></div>
+      </div>
+      <div class="post-placeholder">正文图片</div>
+      <h3>入坑晚了，慢慢补上</h3><p>正文内容示例。头像大于等于 24px，佩戴徽章以头像框形式露出。</p>
+    </section>
+    <section class="card home-section">
+      <h3>评论</h3>
+      <div class="comment-list">
+        <div class="comment"><span class="context-avatar medium"><i data-lucide="user-round" aria-hidden="true"></i><span class="avatar-frame" aria-hidden="true"></span></span><div><div class="post-author-name"><strong>Sereno</strong></div><p>拍得真好，谢谢分享。</p><span class="text-small">一级评论 · 34px 头像支持显示头像框</span><div class="reply"><span class="context-avatar small"><i data-lucide="user-round" aria-hidden="true"></i></span><div><div class="post-author-name"><strong>活性氧</strong><span class="inline-wear-chip text-small" data-inline-wear></span></div><p>好哒</p><span class="text-small">回复 · 20px 头像不显示头像框</span></div></div></div></div>
+        <div class="comment"><span class="context-avatar medium"><i data-lucide="user-round" aria-hidden="true"></i><span class="avatar-frame" aria-hidden="true"></span></span><div><div class="post-author-name"><strong>蕾蕾</strong></div><p>好看！</p><span class="text-small">一级评论 · 34px 头像支持显示头像框</span></div></div>
+      </div>
+    </section>
+  </section>
 
-  &lt;section id=&quot;page-growth&quot; class=&quot;app-page hidden&quot;&gt;
+  <section id="page-global" class="app-page hidden">
+    <div class="topbar">
+      <button type="button" class="btn btn-ghost" data-page-target="home"><i data-lucide="chevron-left" aria-hidden="true"></i>个人主页</button>
+      <span class="viz-badge">全平台资产</span>
+    </div>
+    <div class="card">
+      <div class="hero-row"><div><h2>徽章墙</h2><p id="badge-wall-desc">由有效行为解锁的成就</p></div><strong id="badge-count">22 枚</strong></div>
+      <div class="badge-toolbar">
+        <div class="viz-controls" role="group" aria-label="全平台徽章类型">
+          <button type="button" class="btn btn-primary" data-global-filter="achievement" aria-pressed="true">成就徽章</button>
+          <button type="button" class="btn" data-global-filter="event" aria-pressed="false">活动限定</button>
+        </div>
+        <div class="badge-legend text-small" aria-label="徽章状态图例"><span class="earned"><i></i>已获得</span><span class="progress"><i></i>进度中</span><span><i></i>未获得</span></div>
+      </div>
+      <div class="wear-action" aria-live="polite"><div><strong id="wear-selection">角色生日徽章</strong><span class="text-small" id="wear-current">当前佩戴：角色生日徽章</span></div><button type="button" class="btn" id="wear-action-btn">卸下</button></div>
+      <div class="badge-grid" id="global-badge-grid"></div>
+    </div>
+  </section>
 
-  &lt;div class=&quot;topbar&quot;&gt;
-    &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;
-    &lt;span class=&quot;viz-badge&quot;&gt;仅记录 Labubu 岛&lt;/span&gt;
-  &lt;/div&gt;
+  <section id="page-participate" class="app-page hidden">
+    <div class="topbar"><button type="button" class="btn btn-ghost" data-page-target="global"><i data-lucide="chevron-left" aria-hidden="true"></i>徽章墙</button><strong>如何获得</strong><span class="viz-badge">条件页</span></div>
+    <section class="card">
+      <div class="acquisition-hero"><span class="badge-mark"><i data-lucide="target" aria-hidden="true"></i></span><div><h2 id="participate-badge-name">徽章名称</h2><p id="participate-badge-status">当前进度</p></div></div>
+      <div class="list home-section"><div class="list-row"><i data-lucide="circle-check-big" aria-hidden="true"></i><div class="list-copy"><strong>获得条件</strong><span class="text-small" id="participate-condition">完成对应有效行为</span></div></div><div class="list-row"><i data-lucide="route" aria-hidden="true"></i><div class="list-copy"><strong>如何参加</strong><span class="text-small" id="participate-route">前往对应社区、工具、资料或活动场景完成条件</span></div></div><div class="list-row"><i data-lucide="shield-check" aria-hidden="true"></i><div class="list-copy"><strong>系统校验</strong><span class="text-small">行为有效且通过质量、审核或活动资格判断后发放</span></div></div></div>
+      <button type="button" class="btn btn-primary btn-block home-section" id="complete-badge-condition">前往对应场景</button>
+    </section>
+  </section>
 
-  &lt;div class=&quot;shell&quot;&gt;
-    &lt;header class=&quot;card growth-header&quot;&gt;
-      &lt;div class=&quot;growth-person&quot;&gt;
-        &lt;div class=&quot;avatar-wrap&quot; aria-label=&quot;用户小头像与当前佩戴漏出&quot;&gt;
-          &lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;
-          &lt;div class=&quot;avatar-frame&quot; id=&quot;avatar-frame&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
-        &lt;/div&gt;
-        &lt;div&gt;
-          &lt;h2&gt;Labubu 岛 · 管理员 0721&lt;/h2&gt;
-          &lt;p&gt;岛内成长档案&lt;/p&gt;
-        &lt;/div&gt;
-        &lt;span class=&quot;viz-badge&quot; id=&quot;profile-level&quot;&gt;贡献用户&lt;/span&gt;
-      &lt;/div&gt;
-    &lt;/header&gt;
+  <section id="page-earned" class="app-page hidden">
+    <div class="topbar"><span></span><strong>获得徽章</strong><span class="viz-badge">通知已同步</span></div>
+    <section class="card acquisition-hero"><span class="acquisition-mark"><i data-lucide="sparkles" aria-hidden="true"></i></span><div><span class="viz-badge">已获得 · 自动佩戴</span><h2 id="earned-badge-name">徽章名称</h2><p>已自动应用到个人主页、成长档案与符合尺寸规则的社区头像。</p></div><div class="acquisition-actions"><button type="button" class="btn" data-page-target="home">返回主页</button><button type="button" class="btn btn-primary" data-page-target="global">查看徽章墙</button></div><button type="button" class="btn btn-block" data-page-target="messages">在消息中查看获得记录</button></section>
+  </section>
 
-    &lt;main&gt;
-      &lt;section id=&quot;growth-panel&quot; class=&quot;card&quot; aria-live=&quot;polite&quot;&gt;
-        &lt;div class=&quot;hero-row growth-intro&quot;&gt;
-          &lt;div&gt;&lt;h2&gt;我的成长进度&lt;/h2&gt;&lt;p id=&quot;level-desc&quot;&gt;我正在通过资料和内容共建，为本岛留下可沉淀的价值。&lt;/p&gt;&lt;/div&gt;
-        &lt;/div&gt;
+  <section id="page-messages" class="app-page hidden">
+    <section class="card">
+      <div class="message-header"><span></span><strong>消息</strong><button type="button" class="btn btn-ghost" aria-label="消息设置"><i data-lucide="settings" aria-hidden="true"></i></button></div>
+      <div class="message-categories" aria-label="消息分类"><div class="message-category"><span class="message-category-icon"><i data-lucide="thumbs-up" aria-hidden="true"></i></span><strong>赞</strong></div><div class="message-category"><span class="message-category-icon"><i data-lucide="user-plus" aria-hidden="true"></i></span><strong>新增关注</strong></div><div class="message-category"><span class="message-category-icon"><i data-lucide="message-square" aria-hidden="true"></i></span><strong>互动</strong></div></div>
+      <div class="message-list">
+        <button type="button" class="btn btn-ghost message-row" id="badge-earned-message"><span class="message-avatar"><i data-lucide="sparkles" aria-hidden="true"></i></span><span class="message-copy"><strong>创作助手</strong><span id="badge-earned-message-copy">[系统] 获得徽章，已自动佩戴</span></span><span class="message-time text-small">刚刚</span></button>
+        <button type="button" class="btn btn-ghost message-row"><span class="message-avatar"><i data-lucide="ticket-percent" aria-hidden="true"></i></span><span class="message-copy"><strong>优惠活动</strong><span>猜你喜欢，4 件商品闪购上新</span></span><span class="message-time text-small">今天 18:12</span></button>
+        <button type="button" class="btn btn-ghost message-row" data-page-target="island"><span class="message-avatar"><i data-lucide="calendar-heart" aria-hidden="true"></i></span><span class="message-copy"><strong>社区活动</strong><span>[系统] Labubu 岛角色生日活动开启</span></span><span class="message-time text-small">今天 16:45</span></button>
+        <button type="button" class="btn btn-ghost message-row"><span class="message-avatar"><i data-lucide="store" aria-hidden="true"></i></span><span class="message-copy"><strong>卖家活动</strong><span>[系统] 拍品征集活动正在进行</span></span><span class="message-time text-small">周三 19:02</span></button>
+        <button type="button" class="btn btn-ghost message-row" data-page-target="growth"><span class="message-avatar"><i data-lucide="shield-check" aria-hidden="true"></i></span><span class="message-copy"><strong>社区管理员</strong><span>[系统] 你的岛内贡献进度已更新</span></span><span class="message-time text-small">周二 15:38</span></button>
+      </div>
+      <button type="button" class="btn btn-block home-section" data-page-target="home">返回个人主页</button>
+    </section>
+  </section>
 
-        &lt;div class=&quot;meters&quot;&gt;
-          &lt;div&gt;
-            &lt;div class=&quot;meter-head&quot;&gt;&lt;strong&gt;圈内影响力 · 贡献值&lt;/strong&gt;&lt;span id=&quot;contribution-text&quot;&gt;3200 / 5000&lt;/span&gt;&lt;/div&gt;
-            &lt;div class=&quot;meter-track&quot;&gt;&lt;span class=&quot;meter-fill contribution&quot; id=&quot;contribution-fill&quot;&gt;&lt;/span&gt;&lt;/div&gt;
-            &lt;div class=&quot;metric-note text-small&quot;&gt;由我在 Labubu 圈内的有效共建与认可长期累计，只增不减。&lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
+  <section id="page-interest" class="app-page hidden">
+    <div class="topbar">
+      <button type="button" class="btn btn-ghost" data-page-target="home"><i data-lucide="chevron-left" aria-hidden="true"></i>个人主页</button>
+      <span class="viz-badge">兴趣档案</span>
+    </div>
+    <div class="card">
+      <div class="hero-row"><div><h2 id="interest-title">拥有</h2><p id="interest-subtitle">我拥有的 IP 商品</p></div><strong id="interest-count">86</strong></div>
+      <div class="interest-tabs" role="group" aria-label="兴趣档案分类">
+        <button type="button" class="btn btn-primary" data-interest-type="拥有" aria-pressed="true">拥有</button>
+        <button type="button" class="btn" data-interest-type="玩过" aria-pressed="false">玩过</button>
+        <button type="button" class="btn" data-interest-type="去过" aria-pressed="false">去过</button>
+        <button type="button" class="btn" data-interest-type="看过" aria-pressed="false">看过</button>
+      </div>
+      <div class="archive-grid" id="interest-grid"></div>
+    </div>
+  </section>
 
-        &lt;div class=&quot;ladder&quot; aria-label=&quot;五级岛内用户体系&quot;&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn stage level-1&quot; data-level=&quot;0&quot;&gt;&lt;span data-level-label&gt;LV1 普通用户&lt;/span&gt;&lt;/button&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn stage level-2&quot; data-level=&quot;1&quot;&gt;&lt;span data-level-label&gt;LV2 活跃用户&lt;/span&gt;&lt;/button&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn stage btn-primary level-3&quot; data-level=&quot;2&quot; aria-pressed=&quot;true&quot;&gt;&lt;span data-level-label&gt;LV3 贡献用户&lt;/span&gt;&lt;/button&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn stage level-4&quot; data-level=&quot;3&quot;&gt;&lt;span data-level-label&gt;LV4 专业用户&lt;/span&gt;&lt;/button&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn stage level-5&quot; data-level=&quot;4&quot;&gt;&lt;span data-level-label&gt;LV5 名人用户&lt;/span&gt;&lt;/button&gt;
-        &lt;/div&gt;
+  <section id="page-growth" class="app-page hidden">
 
-        &lt;div class=&quot;section-grid&quot;&gt;
-          &lt;div&gt;
-            &lt;h3 class=&quot;section-title&quot;&gt;&lt;i data-lucide=&quot;arrow-up-circle&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;我的有效行为&lt;/h3&gt;
-            &lt;div class=&quot;list&quot; id=&quot;upgrade-list&quot;&gt;&lt;/div&gt;
-          &lt;/div&gt;
-          &lt;div&gt;
-            &lt;h3 class=&quot;section-title&quot;&gt;&lt;i data-lucide=&quot;unlock&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;升级后获得&lt;/h3&gt;
-            &lt;div class=&quot;list&quot; id=&quot;benefit-list&quot;&gt;&lt;/div&gt;
-          &lt;/div&gt;
-        &lt;/div&gt;
+  <div class="topbar">
+    <button type="button" class="btn btn-ghost" data-page-target="home"><i data-lucide="chevron-left" aria-hidden="true"></i>个人主页</button>
+    <strong>岛内成长档案</strong>
+    <span class="viz-badge">仅记录 Labubu 岛</span>
+  </div>
 
-        &lt;div class=&quot;notice&quot;&gt;&lt;i data-lucide=&quot;info&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;span id=&quot;rule-note&quot;&gt;贡献用户按贡献值自动升级；治理类权限仍需人工审核。&lt;/span&gt;&lt;/div&gt;
-      &lt;/section&gt;
+  <div class="shell">
+    <header class="card growth-header">
+      <div class="growth-person">
+        <div class="avatar-wrap" aria-label="用户小头像与当前佩戴漏出">
+          <div class="avatar"><i data-lucide="user-round" aria-hidden="true"></i></div>
+          <div class="avatar-frame" id="avatar-frame" data-wear-frame aria-hidden="true"></div>
+        </div>
+        <div>
+          <h2>Labubu 岛 · 管理员 0721</h2>
+        </div>
+        <span class="viz-badge" id="profile-level">贡献用户</span>
+      </div>
+    </header>
 
-    &lt;/main&gt;
-  &lt;/div&gt;
-  &lt;/section&gt;
+    <main>
+      <section id="growth-panel" class="card" aria-live="polite">
+        <div class="hero-row growth-intro">
+          <div><p id="level-desc">我正在通过资料和内容共建，为本岛留下可沉淀的价值。</p></div>
+        </div>
 
-  &lt;script&gt;
-    (() =&gt; {
-      const root = document.getElementById(&#x27;island-growth-interaction&#x27;);
+        <div class="meters">
+          <div>
+            <div class="meter-head"><strong>圈内影响力 · 贡献值</strong><span id="contribution-text">3200 / 5000</span></div>
+            <div class="meter-track"><span class="meter-fill contribution" id="contribution-fill"></span></div>
+            <div class="metric-note text-small" id="contribution-note">由我在 Labubu 圈内的有效共建与认可长期累计，只增不减。</div>
+          </div>
+        </div>
+
+        <div class="ladder" aria-label="五级岛内用户体系">
+          <button type="button" class="btn stage level-1" data-level="0"><span data-level-label>LV1 普通用户</span></button>
+          <button type="button" class="btn stage level-2" data-level="1"><span data-level-label>LV2 活跃用户</span></button>
+          <button type="button" class="btn stage btn-primary level-3" data-level="2" aria-pressed="true"><span data-level-label>LV3 贡献用户</span></button>
+          <button type="button" class="btn stage level-4" data-level="3"><span data-level-label>LV4 专业用户</span></button>
+          <button type="button" class="btn stage level-5" data-level="4"><span data-level-label>LV5 名人用户</span></button>
+        </div>
+
+        <div class="section-grid">
+          <div>
+            <h3 class="section-title"><i data-lucide="arrow-up-circle" aria-hidden="true"></i>我的有效行为</h3>
+            <div class="list" id="upgrade-list"></div>
+          </div>
+          <div>
+            <h3 class="section-title"><i data-lucide="unlock" aria-hidden="true"></i>升级后获得</h3>
+            <div class="list" id="benefit-list"></div>
+          </div>
+        </div>
+
+      </section>
+
+    </main>
+  </div>
+  </section>
+  <nav class="app-tabbar" aria-label="App 主导航">
+    <button type="button" class="btn btn-ghost" data-page-target="island" data-root-tab="island"><i data-lucide="landmark" aria-hidden="true"></i><span class="text-small">岛</span></button>
+    <button type="button" class="btn btn-ghost" disabled><i data-lucide="orbit" aria-hidden="true"></i><span class="text-small">上海</span></button>
+    <button type="button" class="btn btn-ghost" disabled><i data-lucide="shopping-bag" aria-hidden="true"></i><span class="text-small">奇货</span></button>
+    <button type="button" class="btn btn-ghost" data-page-target="messages" data-root-tab="messages"><i data-lucide="message-square" aria-hidden="true"></i><span class="text-small">消息</span></button>
+    <button type="button" class="btn btn-ghost" data-page-target="home" data-root-tab="home"><i data-lucide="circle-user-round" aria-hidden="true"></i><span class="text-small">我的</span></button>
+  </nav>
+  </div>
+
+  <div class="side-rail">
+  <aside class="card decision-panel" aria-label="产品方案待讨论">
+    <span class="decision-link decision-link-profile" aria-hidden="true"></span>
+    <span class="decision-link decision-link-levels" aria-hidden="true"></span>
+    <span class="viz-badge">待讨论</span>
+    <details class="decision-question" open>
+      <summary>1. 用户体系标签是否统一</summary>
+      <p class="text-small decision-current">这是产品方案说明，不属于 App 页面交互。</p>
+      <div class="decision-option"><strong class="text-small">方案一：统一识别体系</strong><span class="text-small">全站统一 LV1–LV5 与五级颜色；每个岛可以替换对应等级的圈内称号。</span><div class="decision-preview" aria-label="统一颜色与等级样式示例"><span class="level-1">LV1 新成员</span><span class="level-2">LV2 活跃用户</span><span class="level-3">LV3 贡献用户</span><span class="level-4">LV4 专业用户</span><span class="level-5">LV5 名人用户</span></div></div>
+      <div class="decision-option"><strong class="text-small">方案二：彻底使用圈内黑话</strong><span class="text-small">不统一颜色和 LV，由各岛独立定义称号；圈外用户不需要理解。</span><div class="decision-preview decision-preview-slang" aria-label="IVE 岛圈内黑话样式示例"><span>🥇 新成员</span><span>🥈 天生爱豆</span><span>🥉 语言天才</span><span>4️⃣ 颜霸舞担</span><span>5️⃣ 综艺之神</span></div></div>
+      <p class="text-small decision-current">当前手机原型暂按方案一展示。</p>
+    </details>
+    <details class="decision-question">
+      <summary>2. 徽章佩戴后在哪里露出</summary>
+      <div class="wear-flow" aria-label="徽章佩戴与露出流程"><div class="flow-node" data-flow-step="earned">获得徽章 → 自动佩戴</div><div class="flow-arrow">↓</div><div class="flow-node" data-flow-step="exposure">头像 ≥ 24px：个人主页、成长档案、正文作者、一级评论显示头像框</div><div class="flow-arrow">或</div><div class="flow-node">头像 &lt; 24px：不显示头像框，徽章显示在昵称右侧</div><div class="flow-arrow">↓ 点击头像框</div><div class="flow-node" data-flow-step="wall">进入全平台徽章墙</div><div class="flow-arrow">↓</div><div class="flow-node" data-flow-step="selected">选择已获得徽章</div><div class="flow-arrow">↓</div><div class="flow-node" data-flow-step="applied">更换佩戴 / 卸下 → 所有露出位置同步</div></div>
+    </details>
+    <details class="decision-question">
+      <summary>3. 升级后可获得什么</summary>
+      <div class="benefit-ladder" aria-label="五级用户体系权益"><div class="benefit-level"><strong>LV1</strong><span>记录反馈：查看贡献记录、升级进度与下一步。</span></div><div class="benefit-level"><strong>LV2</strong><span>被看见：活跃身份、同好连接、有效内容基础曝光。</span></div><div class="benefit-level"><strong>LV3</strong><span>提升共建效率：优质贡献展示、扩大资料编辑范围。</span></div><div class="benefit-level"><strong>LV4</strong><span>专业协作：完成认证后，可申请审核与策展类角色。</span></div><div class="benefit-level"><strong>LV5</strong><span>社区代表：官方合作、代表身份与治理提名。</span></div></div><p class="text-small decision-current">等级负责认可贡献并解锁申请资格；专业认证与治理权仍需人工判断。</p>
+    </details>
+    <details class="decision-question">
+      <summary>4. 有效行为如何构成与进阶</summary>
+      <p class="text-small decision-current">待验证假设：贡献值记录有效行为，但不让所有动作等价。</p>
+      <div class="benefit-ladder" aria-label="有效行为计分假设"><div class="benefit-level"><strong>低权重</strong><span>访问、点赞、标记、工具使用等个人参与。</span></div><div class="benefit-level"><strong>中权重</strong><span>发帖、评论、分享、挂单等主动产出。</span></div><div class="benefit-level"><strong>高权重</strong><span>词条审核通过、结构化内容被使用、回答被认可等可验证贡献。</span></div></div>
+      <p class="text-small decision-current">进阶假设：LV1 开始参与 → LV2 持续活跃 → LV3 产生可验证贡献 → LV4 专业认证 → LV5 代表性影响力与人工确认。</p>
+      <strong class="text-small">调研方案</strong>
+      <ol class="research-plan text-small"><li>数据回溯：抽取近 8–12 周不同类型岛，分析行为与次月留存、优质内容、资料采用及举报率的关系。</li><li>用户访谈：覆盖新用户、活跃者、核心贡献者与潜水用户 18–24 人；补充岛主/管理员 6–8 人。</li><li>行为卡片排序：让用户和管理员分别判断“价值、成本、可验证性、作弊风险”，形成行为字典。</li><li>影子计分：先运行 4 周但不展示等级，检查刷分、头部垄断、品类偏差和新用户劣势。</li><li>小范围灰度：选择 2–3 个不同品类岛运行 4 周，对比贡献率、优质内容率、次月留存和负反馈。</li></ol>
+      <p class="text-small decision-current">最终输出：行为口径、权重与上限、等级阈值、防刷规则、权益触发条件；上述分层和周期均不是最终规则。</p>
+    </details>
+  </aside>
+  <section class="card flow-overview" aria-label="所有交互流程总览">
+    <span class="viz-badge">交互总览</span>
+    <div><h3>从动作到结果的完整闭环</h3><p class="text-small">独立于手机页面，用于评审前置触发、获得反馈与终态露出。</p></div>
+    <div class="overview-flow"><strong class="text-small">1. 岛内成长</strong><div class="overview-flow-track"><span class="overview-node">进入岛</span><span class="overview-arrow">→</span><span class="overview-node">产生有效行为</span><span class="overview-arrow">→</span><span class="overview-node">系统校验</span><span class="overview-arrow">→</span><span class="overview-node">贡献值与进度更新</span><span class="overview-arrow">→</span><span class="overview-node">达到阈值</span><span class="overview-arrow">→</span><span class="overview-node">等级 / 权益</span></div></div>
+    <div class="overview-flow"><strong class="text-small">2. 徽章参加与获得</strong><div class="overview-flow-track"><span class="overview-node">徽章墙</span><span class="overview-arrow">→</span><span class="overview-node">条件页</span><span class="overview-arrow">→</span><span class="overview-node">岛内首页 / 对应场景</span><span class="overview-arrow">→</span><span class="overview-node">完成动作</span><span class="overview-arrow">→</span><span class="overview-node">系统校验</span><span class="overview-arrow">→</span><span class="overview-node">获得页</span><span class="overview-arrow">→</span><span class="overview-node">自动佩戴</span></div></div>
+    <div class="overview-flow"><strong class="text-small">3. 佩戴与露出</strong><div class="overview-flow-track"><span class="overview-node">≥24px 显示头像框</span><span class="overview-arrow">/</span><span class="overview-node">&lt;24px 昵称右显示徽章</span><span class="overview-arrow">→</span><span class="overview-node">点击进入徽章墙</span><span class="overview-arrow">→</span><span class="overview-node">更换 / 卸下</span><span class="overview-arrow">→</span><span class="overview-node">全场景同步</span></div></div>
+    <div class="overview-flow"><strong class="text-small">4. 个人主页分流</strong><div class="overview-flow-track"><span class="overview-node">用户体系标签 → 岛内成长</span><span class="overview-node">头像框 → 全平台徽章墙</span><span class="overview-node">拥有 / 玩过 / 去过 / 看过 → 兴趣档案</span><span class="overview-node">帖子 → Post 详情</span></div></div>
+    <div class="overview-flow"><strong class="text-small">5. 通知与回访</strong><div class="overview-flow-track"><span class="overview-node">达成条件</span><span class="overview-arrow">→</span><span class="overview-node">场内获得页</span><span class="overview-arrow">→</span><span class="overview-node">系统消息留存</span><span class="overview-arrow">→</span><span class="overview-node">回到徽章 / 成长详情</span></div></div>
+  </section>
+  </div>
+  </div>
+
+  <script>
+    (() => {
+      const root = document.getElementById('island-growth-interaction');
       const levels = [
-        {name:&#x27;普通用户&#x27;,desc:&#x27;我刚进入本岛，完成首次有效行为后即可进入下一阶段。&#x27;,c:&#x27;0 / 1000&#x27;,cp:0,up:[[&#x27;有效发帖&#x27;,&#x27;首次有效内容&#x27;,&#x27;0 / 1&#x27;,0],[&#x27;新增资料&#x27;,&#x27;首次审核通过&#x27;,&#x27;0 / 1&#x27;,0],[&#x27;获得真实互动&#x27;,&#x27;首次被他人回应&#x27;,&#x27;0 / 1&#x27;,0]],benefits:[[&#x27;基础功能&#x27;,&#x27;浏览、互动、发帖与提交资料&#x27;],[&#x27;兴趣推荐&#x27;,&#x27;推荐本岛帖子和款式&#x27;],[&#x27;徽章可见&#x27;,&#x27;查看徽章获得条件&#x27;]],note:&#x27;以上统计均来自我在 Labubu 岛内的实际行为。&#x27;},
-        {name:&#x27;活跃用户&#x27;,desc:&#x27;我近期持续参与本岛，系统根据有效行为维持当前状态。&#x27;,c:&#x27;120 / 1000&#x27;,cp:12,up:[[&#x27;有效发帖&#x27;,&#x27;近 30 天&#x27;,&#x27;6 / 8&#x27;,75],[&#x27;获得真实互动&#x27;,&#x27;近 30 天&#x27;,&#x27;24 / 30&#x27;,80],[&#x27;持续参与周数&#x27;,&#x27;近 30 天&#x27;,&#x27;3 / 4&#x27;,75]],benefits:[[&#x27;活跃身份&#x27;,&#x27;在本岛场景展示&#x27;],[&#x27;推荐增强&#x27;,&#x27;强化个性化推荐&#x27;],[&#x27;基础分发&#x27;,&#x27;优质内容获得额外分发&#x27;]],note:&#x27;活跃身份根据我的近期有效行为判断；贡献值仍然只增不减。&#x27;},
-        {name:&#x27;贡献用户&#x27;,desc:&#x27;我正在通过资料和内容共建，为本岛留下可沉淀的价值。&#x27;,c:&#x27;3200 / 5000&#x27;,cp:64,up:[[&#x27;资料新增&#x27;,&#x27;审核通过&#x27;,&#x27;18 / 20&#x27;,90],[&#x27;资料字段编辑&#x27;,&#x27;修改被保留&#x27;,&#x27;42 / 50&#x27;,84],[&#x27;优质发帖&#x27;,&#x27;质量与互动达标&#x27;,&#x27;7 / 10&#x27;,70]],benefits:[[&#x27;官方身份&#x27;,&#x27;展示贡献用户身份&#x27;],[&#x27;流量扶持&#x27;,&#x27;进入贡献用户流量池&#x27;],[&#x27;创作权益&#x27;,&#x27;扩大资料编辑范围&#x27;]],note:&#x27;贡献值只增不减；我的有效贡献会持续累计到下一阶段。&#x27;},
-        {name:&#x27;专业用户&#x27;,desc:&#x27;我已积累专业贡献，完成认证后可获得专业身份。&#x27;,c:&#x27;7600 / 10000&#x27;,cp:76,up:[[&#x27;专业内容&#x27;,&#x27;质量审核通过&#x27;,&#x27;12 / 20&#x27;,60],[&#x27;资料审核&#x27;,&#x27;有效审核记录&#x27;,&#x27;36 / 50&#x27;,72],[&#x27;专业认证&#x27;,&#x27;考试或人工认证&#x27;,&#x27;0 / 1&#x27;,0]],benefits:[[&#x27;专业认证&#x27;,&#x27;展示专业用户身份&#x27;],[&#x27;流量扶持&#x27;,&#x27;进入专业用户流量池&#x27;],[&#x27;共建申请&#x27;,&#x27;申请审核、置顶、加精权限&#x27;]],note:&#x27;贡献值达到门槛后，仍需完成专业认证。&#x27;},
-        {name:&#x27;名人用户&#x27;,desc:&#x27;我的岛内影响力、代表内容与粉丝关系将用于认证判断。&#x27;,c:&#x27;16800 / 50000&#x27;,cp:34,up:[[&#x27;代表内容&#x27;,&#x27;高传播内容&#x27;,&#x27;5 / 10&#x27;,50],[&#x27;有效粉丝&#x27;,&#x27;当前粉丝&#x27;,&#x27;1,286 / 5,000&#x27;,26],[&#x27;人工认证&#x27;,&#x27;平台或岛内确认&#x27;,&#x27;0 / 1&#x27;,0]],benefits:[[&#x27;名人认证&#x27;,&#x27;展示稀缺代表身份&#x27;],[&#x27;专属活动&#x27;,&#x27;重要活动优先参与&#x27;],[&#x27;治理申请&#x27;,&#x27;申请更高层级岛内共建&#x27;]],note:&#x27;贡献值、影响力和治理权限分别判断，最终身份需人工认证。&#x27;}
+        {name:'普通用户',desc:'LV1 阶段已完成，五类岛内有效行为均已开始积累。',c:'1000 / 1000',cp:100,up:[['社区活跃','访问 · 发帖 · 互动 · 分享','20 / 20',100],['工具使用','心测 · 地图小抄 · 拼豆图纸','5 / 5',100],['资料贡献','贡献词条并审核通过','5 / 5',100],['兴趣标记','拥有 · 玩过 · 去过 · 看过','10 / 10',100],['交易挂单','有效发布交易挂单','2 / 2',100]],benefits:[['成长记录','开启本岛贡献值与升级进度'],['新手推荐','根据首次行为推荐内容和工具'],['活动提醒','订阅本岛活动与限定信息']],note:''},
+        {name:'活跃用户',desc:'LV2 阶段已完成，我在社区、工具、资料、标记和交易中保持持续参与。',c:'1000 / 1000',cp:100,up:[['社区活跃','访问 · 发帖 · 互动 · 分享','50 / 50',100],['工具使用','心测 · 地图小抄 · 拼豆图纸','15 / 15',100],['资料贡献','贡献词条并审核通过','15 / 15',100],['兴趣标记','拥有 · 玩过 · 去过 · 看过','40 / 40',100],['交易挂单','有效发布交易挂单','8 / 8',100]],benefits:[['活跃身份','在本岛场景展示活跃用户标签'],['同好推荐','根据行为推荐兴趣相近的岛民'],['内容曝光','有效内容获得基础曝光加权']],note:''},
+        {name:'贡献用户',desc:'贡献值按岛累计我的利他与利己行为，用来表达我在这个 IP 圈内的投入和影响力。',c:'3200 / 5000',cp:64,up:[['社区活跃','访问 · 发帖 · 互动 · 分享 · 内容被使用','74 / 100',74],['工具使用','心测 · 地图小抄 · 拼豆图纸','18 / 30',60],['资料贡献','贡献词条并审核通过','42 / 50',84],['兴趣标记','拥有 · 玩过 · 去过 · 看过','86 / 100',86],['交易挂单','有效发布交易挂单','12 / 20',60]],benefits:[['贡献展示','突出展示被认可的优质贡献'],['资料共建','扩大可编辑的资料范围'],['内容分发','有效内容获得额外曝光']],note:'访问、内容、互动、工具、资料、标记与挂单等有效行为都会增加岛内贡献值。'},
+        {name:'专业用户',desc:'下一阶段继续累计五类有效行为，并通过专业能力认证。',c:'7600 / 10000',cp:76,up:[['社区活跃','高质量内容与真实互动','120 / 180',67],['工具使用','持续使用与产出工具内容','38 / 60',63],['资料贡献','高质量词条与资料审核','72 / 100',72],['兴趣标记','深度、偏好与进度标记','146 / 200',73],['交易挂单','稳定、有效的交易记录','28 / 50',56]],benefits:[['专业认证','完成认证后展示专业身份'],['审核申请','申请资料审核与纠错角色'],['策展申请','申请专题整理、置顶与加精协作']],note:'贡献值达到门槛后，仍需完成专业认证。'},
+        {name:'名人用户',desc:'',c:'16800 / 50000',cp:34,up:[['社区活跃','代表内容与广泛真实互动','180 / 500',36],['工具使用','工具共创与高频有效使用','60 / 200',30],['资料贡献','专业词条与长期资料治理','100 / 300',33],['兴趣标记','形成公开可识别的兴趣资产','200 / 500',40],['交易挂单','长期可信的交易贡献','50 / 150',33]],benefits:[['代表身份','展示稀缺的圈内代表身份'],['官方合作','参与官方活动与内容共创'],['治理提名','进入岛内治理角色候选范围']],note:''}
       ];
+      const stageLabels=['LV1 普通用户','LV2 活跃用户','LV3 贡献用户','LV4 专业用户','LV5 名人用户'];
+      const actualLevel=2;
       const badges = [
-        {name:&#x27;角色生日徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;年度限定&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,icon:&#x27;cake-slice&#x27;},
-        {name:&#x27;头部画师合作徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;画师限定&#x27;,source:&#x27;labubu&#x27;,status:&#x27;官方联动&#x27;,icon:&#x27;brush&#x27;},
-        {name:&#x27;年度报告限定&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;年度限定&#x27;,source:&#x27;platform&#x27;,status:&#x27;未获得&#x27;,icon:&#x27;calendar-heart&#x27;},
-        {name:&#x27;心测徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;功能推广&#x27;,source:&#x27;platform&#x27;,status:&#x27;已获得&#x27;,icon:&#x27;heart-pulse&#x27;},
-        {name:&#x27;扩列名片徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;功能推广&#x27;,source:&#x27;platform&#x27;,status:&#x27;未获得&#x27;,icon:&#x27;contact-round&#x27;},
-        {name:&#x27;QDF 联动徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;QDF &amp; 小程序&#x27;,source:&#x27;platform&#x27;,status:&#x27;已结束&#x27;,icon:&#x27;ticket-check&#x27;},
-        {name:&#x27;小程序联动徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;QDF &amp; 小程序&#x27;,source:&#x27;platform&#x27;,status:&#x27;未获得&#x27;,icon:&#x27;panels-top-left&#x27;},
-        {name:&#x27;特殊活动参与徽章&#x27;,type:&#x27;event&#x27;,eventCategory:&#x27;特殊活动参与&#x27;,source:&#x27;platform&#x27;,status:&#x27;参与记录可置换&#x27;,icon:&#x27;stamp&#x27;},
-        {name:&#x27;词条贡献徽章 · Lv.1&#x27;,type:&#x27;achievement&#x27;,category:&#x27;资料库&#x27;,source:&#x27;labubu&#x27;,status:&#x27;新晋管理员 · 升级贡献达人 86 / 100&#x27;,icon:&#x27;database&#x27;},
-        {name:&#x27;发帖量徽章 · Lv.1&#x27;,type:&#x27;achievement&#x27;,category:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;升级至 Lv.2：4 / 12&#x27;,icon:&#x27;messages-square&#x27;},
-        {name:&#x27;改娃师&#x27;,type:&#x27;achievement&#x27;,category:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;12 / 20&#x27;,icon:&#x27;pen-line&#x27;},
-        {name:&#x27;水龙头质检员&#x27;,type:&#x27;achievement&#x27;,category:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;12 / 30&#x27;,icon:&#x27;badge-check&#x27;},
-        {name:&#x27;滚筒洗衣机&#x27;,type:&#x27;achievement&#x27;,category:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;7 / 10&#x27;,icon:&#x27;puzzle&#x27;},
-        {name:&#x27;赛博活菩萨&#x27;,type:&#x27;achievement&#x27;,category:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,icon:&#x27;circle-help&#x27;},
-        {name:&#x27;气氛组 VIP&#x27;,type:&#x27;achievement&#x27;,category:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;未获得&#x27;,icon:&#x27;party-popper&#x27;},
-        {name:&#x27;存图数 · 阶梯&#x27;,type:&#x27;achievement&#x27;,category:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;等级待配置&#x27;,icon:&#x27;images&#x27;},
-        {name:&#x27;活动参与数 · 阶梯&#x27;,type:&#x27;achievement&#x27;,category:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;等级待配置&#x27;,icon:&#x27;calendar-check&#x27;},
-        {name:&#x27;小警察 · 阶梯&#x27;,type:&#x27;achievement&#x27;,category:&#x27;社区&#x27;,source:&#x27;labubu&#x27;,status:&#x27;纠察举报 · 待配置&#x27;,icon:&#x27;shield-alert&#x27;},
-        {name:&#x27;卖家接单数 · 阶梯&#x27;,type:&#x27;achievement&#x27;,category:&#x27;交易&#x27;,source:&#x27;platform&#x27;,status:&#x27;等级待配置&#x27;,icon:&#x27;store&#x27;},
-        {name:&#x27;买家购买数 · 阶梯&#x27;,type:&#x27;achievement&#x27;,category:&#x27;交易&#x27;,source:&#x27;platform&#x27;,status:&#x27;等级待配置&#x27;,icon:&#x27;shopping-bag&#x27;},
-        {name:&#x27;公审审核次数 · 阶梯&#x27;,type:&#x27;achievement&#x27;,category:&#x27;交易&#x27;,source:&#x27;platform&#x27;,status:&#x27;等级待配置&#x27;,icon:&#x27;clipboard-check&#x27;},
-        {name:&#x27;星星人入坑 20+&#x27;,type:&#x27;achievement&#x27;,category:&#x27;标记&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,icon:&#x27;bookmark-check&#x27;},
-        {name:&#x27;星星人真爱粉 100+&#x27;,type:&#x27;achievement&#x27;,category:&#x27;标记&#x27;,source:&#x27;labubu&#x27;,status:&#x27;86 / 100&#x27;,icon:&#x27;heart&#x27;},
-        {name:&#x27;星星人收集家 200+&#x27;,type:&#x27;achievement&#x27;,category:&#x27;标记&#x27;,source:&#x27;labubu&#x27;,status:&#x27;86 / 200&#x27;,icon:&#x27;gallery-vertical-end&#x27;},
-        {name:&#x27;明日香单推&#x27;,type:&#x27;achievement&#x27;,category:&#x27;标记&#x27;,source:&#x27;labubu&#x27;,status:&#x27;72%&#x27;,icon:&#x27;star&#x27;},
-        {name:&#x27;高分情感本品鉴师&#x27;,type:&#x27;achievement&#x27;,category:&#x27;标记&#x27;,source:&#x27;labubu&#x27;,status:&#x27;68%&#x27;,icon:&#x27;chart-no-axes-column-increasing&#x27;},
-        {name:&#x27;《琳琅》首车玩家&#x27;,type:&#x27;achievement&#x27;,category:&#x27;标记&#x27;,source:&#x27;labubu&#x27;,status:&#x27;已获得&#x27;,icon:&#x27;flag&#x27;},
-        {name:&#x27;开发者徽章&#x27;,type:&#x27;achievement&#x27;,category:&#x27;开放平台&#x27;,source:&#x27;platform&#x27;,status:&#x27;未获得&#x27;,icon:&#x27;code-xml&#x27;}
+        {name:'角色生日徽章',type:'event',eventCategory:'年度限定',source:'labubu',status:'已获得',icon:'cake-slice'},
+        {name:'头部画师合作徽章',type:'event',eventCategory:'画师限定',source:'labubu',status:'官方联动',icon:'brush'},
+        {name:'年度报告限定',type:'event',eventCategory:'年度限定',source:'platform',status:'未获得',icon:'calendar-heart'},
+        {name:'心测徽章',type:'event',eventCategory:'功能推广',source:'platform',status:'已获得',icon:'heart-pulse'},
+        {name:'扩列名片徽章',type:'event',eventCategory:'功能推广',source:'platform',status:'未获得',icon:'contact-round'},
+        {name:'QDF 联动徽章',type:'event',eventCategory:'QDF & 小程序',source:'platform',status:'已结束',icon:'ticket-check'},
+        {name:'小程序联动徽章',type:'event',eventCategory:'QDF & 小程序',source:'platform',status:'未获得',icon:'panels-top-left'},
+        {name:'特殊活动参与徽章',type:'event',eventCategory:'特殊活动参与',source:'platform',status:'参与记录可置换',icon:'stamp'},
+        {name:'词条贡献徽章 · Lv.1',type:'achievement',category:'资料库',source:'labubu',status:'新晋管理员 · 升级贡献达人 86 / 100',icon:'database'},
+        {name:'发帖量徽章 · Lv.1',type:'achievement',category:'社区',source:'labubu',status:'升级至 Lv.2：4 / 12',icon:'messages-square'},
+        {name:'改娃师',type:'achievement',category:'社区',source:'labubu',status:'12 / 20',icon:'pen-line'},
+        {name:'水龙头质检员',type:'achievement',category:'社区',source:'labubu',status:'12 / 30',icon:'badge-check'},
+        {name:'滚筒洗衣机',type:'achievement',category:'社区',source:'labubu',status:'7 / 10',icon:'puzzle'},
+        {name:'赛博活菩萨',type:'achievement',category:'社区',source:'labubu',status:'已获得',icon:'circle-help'},
+        {name:'气氛组 VIP',type:'achievement',category:'社区',source:'labubu',status:'未获得',icon:'party-popper'},
+        {name:'存图数 · 阶梯',type:'achievement',category:'社区',source:'labubu',status:'等级待配置',icon:'images'},
+        {name:'活动参与数 · 阶梯',type:'achievement',category:'社区',source:'labubu',status:'等级待配置',icon:'calendar-check'},
+        {name:'小警察 · 阶梯',type:'achievement',category:'社区',source:'labubu',status:'纠察举报 · 待配置',icon:'shield-alert'},
+        {name:'卖家接单数 · 阶梯',type:'achievement',category:'交易',source:'platform',status:'等级待配置',icon:'store'},
+        {name:'买家购买数 · 阶梯',type:'achievement',category:'交易',source:'platform',status:'等级待配置',icon:'shopping-bag'},
+        {name:'公审审核次数 · 阶梯',type:'achievement',category:'交易',source:'platform',status:'等级待配置',icon:'clipboard-check'},
+        {name:'星星人入坑 20+',type:'achievement',category:'标记',source:'labubu',status:'已获得',icon:'bookmark-check'},
+        {name:'星星人真爱粉 100+',type:'achievement',category:'标记',source:'labubu',status:'86 / 100',icon:'heart'},
+        {name:'星星人收集家 200+',type:'achievement',category:'标记',source:'labubu',status:'86 / 200',icon:'gallery-vertical-end'},
+        {name:'明日香单推',type:'achievement',category:'标记',source:'labubu',status:'72%',icon:'star'},
+        {name:'高分情感本品鉴师',type:'achievement',category:'标记',source:'labubu',status:'68%',icon:'chart-no-axes-column-increasing'},
+        {name:'《琳琅》首车玩家',type:'achievement',category:'标记',source:'labubu',status:'已获得',icon:'flag'},
+        {name:'开发者徽章',type:'achievement',category:'开放平台',source:'platform',status:'未获得',icon:'code-xml'}
       ];
-      const categoryNotes={年度限定:&#x27;角色生日 · 年度报告&#x27;,画师限定:&#x27;官方画师合作&#x27;,功能推广:&#x27;心测 · 扩列名片等&#x27;, &#x27;QDF &amp; 小程序&#x27;:&#x27;参与联动活动&#x27;,特殊活动参与:&#x27;有效参与记录可置换&#x27;,资料库:&#x27;新晋管理员 → 贡献达人 → 人形图鉴&#x27;,社区:&#x27;存图 · 发帖 · 活动 · 回答 · 互动 · 纠察&#x27;,交易:&#x27;接单 · 购买 · 公审审核&#x27;,标记:&#x27;深度 · 偏好 · 进度 · 节点&#x27;,开放平台:&#x27;完成千岛第一小程序时创建&#x27;};
+      const categoryNotes={年度限定:'角色生日 · 年度报告',画师限定:'官方画师合作',功能推广:'心测 · 扩列名片等', 'QDF & 小程序':'参与联动活动',特殊活动参与:'有效参与记录可置换',资料库:'新晋管理员 → 贡献达人 → 人形图鉴',社区:'存图 · 发帖 · 活动 · 回答 · 互动 · 纠察',交易:'接单 · 购买 · 公审审核',标记:'深度 · 偏好 · 进度 · 节点',开放平台:'完成千岛第一小程序时创建'};
       const interestData={
-        拥有:{subtitle:&#x27;我拥有的 IP 商品&#x27;,count:&#x27;86&#x27;,unit:&#x27;商品&#x27;,items:[[&#x27;Labubu 春日系列&#x27;,&#x27;Labubu&#x27;],[&#x27;Zimomo 森林系列&#x27;,&#x27;The Monsters&#x27;],[&#x27;Molly 周年款&#x27;,&#x27;Molly&#x27;],[&#x27;Dimoo 星云系列&#x27;,&#x27;Dimoo&#x27;]]},
-        玩过:{subtitle:&#x27;我玩过的剧本杀&#x27;,count:&#x27;24&#x27;,unit:&#x27;剧本&#x27;,items:[[&#x27;《琳琅》&#x27;,&#x27;情感本&#x27;],[&#x27;《年轮》&#x27;,&#x27;情感本&#x27;],[&#x27;《漓川怪谈簿》&#x27;,&#x27;推理本&#x27;],[&#x27;《孤城》&#x27;,&#x27;机制本&#x27;]]},
-        去过:{subtitle:&#x27;我去过的线下活动&#x27;,count:&#x27;12&#x27;,unit:&#x27;活动&#x27;,items:[[&#x27;Labubu 生日会&#x27;,&#x27;上海&#x27;],[&#x27;千岛收藏展&#x27;,&#x27;杭州&#x27;],[&#x27;画师联动签售&#x27;,&#x27;上海&#x27;],[&#x27;QDF 主题活动&#x27;,&#x27;北京&#x27;]]},
-        看过:{subtitle:&#x27;我看过的电影&#x27;,count:&#x27;58&#x27;,unit:&#x27;电影&#x27;,items:[[&#x27;花样年华&#x27;,&#x27;剧情&#x27;],[&#x27;千与千寻&#x27;,&#x27;动画&#x27;],[&#x27;沙丘 2&#x27;,&#x27;科幻&#x27;],[&#x27;坠落的审判&#x27;,&#x27;剧情&#x27;]]}
+        拥有:{subtitle:'我拥有的 IP 商品',count:'86',unit:'商品',items:[['Labubu 春日系列','Labubu'],['Zimomo 森林系列','The Monsters'],['Molly 周年款','Molly'],['Dimoo 星云系列','Dimoo']]},
+        玩过:{subtitle:'我玩过的剧本杀',count:'24',unit:'剧本',items:[['《琳琅》','情感本'],['《年轮》','情感本'],['《漓川怪谈簿》','推理本'],['《孤城》','机制本']]},
+        去过:{subtitle:'我去过的线下活动',count:'12',unit:'活动',items:[['Labubu 生日会','上海'],['千岛收藏展','杭州'],['画师联动签售','上海'],['QDF 主题活动','北京']]},
+        看过:{subtitle:'我看过的电影',count:'58',unit:'电影',items:[['花样年华','剧情'],['千与千寻','动画'],['沙丘 2','科幻'],['坠落的审判','剧情']]}
       };
       const profileFeedData={
-        帖子:[[&#x27;哈哈哈哈&#x27;,&#x27;0 人投票&#x27;],[&#x27;卡哇伊的小野也是被捏出来了&#x27;,&#x27;4 赞&#x27;],[&#x27;今日份收藏整理&#x27;,&#x27;12 赞&#x27;],[&#x27;新年第一条记录&#x27;,&#x27;8 评论&#x27;]],
-        在售:[[&#x27;Labubu 春日款&#x27;,&#x27;¥ 399&#x27;],[&#x27;Molly 周年款&#x27;,&#x27;¥ 269&#x27;],[&#x27;Dimoo 星云款&#x27;,&#x27;¥ 199&#x27;],[&#x27;Hirono 挂件&#x27;,&#x27;¥ 159&#x27;]],
-        想要:[[&#x27;Zimomo 限定款&#x27;,&#x27;18 人想要&#x27;],[&#x27;SKULLPANDA 联名&#x27;,&#x27;42 人想要&#x27;],[&#x27;画师合作徽章&#x27;,&#x27;活动限定&#x27;],[&#x27;年度报告限定&#x27;,&#x27;待解锁&#x27;]]
+        帖子:[['哈哈哈哈','0 人投票'],['卡哇伊的小野也是被捏出来了','4 赞'],['今日份收藏整理','12 赞'],['新年第一条记录','8 评论']],
+        在售:[['Labubu 春日款','¥ 399'],['Molly 周年款','¥ 269'],['Dimoo 星云款','¥ 199'],['Hirono 挂件','¥ 159']],
+        想要:[['Zimomo 限定款','18 人想要'],['SKULLPANDA 联名','42 人想要'],['画师合作徽章','活动限定'],['年度报告限定','待解锁']]
       };
-      const unifiedLabels=[&#x27;LV1 普通用户&#x27;,&#x27;LV2 活跃用户&#x27;,&#x27;LV3 贡献用户&#x27;,&#x27;LV4 专业用户&#x27;,&#x27;LV5 名人用户&#x27;];
-      const freeLabels=[&#x27;新岛民&#x27;,&#x27;常驻玩家&#x27;,&#x27;核心共建者&#x27;,&#x27;圈内鉴定家&#x27;,&#x27;圈内名人&#x27;];
-      let globalFilter=&#x27;achievement&#x27;;
+      let globalFilter='achievement';
+      let wornBadge='角色生日徽章';
+      let selectedBadge=wornBadge;
+      let pathBadgeName=null;
       function badgeState(b){
-        if(b.status.includes(&#x27;已获得&#x27;))return {key:&#x27;earned&#x27;,label:&#x27;已获得&#x27;};
-        if(/\d[\d,]*\s*\/\s*\d|\d+%|升级|参与记录可置换/.test(b.status))return {key:&#x27;progress&#x27;,label:&#x27;进度中&#x27;};
-        return {key:&#x27;locked&#x27;,label:&#x27;未获得&#x27;};
+        if(b.status.includes('已获得'))return {key:'earned',label:'已获得'};
+        if(/\d[\d,]*\s*\/\s*\d|\d+%|升级|参与记录可置换/.test(b.status))return {key:'progress',label:'进度中'};
+        return {key:'locked',label:'未获得'};
       }
-      function badgeMarkup(b){const state=badgeState(b);return `&lt;div class=&quot;badge-item is-${state.key}&quot; aria-label=&quot;${b.name}，${state.label}，${b.status}&quot;&gt;&lt;span class=&quot;badge-mark ${b.type}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;badge-state-chip text-small&quot;&gt;${state.label}&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;badge-status text-small&quot;&gt;${b.status}&lt;/span&gt;&lt;/div&gt;`;}
+      function badgeMarkup(b){const state=badgeState(b),selected=b.name===selectedBadge,worn=b.name===wornBadge,action=state.key==='earned'?`data-wear-badge="${b.name}"`:`data-badge-path="${b.name}"`;return `<button type="button" class="btn badge-item is-${state.key}${selected?' is-selected':''}${worn?' is-worn':''}" ${action} aria-label="${b.name}，${state.label}，${b.status}${worn?'，当前佩戴':''}"><span class="badge-mark ${b.type}"><i data-lucide="${b.icon}" aria-hidden="true"></i></span><span class="badge-state-chip text-small">${state.label}</span><strong>${b.name}</strong><span class="badge-status text-small">${b.status}</span></button>`;}
       function groupedBadgeMarkup(items,activeFilter){
-        const eventGroups=[&#x27;年度限定&#x27;,&#x27;画师限定&#x27;,&#x27;功能推广&#x27;,&#x27;QDF &amp; 小程序&#x27;,&#x27;特殊活动参与&#x27;];
-        const achievementGroups=[&#x27;资料库&#x27;,&#x27;社区&#x27;,&#x27;交易&#x27;,&#x27;标记&#x27;,&#x27;开放平台&#x27;];
-        const order=activeFilter===&#x27;event&#x27;?eventGroups:activeFilter===&#x27;achievement&#x27;?achievementGroups:[...new Set([...eventGroups,...achievementGroups])];
-        return order.map(category=&gt;{
-          const group=items.filter(b=&gt;b.eventCategory===category||b.category===category);
-          if(!group.length)return &#x27;&#x27;;
-          return `&lt;section class=&quot;badge-group&quot;&gt;&lt;div class=&quot;badge-group-head&quot;&gt;&lt;strong&gt;${category}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${categoryNotes[category]}&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;badge-grid&quot;&gt;${group.map(b=&gt;badgeMarkup(b)).join(&#x27;&#x27;)}&lt;/div&gt;&lt;/section&gt;`;
-        }).join(&#x27;&#x27;);
+        const eventGroups=['年度限定','画师限定','功能推广','QDF & 小程序','特殊活动参与'];
+        const achievementGroups=['资料库','社区','交易','标记','开放平台'];
+        const order=activeFilter==='event'?eventGroups:activeFilter==='achievement'?achievementGroups:[...new Set([...eventGroups,...achievementGroups])];
+        return order.map(category=>{
+          const group=items.filter(b=>b.eventCategory===category||b.category===category);
+          if(!group.length)return '';
+          return `<section class="badge-group"><div class="badge-group-head"><strong>${category}</strong><span class="text-small">${categoryNotes[category]}</span></div><div class="badge-grid">${group.map(b=>badgeMarkup(b)).join('')}</div></section>`;
+        }).join('');
       }
-      function showPage(page){root.querySelectorAll(&#x27;.app-page&#x27;).forEach(section=&gt;section.classList.toggle(&#x27;hidden&#x27;,section.id!==`page-${page}`));}
-      function row(items,icon){return items.map(x=&gt;`&lt;div class=&quot;list-row&quot;&gt;&lt;i data-lucide=&quot;${icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;div class=&quot;list-copy&quot;&gt;&lt;strong&gt;${x[0]}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${x[1]}&lt;/span&gt;&lt;/div&gt;${x[2]?`&lt;div class=&quot;list-value&quot;&gt;&lt;strong&gt;${x[2]}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;完成度&lt;/span&gt;&lt;/div&gt;&lt;div class=&quot;behavior-progress&quot; aria-label=&quot;${x[0]}完成度 ${x[3]}%&quot;&gt;&lt;span style=&quot;width:${x[3]}%&quot;&gt;&lt;/span&gt;&lt;/div&gt;`:&#x27;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&#x27;}&lt;/div&gt;`).join(&#x27;&#x27;);}
+      function setFlowState(state){root.querySelectorAll('[data-flow-step]').forEach(node=>node.classList.toggle('is-active',node.dataset.flowStep===state));}
+      function showPage(page){root.dataset.activePage=page;root.querySelectorAll('.app-page').forEach(section=>section.classList.toggle('hidden',section.id!==`page-${page}`));root.querySelectorAll('[data-root-tab]').forEach(tab=>{const active=tab.dataset.rootTab===page;tab.classList.toggle('is-active',active);tab.setAttribute('aria-current',active?'page':'false');});setFlowState(page==='global'?'wall':page==='home'||page==='growth'||page==='post'?'exposure':'earned');}
+      function badgePathCopy(b){
+        const eventRoute='前往对应活动或功能入口完成参与；符合活动资格后由系统发放。';
+        const routes={资料库:'前往资料库新增或编辑词条，审核通过后计入。',社区:'前往对应岛完成发帖、回答、互动或活动任务。',交易:'前往交易场景完成有效接单、购买或公审审核。',标记:'前往兴趣档案完成对应标记或收藏进度。',开放平台:'创建并完成千岛第一款小程序。'};
+        return {condition:badgeState(b).key==='progress'?`当前 ${b.status}，继续完成剩余目标。`:`完成「${b.name}」对应的有效参与条件。`,route:b.type==='event'?eventRoute:(routes[b.category]||'前往对应场景完成有效行为。')};
+      }
+      function openBadgePath(name){
+        const b=badges.find(item=>item.name===name); if(!b)return;
+        pathBadgeName=name; const copy=badgePathCopy(b);
+        root.querySelector('#participate-badge-name').textContent=b.name;
+        root.querySelector('#participate-badge-status').textContent=`${badgeState(b).label} · ${b.status}`;
+        root.querySelector('#participate-condition').textContent=copy.condition;
+        root.querySelector('#participate-route').textContent=copy.route;
+        showPage('participate');
+      }
+      function row(items,icon){return items.map(x=>`<div class="list-row"><i data-lucide="${icon}" aria-hidden="true"></i><div class="list-copy"><strong>${x[0]}</strong><span class="text-small">${x[1]}</span></div>${x[2]?`<div class="list-value"><strong>${x[2]}</strong><span class="text-small">完成度</span></div><div class="behavior-progress" aria-label="${x[0]}完成度 ${x[3]}%"><span style="width:${x[3]}%"></span></div>`:'<i data-lucide="chevron-right" aria-hidden="true"></i>'}</div>`).join('');}
       function renderLevel(i){
         const d=levels[i];
-        root.querySelectorAll(&#x27;[data-level]&#x27;).forEach((b,n)=&gt;{const on=n===i;b.classList.toggle(&#x27;btn-primary&#x27;,on);b.setAttribute(&#x27;aria-pressed&#x27;,String(on));});
-        root.querySelector(&#x27;#profile-level&#x27;).textContent=d.name; root.querySelector(&#x27;#level-desc&#x27;).textContent=d.desc;
-        root.querySelector(&#x27;#contribution-text&#x27;).textContent=d.c; root.querySelector(&#x27;#contribution-fill&#x27;).style.width=d.cp+&#x27;%&#x27;;
-        root.querySelector(&#x27;#upgrade-list&#x27;).innerHTML=row(d.up,&#x27;circle-plus&#x27;); root.querySelector(&#x27;#benefit-list&#x27;).innerHTML=row(d.benefits,&#x27;sparkles&#x27;); root.querySelector(&#x27;#rule-note&#x27;).textContent=d.note;
+        root.querySelectorAll('[data-level]').forEach((b,n)=>{
+          const current=n===actualLevel,complete=n<actualLevel,upcoming=n>actualLevel,viewing=n===i;
+          b.classList.toggle('btn-primary',viewing);
+          b.classList.toggle('is-current',current);
+          b.classList.toggle('is-complete',complete);
+          b.classList.toggle('is-upcoming',upcoming);
+          b.querySelector('[data-level-label]').textContent=(complete?'✓ ':'')+stageLabels[n];
+          b.setAttribute('aria-pressed',String(viewing));
+        });
+        root.querySelector('#profile-level').textContent=levels[actualLevel].name;
+        const levelDesc=root.querySelector('#level-desc'); levelDesc.textContent=d.desc; levelDesc.closest('.growth-intro').classList.toggle('hidden',!d.desc);
+        root.querySelector('#contribution-text').textContent=d.c; root.querySelector('#contribution-fill').style.width=d.cp+'%';
+        root.querySelector('#contribution-note').textContent=i===4?'贡献值、影响力和治理权限分别判断，最终身份需人工认证。':i===3?'贡献值达到门槛后，仍需完成专业认证。':'由我在 Labubu 圈内的有效共建与认可长期累计，只增不减。';
+        root.querySelector('#upgrade-list').innerHTML=row(d.up,'circle-plus'); root.querySelector('#benefit-list').innerHTML=row(d.benefits,'sparkles');
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
       }
       function renderGlobalBadges(){
-        const visible=badges.map((b,i)=&gt;({...b,i})).filter(b=&gt;globalFilter===&#x27;all&#x27;||b.type===globalFilter);
-        root.querySelector(&#x27;#global-badge-grid&#x27;).className=&#x27;badge-groups&#x27;;
-        root.querySelector(&#x27;#global-badge-grid&#x27;).innerHTML=groupedBadgeMarkup(visible,globalFilter);
-        root.querySelector(&#x27;#badge-count&#x27;).textContent=visible.length+&#x27; 枚&#x27;;
-        root.querySelector(&#x27;#badge-wall-desc&#x27;).textContent=globalFilter===&#x27;achievement&#x27;?&#x27;由有效行为解锁的成就&#x27;:&#x27;来自活动、联动与年度限定&#x27;;
+        const visible=badges.map((b,i)=>({...b,i})).filter(b=>globalFilter==='all'||b.type===globalFilter);
+        root.querySelector('#global-badge-grid').className='badge-groups';
+        root.querySelector('#global-badge-grid').innerHTML=groupedBadgeMarkup(visible,globalFilter);
+        root.querySelector('#badge-count').textContent=visible.length+' 枚';
+        root.querySelector('#badge-wall-desc').textContent=globalFilter==='achievement'?'由有效行为解锁的成就':'来自活动、联动与年度限定';
+        root.querySelectorAll('[data-wear-badge]').forEach(btn=>btn.addEventListener('click',()=>{selectedBadge=btn.dataset.wearBadge;renderGlobalBadges();updateWearUI();setFlowState('selected');}));
+        root.querySelectorAll('[data-badge-path]').forEach(btn=>btn.addEventListener('click',()=>openBadgePath(btn.dataset.badgePath)));
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
       }
-      function applyLabelMode(mode){
-        const free=mode===&#x27;free&#x27;;
-        root.classList.toggle(&#x27;scheme-free&#x27;,free);
-        root.querySelector(&#x27;#profile-growth-label&#x27;).textContent=free?&#x27;Labubu 岛 · 核心共建者&#x27;:&#x27;Labubu 岛 · LV3 贡献用户&#x27;;
-        root.querySelectorAll(&#x27;[data-level-label]&#x27;).forEach((label,index)=&gt;{label.textContent=(free?freeLabels:unifiedLabels)[index];});
-        root.querySelectorAll(&#x27;[data-label-mode]&#x27;).forEach(btn=&gt;{const on=btn.dataset.labelMode===mode;btn.classList.toggle(&#x27;btn-primary&#x27;,on);btn.setAttribute(&#x27;aria-pressed&#x27;,String(on));});
+      function updateWearUI(){
+        root.querySelectorAll('[data-wear-frame]').forEach(frame=>frame.classList.toggle('hidden',!wornBadge));
+        root.querySelectorAll('[data-inline-wear]').forEach(chip=>{chip.classList.toggle('hidden',!wornBadge);chip.textContent=wornBadge||'';});
+        const chip=root.querySelector('#worn-badge-chip'); chip.classList.toggle('hidden',!wornBadge); chip.textContent=wornBadge||'';
+        root.querySelector('#profile-wear-entry').setAttribute('aria-label',wornBadge?`当前佩戴${wornBadge}头像框，查看徽章墙`:'当前未佩戴徽章，查看徽章墙');
+        root.querySelector('#wear-selection').textContent=selectedBadge||'选择一枚已获得徽章';
+        root.querySelector('#wear-current').textContent=wornBadge?`当前佩戴：${wornBadge}`:'当前未佩戴徽章';
+        const action=root.querySelector('#wear-action-btn'); action.disabled=!selectedBadge; action.textContent=selectedBadge===wornBadge?'卸下':'更换佩戴';
       }
       function renderInterest(type){
         const data=interestData[type];
-        root.querySelector(&#x27;#interest-title&#x27;).textContent=type;
-        root.querySelector(&#x27;#interest-subtitle&#x27;).textContent=data.subtitle;
-        root.querySelector(&#x27;#interest-count&#x27;).textContent=data.count;
-        root.querySelector(&#x27;#interest-grid&#x27;).innerHTML=data.items.map(item=&gt;`&lt;div class=&quot;archive-item&quot;&gt;&lt;div class=&quot;archive-cover&quot;&gt;${data.unit}图&lt;/div&gt;&lt;strong&gt;${item[0]}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${item[1]}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
-        root.querySelectorAll(&#x27;#page-interest [data-interest-type]&#x27;).forEach(btn=&gt;{const on=btn.dataset.interestType===type;btn.classList.toggle(&#x27;btn-primary&#x27;,on);btn.setAttribute(&#x27;aria-pressed&#x27;,String(on));});
-        showPage(&#x27;interest&#x27;);
+        root.querySelector('#interest-title').textContent=type;
+        root.querySelector('#interest-subtitle').textContent=data.subtitle;
+        root.querySelector('#interest-count').textContent=data.count;
+        root.querySelector('#interest-grid').innerHTML=data.items.map(item=>`<div class="archive-item"><div class="archive-cover">${data.unit}图</div><strong>${item[0]}</strong><span class="text-small">${item[1]}</span></div>`).join('');
+        root.querySelectorAll('#page-interest [data-interest-type]').forEach(btn=>{const on=btn.dataset.interestType===type;btn.classList.toggle('btn-primary',on);btn.setAttribute('aria-pressed',String(on));});
+        showPage('interest');
       }
       function renderProfileFeed(type){
-        root.querySelector(&#x27;#profile-feed&#x27;).innerHTML=profileFeedData[type].map(item=&gt;`&lt;div class=&quot;feed-card&quot;&gt;&lt;div class=&quot;feed-cover&quot;&gt;${type}内容&lt;/div&gt;&lt;strong&gt;${item[0]}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${item[1]}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
-        root.querySelectorAll(&#x27;[data-profile-tab]&#x27;).forEach(btn=&gt;{const on=btn.dataset.profileTab===type;btn.classList.toggle(&#x27;btn-primary&#x27;,on);btn.setAttribute(&#x27;aria-pressed&#x27;,String(on));});
+        root.querySelector('#profile-feed').innerHTML=profileFeedData[type].map(item=>`<button type="button" class="btn btn-ghost feed-card" ${type==='帖子'?'data-open-post':''}><div class="feed-cover">${type}内容</div><strong>${item[0]}</strong><span class="text-small">${item[1]}</span></button>`).join('');
+        root.querySelectorAll('[data-open-post]').forEach(btn=>btn.addEventListener('click',()=>showPage('post')));
+        root.querySelectorAll('[data-profile-tab]').forEach(btn=>{const on=btn.dataset.profileTab===type;btn.classList.toggle('btn-primary',on);btn.setAttribute('aria-pressed',String(on));});
       }
-      root.querySelectorAll(&#x27;[data-page-target]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;showPage(btn.dataset.pageTarget)));
-      root.querySelectorAll(&#x27;[data-level]&#x27;).forEach((b,i)=&gt;b.addEventListener(&#x27;click&#x27;,()=&gt;renderLevel(i)));
-      root.querySelectorAll(&#x27;[data-interest-type]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;renderInterest(btn.dataset.interestType)));
-      root.querySelectorAll(&#x27;[data-profile-tab]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;renderProfileFeed(btn.dataset.profileTab)));
-      root.querySelectorAll(&#x27;[data-label-mode]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;applyLabelMode(btn.dataset.labelMode)));
-      root.querySelectorAll(&#x27;[data-global-filter]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{globalFilter=btn.dataset.globalFilter;root.querySelectorAll(&#x27;[data-global-filter]&#x27;).forEach(b=&gt;{const on=b===btn;b.classList.toggle(&#x27;btn-primary&#x27;,on);b.setAttribute(&#x27;aria-pressed&#x27;,String(on));});renderGlobalBadges();}));
-      renderLevel(2); renderGlobalBadges(); renderProfileFeed(&#x27;帖子&#x27;); applyLabelMode(&#x27;unified&#x27;); showPage(&#x27;home&#x27;);
-    })();
-  &lt;/script&gt;
-&lt;/div&gt;
-
-&lt;script src=&quot;https://unpkg.com/@floating-ui/core@1.7.3/dist/floating-ui.core.umd.min.js&quot;&gt;&lt;/script&gt;
-&lt;script src=&quot;https://unpkg.com/@floating-ui/dom@1.7.4/dist/floating-ui.dom.umd.min.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-(() =&gt; {
-  if (window.FloatingUIDOM == null) {
-    return;
-  }
-  const { autoUpdate, computePosition, flip, offset, shift, size } =
-    window.FloatingUIDOM;
-  const tooltipPlacements = new Set([&quot;top&quot;, &quot;right&quot;, &quot;bottom&quot;, &quot;left&quot;]);
-  const tooltipId = `codex-visualization-tooltip-${
-    window.crypto?.randomUUID?.() ?? Date.now().toString(36)
-  }`;
-  const tooltipGap = 5;
-  const hoverDelay = 700;
-  const skipDelay = 300;
-  let activeTrigger = null;
-  let pendingTrigger = null;
-  let tooltip = null;
-  let openTimeout = null;
-  let autoUpdateCleanup = null;
-  let positionRequest = 0;
-  let skipDelayUntil = 0;
-
-  const getTrigger = (target) =&gt;
-    target?.nodeType === Node.ELEMENT_NODE
-      ? target.closest(&quot;[data-tooltip]&quot;)
-      : null;
-  const containsTarget = (trigger, target) =&gt;
-    target?.nodeType != null &amp;&amp; trigger.contains(target);
-  const getContent = (trigger) =&gt;
-    trigger.getAttribute(&quot;data-tooltip&quot;)?.trim() ?? &quot;&quot;;
-  const getPlacement = (trigger) =&gt; {
-    const placement = trigger.getAttribute(&quot;data-tooltip-placement&quot;);
-    return tooltipPlacements.has(placement) ? placement : &quot;top&quot;;
-  };
-  const getTooltip = () =&gt; {
-    if (tooltip == null) {
-      tooltip = document.createElement(&quot;div&quot;);
-      tooltip.id = tooltipId;
-      tooltip.className = &quot;tooltip&quot;;
-      tooltip.setAttribute(&quot;role&quot;, &quot;tooltip&quot;);
-    }
-    return tooltip;
-  };
-  const setDescribedBy = (trigger, described) =&gt; {
-    const ids = new Set(
-      (trigger.getAttribute(&quot;aria-describedby&quot;) ?? &quot;&quot;)
-        .split(/\s+/)
-        .filter(Boolean),
-    );
-    if (described) {
-      ids.add(tooltipId);
-    } else {
-      ids.delete(tooltipId);
-    }
-    if (ids.size === 0) {
-      trigger.removeAttribute(&quot;aria-describedby&quot;);
-    } else {
-      trigger.setAttribute(&quot;aria-describedby&quot;, [...ids].join(&quot; &quot;));
-    }
-  };
-  const clearOpenTimeout = () =&gt; {
-    if (openTimeout != null) {
-      window.clearTimeout(openTimeout);
-      openTimeout = null;
-    }
-    pendingTrigger = null;
-  };
-  const closeTooltip = (activateSkipDelay = true) =&gt; {
-    clearOpenTimeout();
-    positionRequest += 1;
-    autoUpdateCleanup?.();
-    autoUpdateCleanup = null;
-    if (activeTrigger == null) {
-      return;
-    }
-    setDescribedBy(activeTrigger, false);
-    activeTrigger = null;
-    tooltip?.remove();
-    if (activateSkipDelay) {
-      skipDelayUntil = Date.now() + skipDelay;
-    }
-  };
-  const updatePosition = (trigger, floating) =&gt; {
-    const request = ++positionRequest;
-    void computePosition(trigger, floating, {
-      middleware: [
-        offset(tooltipGap),
-        flip({ padding: tooltipGap }),
-        shift({ padding: tooltipGap }),
-        size({
-          padding: tooltipGap,
-          apply({ availableHeight, availableWidth, elements }) {
-            elements.floating.style.setProperty(
-              &quot;--tooltip-available-width&quot;,
-              `${Math.max(0, availableWidth)}px`,
-            );
-            elements.floating.style.setProperty(
-              &quot;--tooltip-available-height&quot;,
-              `${Math.max(0, availableHeight)}px`,
-            );
-          },
-        }),
-      ],
-      placement: getPlacement(trigger),
-      strategy: &quot;fixed&quot;,
-    })
-      .then(({ x, y }) =&gt; {
-        if (activeTrigger !== trigger || request !== positionRequest) {
-          return;
-        }
-        const scale = window.devicePixelRatio || 1;
-        floating.style.transform = `translate(${Math.round(x * scale) / scale}px, ${Math.round(y * scale) / scale}px)`;
-        floating.style.visibility = &quot;visible&quot;;
-      })
-      .catch(() =&gt; {
-        if (activeTrigger === trigger &amp;&amp; request === positionRequest) {
-          closeTooltip(false);
-        }
+      root.querySelectorAll('[data-page-target]').forEach(btn=>btn.addEventListener('click',()=>showPage(btn.dataset.pageTarget)));
+      root.querySelectorAll('[data-level]').forEach((b,i)=>b.addEventListener('click',()=>renderLevel(i)));
+      root.querySelectorAll('[data-interest-type]').forEach(btn=>btn.addEventListener('click',()=>renderInterest(btn.dataset.interestType)));
+      root.querySelectorAll('[data-profile-tab]').forEach(btn=>btn.addEventListener('click',()=>renderProfileFeed(btn.dataset.profileTab)));
+      root.querySelectorAll('[data-global-filter]').forEach(btn=>btn.addEventListener('click',()=>{globalFilter=btn.dataset.globalFilter;root.querySelectorAll('[data-global-filter]').forEach(b=>{const on=b===btn;b.classList.toggle('btn-primary',on);b.setAttribute('aria-pressed',String(on));});renderGlobalBadges();}));
+      root.querySelector('#wear-action-btn').addEventListener('click',()=>{wornBadge=selectedBadge===wornBadge?null:selectedBadge;renderGlobalBadges();updateWearUI();setFlowState('applied');});
+      root.querySelector('#badge-earned-message').addEventListener('click',()=>{globalFilter=badges.find(b=>b.name===selectedBadge)?.type||'achievement';renderGlobalBadges();showPage('global');setFlowState('wall');});
+      root.querySelector('#complete-badge-condition').addEventListener('click',()=>showPage('island'));
+      function awardCurrentBadge(){
+        const b=badges.find(item=>item.name===pathBadgeName); if(!b)return;
+        b.status='已获得'; selectedBadge=b.name; wornBadge=b.name;
+        root.querySelector('#earned-badge-name').textContent=b.name;
+        root.querySelector('#badge-earned-message-copy').textContent=`[系统] 恭喜获得「${b.name}」，已自动佩戴`;
+        renderGlobalBadges(); updateWearUI(); showPage('earned'); setFlowState('applied');
+      }
+      root.querySelectorAll('[data-island-action]').forEach(btn=>btn.addEventListener('click',()=>{
+        root.querySelector('#island-action-result').textContent=`已记录「${btn.dataset.islandAction}」；通过有效性校验后更新贡献值或徽章进度。`;
+        const current=badges.find(item=>item.name===pathBadgeName);
+        if(btn.dataset.islandAction==='贡献资料'&&current?.category==='资料库')awardCurrentBadge();
+      }));
+      root.querySelector('#island-publish-post').addEventListener('click',()=>{
+        root.querySelector('#island-action-result').textContent='帖子发布成功；系统正在校验内容质量并更新贡献值与徽章进度。';
+        const current=badges.find(item=>item.name===pathBadgeName);
+        if(current?.category==='社区'||current?.type==='event')awardCurrentBadge();
       });
-  };
-  const openTooltip = (trigger) =&gt; {
-    const content = getContent(trigger);
-    if (!trigger.isConnected || content.length === 0) {
-      return;
-    }
-    clearOpenTimeout();
-    if (activeTrigger === trigger) {
-      return;
-    }
-    closeTooltip();
-    const floating = getTooltip();
-    floating.textContent = content;
-    floating.style.visibility = &quot;hidden&quot;;
-    floating.style.transform = &quot;translate(0, 0)&quot;;
-    document.body.appendChild(floating);
-    activeTrigger = trigger;
-    setDescribedBy(trigger, true);
-    autoUpdateCleanup = autoUpdate(trigger, floating, () =&gt; {
-      updatePosition(trigger, floating);
-    });
-  };
-  const requestOpen = (trigger, immediate = false) =&gt; {
-    if (
-      getContent(trigger).length === 0 ||
-      activeTrigger === trigger ||
-      pendingTrigger === trigger
-    ) {
-      return;
-    }
-    clearOpenTimeout();
-    pendingTrigger = trigger;
-    const delay =
-      immediate || activeTrigger != null || Date.now() &lt; skipDelayUntil
-        ? 0
-        : hoverDelay;
-    if (delay === 0) {
-      openTooltip(trigger);
-      return;
-    }
-    openTimeout = window.setTimeout(() =&gt; {
-      openTimeout = null;
-      pendingTrigger = null;
-      openTooltip(trigger);
-    }, delay);
-  };
-  const handlePointerOpen = (event) =&gt; {
-    if (event.pointerType === &quot;touch&quot;) {
-      return;
-    }
-    const trigger = getTrigger(event.target);
-    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
-      return;
-    }
-    requestOpen(trigger);
-  };
-  const handleLeave = (event) =&gt; {
-    const trigger = getTrigger(event.target);
-    if (trigger == null || containsTarget(trigger, event.relatedTarget)) {
-      return;
-    }
-    if (activeTrigger === trigger || pendingTrigger === trigger) {
-      closeTooltip();
-    }
-  };
-  const handleFocusIn = (event) =&gt; {
-    const trigger = getTrigger(event.target);
-    if (trigger?.matches(&quot;:focus-visible&quot;)) {
-      requestOpen(trigger, true);
-    }
-  };
-  const handleKeyDown = (event) =&gt; {
-    if (event.key === &quot;Escape&quot;) {
-      closeTooltip();
-    }
-  };
-  const handleContextMenu = (event) =&gt; {
-    const trigger = getTrigger(event.target);
-    if (activeTrigger === trigger || pendingTrigger === trigger) {
-      closeTooltip();
-    }
-  };
-  const destroy = () =&gt; {
-    closeTooltip(false);
-    document.removeEventListener(&quot;pointerover&quot;, handlePointerOpen);
-    document.removeEventListener(&quot;pointerout&quot;, handleLeave);
-    document.removeEventListener(&quot;focusin&quot;, handleFocusIn);
-    document.removeEventListener(&quot;focusout&quot;, handleLeave);
-    document.removeEventListener(&quot;keydown&quot;, handleKeyDown);
-    document.removeEventListener(&quot;contextmenu&quot;, handleContextMenu);
-    tooltip = null;
-  };
-
-  document.addEventListener(&quot;pointerover&quot;, handlePointerOpen);
-  document.addEventListener(&quot;pointerout&quot;, handleLeave);
-  document.addEventListener(&quot;focusin&quot;, handleFocusIn);
-  document.addEventListener(&quot;focusout&quot;, handleLeave);
-  document.addEventListener(&quot;keydown&quot;, handleKeyDown);
-  document.addEventListener(&quot;contextmenu&quot;, handleContextMenu);
-  window.addEventListener(&quot;pagehide&quot;, destroy, { once: true });
-})();
-&lt;/script&gt;
-&lt;script id=&quot;codex-visualization-lucide&quot; async src=&quot;https://unpkg.com/lucide@1.17.0/dist/umd/lucide.js&quot;&gt;&lt;/script&gt;
-&lt;script&gt;
-(() =&gt; {
-  const initialize = () =&gt; {
-    globalThis.lucide?.createIcons({ attrs: { width: 16, height: 16 } });
-  };
-  if (globalThis.lucide != null) {
-    initialize();
-    return;
-  }
-  document
-    .getElementById(&quot;codex-visualization-lucide&quot;)
-    ?.addEventListener(&quot;load&quot;, initialize, { once: true });
-})();
-&lt;/script&gt;
-
-&lt;/body&gt;
-&lt;/html&gt;
-"></iframe>
-</body>
-</html>
+      renderLevel(2); renderGlobalBadges(); renderProfileFeed('帖子'); updateWearUI(); showPage('home');
+    })();
+  </script>
+</div>
