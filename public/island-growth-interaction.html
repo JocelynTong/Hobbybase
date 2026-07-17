@@ -831,6 +831,7 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .profile-body { padding:14px; }
     #island-growth-interaction .profile-identity { display:grid; grid-template-columns:auto minmax(0,1fr); gap:12px; align-items:end; margin-top:-48px; }
     #island-growth-interaction .profile-identity .avatar-wrap { width:78px; height:78px; }
+    #island-growth-interaction .profile-identity button.avatar-wrap { min-width:78px; padding:0; }
     #island-growth-interaction .profile-identity .avatar { width:64px; height:64px; }
     #island-growth-interaction .profile-identity-copy h2, #island-growth-interaction .profile-identity-copy p { margin:0; }
     #island-growth-interaction .profile-identity-copy p { margin-top:3px; color:var(--muted-foreground); }
@@ -890,13 +891,11 @@ html&gt;body{padding:0}&lt;/style&gt;
       &lt;/div&gt;
       &lt;div class=&quot;profile-body&quot;&gt;
         &lt;div class=&quot;profile-identity&quot;&gt;
-          &lt;div class=&quot;avatar-wrap&quot; aria-label=&quot;头像与当前佩戴头像框&quot;&gt;&lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;avatar-frame&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;
-          &lt;div class=&quot;profile-identity-copy&quot;&gt;&lt;h2&gt;活性氧&lt;/h2&gt;&lt;p&gt;老板 · 上海 · 9 小时前来过&lt;/p&gt;&lt;/div&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost avatar-wrap&quot; data-page-target=&quot;global&quot; aria-label=&quot;当前佩戴角色生日徽章头像框，查看徽章墙&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;avatar-frame&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;/button&gt;
+          &lt;div class=&quot;profile-identity-copy&quot;&gt;&lt;h2&gt;活性氧&lt;/h2&gt;&lt;p&gt;老板 · 上海 · 9 小时前来过&lt;/p&gt;&lt;p class=&quot;text-small&quot;&gt;当前头像框：角色生日徽章&lt;/p&gt;&lt;/div&gt;
         &lt;/div&gt;
         &lt;div class=&quot;profile-tags&quot;&gt;
-          &lt;span class=&quot;viz-badge&quot;&gt;一线岛民&lt;/span&gt;
           &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-page-target=&quot;growth&quot;&gt;Labubu 岛管理员&lt;/button&gt;
-          &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-page-target=&quot;global&quot;&gt;角色生日徽章&lt;/button&gt;
         &lt;/div&gt;
         &lt;p class=&quot;profile-signature&quot;&gt;2026 放我一马，不是放马过来&lt;/p&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost interest-preview&quot; data-interest-type=&quot;拥有&quot;&gt;
