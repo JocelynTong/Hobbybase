@@ -825,6 +825,34 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .archive-cover { aspect-ratio:1; display:grid; place-items:center; margin-bottom:8px; background:var(--muted); color:var(--muted-foreground); border-radius:var(--radius); }
     #island-growth-interaction .archive-item strong, #island-growth-interaction .archive-item span { display:block; }
     #island-growth-interaction .archive-item span { color:var(--muted-foreground); }
+    #island-growth-interaction .profile-hero { overflow:hidden; padding:0; }
+    #island-growth-interaction .profile-cover { min-height:170px; padding:14px; display:flex; justify-content:space-between; align-items:flex-start; background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .profile-cover-actions { display:flex; gap:6px; }
+    #island-growth-interaction .profile-body { padding:14px; }
+    #island-growth-interaction .profile-identity { display:grid; grid-template-columns:auto minmax(0,1fr); gap:12px; align-items:end; margin-top:-48px; }
+    #island-growth-interaction .profile-identity .avatar-wrap { width:78px; height:78px; }
+    #island-growth-interaction .profile-identity .avatar { width:64px; height:64px; }
+    #island-growth-interaction .profile-identity-copy h2, #island-growth-interaction .profile-identity-copy p { margin:0; }
+    #island-growth-interaction .profile-identity-copy p { margin-top:3px; color:var(--muted-foreground); }
+    #island-growth-interaction .profile-tags { display:flex; gap:6px; flex-wrap:wrap; margin-top:10px; }
+    #island-growth-interaction .profile-signature { margin:14px 0; }
+    #island-growth-interaction .interest-preview { display:grid; gap:10px; }
+    #island-growth-interaction .interest-preview-head { display:flex; justify-content:space-between; align-items:center; }
+    #island-growth-interaction .interest-preview-head strong { font-weight:500; }
+    #island-growth-interaction .interest-preview-grid { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:7px; }
+    #island-growth-interaction .interest-preview-item { min-width:0; text-align:center; }
+    #island-growth-interaction .interest-preview-thumb { aspect-ratio:1; display:grid; place-items:center; background:var(--muted); color:var(--muted-foreground); border-radius:var(--radius); }
+    #island-growth-interaction .interest-preview-item span { display:block; margin-top:4px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+    #island-growth-interaction .profile-stats { display:flex; align-items:center; gap:18px; margin-top:14px; }
+    #island-growth-interaction .profile-stat strong, #island-growth-interaction .profile-stat span { display:block; }
+    #island-growth-interaction .profile-stat span { color:var(--muted-foreground); }
+    #island-growth-interaction .profile-main-tabs { display:grid; grid-template-columns:repeat(7,minmax(0,1fr)); gap:2px; }
+    #island-growth-interaction .profile-main-tabs .btn { min-width:0; width:100%; justify-content:center; padding-inline:2px; }
+    #island-growth-interaction .profile-feed { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:10px; margin-top:12px; }
+    #island-growth-interaction .feed-card { min-width:0; }
+    #island-growth-interaction .feed-cover { aspect-ratio:4/5; display:grid; place-items:center; background:var(--muted); color:var(--muted-foreground); border-radius:var(--radius); }
+    #island-growth-interaction .feed-card strong, #island-growth-interaction .feed-card span { display:block; margin-top:6px; }
+    #island-growth-interaction .feed-card span { color:var(--muted-foreground); }
     #island-growth-interaction .mini-badge { display:grid; place-items:center; width:52px; height:52px; border:2px dashed var(--muted-foreground); border-radius:50%; background:var(--muted); color:var(--muted-foreground); }
     #island-growth-interaction .hidden { display:none; }
     @media (min-width:1000px) {
@@ -855,43 +883,46 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;/style&gt;
 
   &lt;section id=&quot;page-home&quot; class=&quot;app-page&quot;&gt;
-    &lt;div class=&quot;topbar&quot;&gt;
-      &lt;div class=&quot;page-title&quot;&gt;&lt;h2&gt;个人主页&lt;/h2&gt;&lt;/div&gt;
-    &lt;/div&gt;
-    &lt;header class=&quot;card home-profile&quot;&gt;
-      &lt;div class=&quot;avatar-wrap&quot; aria-label=&quot;个人主页头像与当前佩戴头像框&quot;&gt;
-        &lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;
-        &lt;div class=&quot;avatar-frame&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;
+    &lt;section class=&quot;card profile-hero&quot;&gt;
+      &lt;div class=&quot;profile-cover&quot;&gt;
+        &lt;span&gt;封面图&lt;/span&gt;
+        &lt;div class=&quot;profile-cover-actions&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; aria-label=&quot;分享&quot;&gt;&lt;i data-lucide=&quot;share-2&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; aria-label=&quot;更多&quot;&gt;&lt;i data-lucide=&quot;ellipsis&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/button&gt;&lt;/div&gt;
       &lt;/div&gt;
-      &lt;div&gt;&lt;h2&gt;岛民 0721&lt;/h2&gt;&lt;p&gt;关注 126 · 粉丝 1,286&lt;/p&gt;&lt;/div&gt;
-    &lt;/header&gt;
-
-    &lt;section class=&quot;card home-section&quot;&gt;
-      &lt;h3 class=&quot;section-title&quot;&gt;&lt;i data-lucide=&quot;award&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;当前佩戴&lt;/h3&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost home-row&quot; data-page-target=&quot;global&quot;&gt;
-        &lt;span class=&quot;mini-badge&quot;&gt;徽章&lt;/span&gt;
-        &lt;span class=&quot;home-row-copy&quot;&gt;&lt;strong&gt;角色生日徽章&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;来自 Labubu 岛 · 活动限定&lt;/span&gt;&lt;/span&gt;
-        &lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
-      &lt;/button&gt;
+      &lt;div class=&quot;profile-body&quot;&gt;
+        &lt;div class=&quot;profile-identity&quot;&gt;
+          &lt;div class=&quot;avatar-wrap&quot; aria-label=&quot;头像与当前佩戴头像框&quot;&gt;&lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;avatar-frame&quot; aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;
+          &lt;div class=&quot;profile-identity-copy&quot;&gt;&lt;h2&gt;活性氧&lt;/h2&gt;&lt;p&gt;老板 · 上海 · 9 小时前来过&lt;/p&gt;&lt;/div&gt;
+        &lt;/div&gt;
+        &lt;div class=&quot;profile-tags&quot;&gt;
+          &lt;span class=&quot;viz-badge&quot;&gt;一线岛民&lt;/span&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-page-target=&quot;growth&quot;&gt;Labubu 岛管理员&lt;/button&gt;
+          &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-page-target=&quot;global&quot;&gt;角色生日徽章&lt;/button&gt;
+        &lt;/div&gt;
+        &lt;p class=&quot;profile-signature&quot;&gt;2026 放我一马，不是放马过来&lt;/p&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost interest-preview&quot; data-interest-type=&quot;拥有&quot;&gt;
+          &lt;span class=&quot;interest-preview-head&quot;&gt;&lt;strong&gt;兴趣档案&lt;/strong&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;
+          &lt;span class=&quot;interest-preview-grid&quot;&gt;
+            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;SKULL...&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;Molly&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;Hirono&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;THE M...&lt;/span&gt;&lt;/span&gt;
+            &lt;span class=&quot;interest-preview-item&quot;&gt;&lt;span class=&quot;interest-preview-thumb&quot;&gt;商品&lt;/span&gt;&lt;span&gt;DIMOO&lt;/span&gt;&lt;/span&gt;
+          &lt;/span&gt;
+        &lt;/button&gt;
+        &lt;div class=&quot;profile-stats&quot;&gt;&lt;span class=&quot;profile-stat&quot;&gt;&lt;strong&gt;37&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;关注&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;profile-stat&quot;&gt;&lt;strong&gt;93&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;粉丝&lt;/span&gt;&lt;/span&gt;&lt;span class=&quot;profile-stat&quot;&gt;&lt;strong&gt;2452&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;获赞&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
+      &lt;/div&gt;
     &lt;/section&gt;
-
     &lt;section class=&quot;card home-section&quot;&gt;
-      &lt;h3 class=&quot;section-title&quot;&gt;&lt;i data-lucide=&quot;map-pin&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;我的岛内身份&lt;/h3&gt;
-      &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost home-row&quot; data-page-target=&quot;growth&quot;&gt;
-        &lt;span class=&quot;mini-badge&quot;&gt;岛&lt;/span&gt;
-        &lt;span class=&quot;home-row-copy&quot;&gt;&lt;strong&gt;Labubu 岛管理员&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;成长称号：贡献用户 · 贡献值 3200&lt;/span&gt;&lt;/span&gt;
-        &lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;
-      &lt;/button&gt;
-    &lt;/section&gt;
-
-    &lt;section class=&quot;card home-section&quot;&gt;
-      &lt;h3 class=&quot;section-title&quot;&gt;&lt;i data-lucide=&quot;library&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;兴趣档案&lt;/h3&gt;
-      &lt;div class=&quot;interest-tabs&quot; role=&quot;group&quot; aria-label=&quot;进入对应兴趣档案&quot;&gt;
+      &lt;div class=&quot;profile-main-tabs&quot; role=&quot;group&quot; aria-label=&quot;个人主页内容分类&quot;&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-profile-tab=&quot;帖子&quot; aria-pressed=&quot;true&quot;&gt;帖子&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-profile-tab=&quot;在售&quot; aria-pressed=&quot;false&quot;&gt;在售&lt;/button&gt;
+        &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-profile-tab=&quot;想要&quot; aria-pressed=&quot;false&quot;&gt;想要&lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;拥有&quot;&gt;拥有&lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;玩过&quot;&gt;玩过&lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;去过&quot;&gt;去过&lt;/button&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-interest-type=&quot;看过&quot;&gt;看过&lt;/button&gt;
       &lt;/div&gt;
+      &lt;div class=&quot;profile-feed&quot; id=&quot;profile-feed&quot;&gt;&lt;/div&gt;
     &lt;/section&gt;
   &lt;/section&gt;
 
@@ -1043,6 +1074,11 @@ html&gt;body{padding:0}&lt;/style&gt;
         去过:{subtitle:&#x27;我去过的线下活动&#x27;,count:&#x27;12&#x27;,unit:&#x27;活动&#x27;,items:[[&#x27;Labubu 生日会&#x27;,&#x27;上海&#x27;],[&#x27;千岛收藏展&#x27;,&#x27;杭州&#x27;],[&#x27;画师联动签售&#x27;,&#x27;上海&#x27;],[&#x27;QDF 主题活动&#x27;,&#x27;北京&#x27;]]},
         看过:{subtitle:&#x27;我看过的电影&#x27;,count:&#x27;58&#x27;,unit:&#x27;电影&#x27;,items:[[&#x27;花样年华&#x27;,&#x27;剧情&#x27;],[&#x27;千与千寻&#x27;,&#x27;动画&#x27;],[&#x27;沙丘 2&#x27;,&#x27;科幻&#x27;],[&#x27;坠落的审判&#x27;,&#x27;剧情&#x27;]]}
       };
+      const profileFeedData={
+        帖子:[[&#x27;哈哈哈哈&#x27;,&#x27;0 人投票&#x27;],[&#x27;卡哇伊的小野也是被捏出来了&#x27;,&#x27;4 赞&#x27;],[&#x27;今日份收藏整理&#x27;,&#x27;12 赞&#x27;],[&#x27;新年第一条记录&#x27;,&#x27;8 评论&#x27;]],
+        在售:[[&#x27;Labubu 春日款&#x27;,&#x27;¥ 399&#x27;],[&#x27;Molly 周年款&#x27;,&#x27;¥ 269&#x27;],[&#x27;Dimoo 星云款&#x27;,&#x27;¥ 199&#x27;],[&#x27;Hirono 挂件&#x27;,&#x27;¥ 159&#x27;]],
+        想要:[[&#x27;Zimomo 限定款&#x27;,&#x27;18 人想要&#x27;],[&#x27;SKULLPANDA 联名&#x27;,&#x27;42 人想要&#x27;],[&#x27;画师合作徽章&#x27;,&#x27;活动限定&#x27;],[&#x27;年度报告限定&#x27;,&#x27;待解锁&#x27;]]
+      };
       let globalFilter=&#x27;all&#x27;;
       function badgeMarkup(b){return `&lt;div class=&quot;badge-item&quot; aria-label=&quot;${b.name}，${b.status}&quot;&gt;&lt;span class=&quot;badge-mark ${b.type}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;badge-status text-small&quot;&gt;${b.status}&lt;/span&gt;&lt;/div&gt;`;}
       function groupedBadgeMarkup(items,activeFilter){
@@ -1080,11 +1116,16 @@ html&gt;body{padding:0}&lt;/style&gt;
         root.querySelectorAll(&#x27;#page-interest [data-interest-type]&#x27;).forEach(btn=&gt;{const on=btn.dataset.interestType===type;btn.classList.toggle(&#x27;btn-primary&#x27;,on);btn.setAttribute(&#x27;aria-pressed&#x27;,String(on));});
         showPage(&#x27;interest&#x27;);
       }
+      function renderProfileFeed(type){
+        root.querySelector(&#x27;#profile-feed&#x27;).innerHTML=profileFeedData[type].map(item=&gt;`&lt;div class=&quot;feed-card&quot;&gt;&lt;div class=&quot;feed-cover&quot;&gt;${type}内容&lt;/div&gt;&lt;strong&gt;${item[0]}&lt;/strong&gt;&lt;span class=&quot;text-small&quot;&gt;${item[1]}&lt;/span&gt;&lt;/div&gt;`).join(&#x27;&#x27;);
+        root.querySelectorAll(&#x27;[data-profile-tab]&#x27;).forEach(btn=&gt;{const on=btn.dataset.profileTab===type;btn.classList.toggle(&#x27;btn-primary&#x27;,on);btn.setAttribute(&#x27;aria-pressed&#x27;,String(on));});
+      }
       root.querySelectorAll(&#x27;[data-page-target]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;showPage(btn.dataset.pageTarget)));
       root.querySelectorAll(&#x27;[data-level]&#x27;).forEach((b,i)=&gt;b.addEventListener(&#x27;click&#x27;,()=&gt;renderLevel(i)));
       root.querySelectorAll(&#x27;[data-interest-type]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;renderInterest(btn.dataset.interestType)));
+      root.querySelectorAll(&#x27;[data-profile-tab]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;renderProfileFeed(btn.dataset.profileTab)));
       root.querySelectorAll(&#x27;[data-global-filter]&#x27;).forEach(btn=&gt;btn.addEventListener(&#x27;click&#x27;,()=&gt;{globalFilter=btn.dataset.globalFilter;root.querySelectorAll(&#x27;[data-global-filter]&#x27;).forEach(b=&gt;{const on=b===btn;b.classList.toggle(&#x27;btn-primary&#x27;,on);b.setAttribute(&#x27;aria-pressed&#x27;,String(on));});renderGlobalBadges();}));
-      renderLevel(2); renderGlobalBadges(); showPage(&#x27;home&#x27;);
+      renderLevel(2); renderGlobalBadges(); renderProfileFeed(&#x27;帖子&#x27;); showPage(&#x27;home&#x27;);
     })();
   &lt;/script&gt;
 &lt;/div&gt;
