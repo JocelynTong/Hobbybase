@@ -814,6 +814,18 @@ html&gt;body{padding:0}&lt;/style&gt;
     #island-growth-interaction .badge-mark &gt; i, #island-growth-interaction .badge-mark &gt; svg { display:none; }
     #island-growth-interaction .badge-item strong { display:-webkit-box; width:100%; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; white-space:normal; }
     #island-growth-interaction .badge-status { display:block; width:100%; margin-top:4px; overflow:hidden; color:var(--muted-foreground); }
+    #island-growth-interaction .badge-state-chip { display:inline-flex; margin:-3px 0 6px; padding:2px 6px; border-radius:999px; background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .badge-item.is-earned .badge-mark { border-style:solid; border-color:var(--primary); background:var(--accent); color:var(--accent-foreground); box-shadow:0 0 0 3px color-mix(in srgb,var(--primary) 22%,transparent); }
+    #island-growth-interaction .badge-item.is-earned .badge-state-chip { background:var(--primary); color:var(--primary-foreground); }
+    #island-growth-interaction .badge-item.is-progress .badge-mark { border-style:solid; border-color:var(--viz-series-1); background:color-mix(in srgb,var(--viz-series-1) 18%,var(--muted)); box-shadow:inset 0 -7px 0 color-mix(in srgb,var(--viz-series-1) 30%,transparent); }
+    #island-growth-interaction .badge-item.is-progress .badge-state-chip { background:var(--accent); color:var(--accent-foreground); }
+    #island-growth-interaction .badge-item.is-locked { opacity:.62; }
+    #island-growth-interaction .badge-item.is-locked .badge-mark { filter:saturate(.25); }
+    #island-growth-interaction .badge-legend { display:flex; gap:12px; flex-wrap:wrap; color:var(--muted-foreground); }
+    #island-growth-interaction .badge-legend span { display:inline-flex; align-items:center; gap:5px; }
+    #island-growth-interaction .badge-legend i { width:8px; height:8px; border-radius:50%; background:var(--muted-foreground); }
+    #island-growth-interaction .badge-legend .earned i { background:var(--primary); }
+    #island-growth-interaction .badge-legend .progress i { background:var(--viz-series-1); }
     #island-growth-interaction .notice { margin-top:14px; padding-top:12px; border-top:1px solid var(--border); display:flex; gap:8px; align-items:flex-start; color:var(--muted-foreground); }
     #island-growth-interaction .page-title { display:flex; align-items:center; gap:8px; }
     #island-growth-interaction .page-title h2 { margin:0; }
@@ -955,6 +967,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           &lt;button type=&quot;button&quot; class=&quot;btn btn-primary&quot; data-global-filter=&quot;achievement&quot; aria-pressed=&quot;true&quot;&gt;成就徽章&lt;/button&gt;
           &lt;button type=&quot;button&quot; class=&quot;btn&quot; data-global-filter=&quot;event&quot; aria-pressed=&quot;false&quot;&gt;活动限定&lt;/button&gt;
         &lt;/div&gt;
+        &lt;div class=&quot;badge-legend text-small&quot; aria-label=&quot;徽章状态图例&quot;&gt;&lt;span class=&quot;earned&quot;&gt;&lt;i&gt;&lt;/i&gt;已获得&lt;/span&gt;&lt;span class=&quot;progress&quot;&gt;&lt;i&gt;&lt;/i&gt;进度中&lt;/span&gt;&lt;span&gt;&lt;i&gt;&lt;/i&gt;未获得&lt;/span&gt;&lt;/div&gt;
       &lt;/div&gt;
       &lt;div class=&quot;badge-grid&quot; id=&quot;global-badge-grid&quot;&gt;&lt;/div&gt;
     &lt;/div&gt;
@@ -1094,7 +1107,12 @@ html&gt;body{padding:0}&lt;/style&gt;
       const unifiedLabels=[&#x27;LV1 普通用户&#x27;,&#x27;LV2 活跃用户&#x27;,&#x27;LV3 贡献用户&#x27;,&#x27;LV4 专业用户&#x27;,&#x27;LV5 名人用户&#x27;];
       const freeLabels=[&#x27;新岛民&#x27;,&#x27;常驻玩家&#x27;,&#x27;核心共建者&#x27;,&#x27;圈内鉴定家&#x27;,&#x27;圈内名人&#x27;];
       let globalFilter=&#x27;achievement&#x27;;
-      function badgeMarkup(b){return `&lt;div class=&quot;badge-item&quot; aria-label=&quot;${b.name}，${b.status}&quot;&gt;&lt;span class=&quot;badge-mark ${b.type}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;badge-status text-small&quot;&gt;${b.status}&lt;/span&gt;&lt;/div&gt;`;}
+      function badgeState(b){
+        if(b.status.includes(&#x27;已获得&#x27;))return {key:&#x27;earned&#x27;,label:&#x27;已获得&#x27;};
+        if(/\d[\d,]*\s*\/\s*\d|\d+%|升级|参与记录可置换/.test(b.status))return {key:&#x27;progress&#x27;,label:&#x27;进度中&#x27;};
+        return {key:&#x27;locked&#x27;,label:&#x27;未获得&#x27;};
+      }
+      function badgeMarkup(b){const state=badgeState(b);return `&lt;div class=&quot;badge-item is-${state.key}&quot; aria-label=&quot;${b.name}，${state.label}，${b.status}&quot;&gt;&lt;span class=&quot;badge-mark ${b.type}&quot;&gt;&lt;i data-lucide=&quot;${b.icon}&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;badge-state-chip text-small&quot;&gt;${state.label}&lt;/span&gt;&lt;strong&gt;${b.name}&lt;/strong&gt;&lt;span class=&quot;badge-status text-small&quot;&gt;${b.status}&lt;/span&gt;&lt;/div&gt;`;}
       function groupedBadgeMarkup(items,activeFilter){
         const eventGroups=[&#x27;年度限定&#x27;,&#x27;画师限定&#x27;,&#x27;功能推广&#x27;,&#x27;QDF &amp; 小程序&#x27;,&#x27;特殊活动参与&#x27;];
         const achievementGroups=[&#x27;资料库&#x27;,&#x27;社区&#x27;,&#x27;交易&#x27;,&#x27;标记&#x27;,&#x27;开放平台&#x27;];
