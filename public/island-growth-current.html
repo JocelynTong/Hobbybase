@@ -546,7 +546,7 @@
       <div class="meters">
         <span class="current-progress-pointer" id="level-progress-pointer" aria-label="正在查看贡献用户对应区间"></span>
         <div>
-          <div class="meter-head"><strong>当前贡献值 3200</strong><span id="attainment-copy">已达 1000 贡献值的贡献用户</span></div>
+          <div class="meter-head"><strong>当前贡献值 3200</strong><span id="attainment-copy">已达 3200 贡献值的贡献用户</span></div>
           <div class="meter-segments" aria-label="当前贡献值 3200，位于 LV3 贡献用户区间">
             <span class="meter-segment" data-progress-level="0" aria-label="LV1 0 到 100，已完成"><span class="meter-segment-fill level-1" style="width:100%"></span></span>
             <span class="meter-segment" data-progress-level="1" aria-label="LV2 100 到 1000，已完成"><span class="meter-segment-fill level-2" style="width:100%"></span></span>
@@ -781,7 +781,7 @@
       }
       function renderLevel(i){
         const d=levels[i];
-        const attainedCopies=['已达 0 贡献值的普通用户','已达 100 贡献值的活跃用户','已达 1000 贡献值的贡献用户'];
+        const attainedCopies=['已达 100 贡献值的普通用户','已达 1000 贡献值的活跃用户','已达 3200 贡献值的贡献用户'];
         root.querySelectorAll('[data-level]').forEach((b,n)=>{
           const current=n===actualLevel,complete=n<actualLevel,upcoming=n>actualLevel,viewing=n===i;
           b.classList.toggle('btn-primary',viewing);
