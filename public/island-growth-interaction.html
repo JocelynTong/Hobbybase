@@ -81,6 +81,9 @@
     #island-growth-interaction .growth-person .avatar { width:42px; height:42px; }
     #island-growth-interaction .growth-person h2 { margin:0; font-size:1.35rem; }
     #island-growth-interaction .growth-person p { margin:0; color:var(--muted-foreground); }
+    #island-growth-interaction .growth-status-tags { display:flex; flex-wrap:wrap; gap:6px; margin-top:7px; }
+    #island-growth-interaction .growth-status-tag { display:inline-flex; align-items:center; padding:3px 7px; border:1px solid var(--border); border-radius:999px; background:var(--muted); color:var(--muted-foreground); font-size:11px; }
+    #island-growth-interaction .growth-status-tag.is-credit, #island-growth-interaction .growth-status-tag.is-active { border-color:color-mix(in srgb,var(--viz-series-3) 45%,var(--border)); color:var(--viz-series-3); }
     #island-growth-interaction .avatar-wrap { position:relative; width:58px; height:58px; margin:0; display:grid; place-items:center; }
     #island-growth-interaction .avatar { width:44px; height:44px; border-radius:50%; background:var(--muted); display:grid; place-items:center; color:var(--muted-foreground); }
     #island-growth-interaction .avatar-frame { position:absolute; inset:0; border:2px dashed var(--muted-foreground); border-radius:50%; }
@@ -560,7 +563,8 @@
         <div class="rule-block">
           <h3>权益、认证与状态变化</h3>
           <div class="list">
-            <div class="list-row"><i data-lucide="gift" aria-hidden="true"></i><div class="list-copy"><strong>等级与权限分离</strong><span class="text-small">等级承认历史贡献；资料范围、专业信用和在任状态共同决定当前编辑、审核与治理权限。</span></div></div>
+            <div class="list-row"><i data-lucide="history" aria-hidden="true"></i><div class="list-copy"><strong>历史贡献永久保留</strong><span class="text-small">贡献值用于记录已经完成并被认可的有效贡献，只增不减；它不等同于当前仍然拥有管理权限。</span></div></div>
+            <div class="list-row"><i data-lucide="gift" aria-hidden="true"></i><div class="list-copy"><strong>等级与权限分离</strong><span class="text-small">资料范围、专业信用和在任状态共同决定当前编辑、审核与治理权限。</span></div></div>
             <div class="list-row"><i data-lucide="shield-alert" aria-hidden="true"></i><div class="list-copy"><strong>在任、休眠与撤权</strong><span class="text-small">没时间维护时进入休眠且保留荣誉；专业信用不足时缩小权限；仅严重错误、造假或滥权才撤权。</span></div></div>
             <div class="list-row"><i data-lucide="award" aria-hidden="true"></i><div class="list-copy"><strong>徽章独立计算</strong><span class="text-small">徽章用于记录成就和活动经历，可自动佩戴和更换；获得徽章不等于用户等级升级。</span></div></div>
           </div>
@@ -586,6 +590,7 @@
         </div>
         <div>
           <h2>活性氧 · 贡献用户</h2>
+          <div class="growth-status-tags" aria-label="贡献与管理员状态"><span class="growth-status-tag">贡献值 3200</span><span class="growth-status-tag is-credit">专业信用 96%</span><span class="growth-status-tag is-active">在任</span></div>
         </div>
       </div>
       <div class="ladder" aria-label="切换岛内身份等级">
@@ -609,11 +614,6 @@
           </div>
           <div class="meter-scale text-small"><span>100</span><span>1000</span><span>5000</span><span>10000</span><span>50000</span></div>
         </div>
-      </div>
-      <div class="system-strip" aria-label="资料库管理员三项状态">
-        <div class="system-stat"><strong>3200</strong><span class="text-small">历史贡献 · 永久保留</span></div>
-        <div class="system-stat"><strong class="status-good">96%</strong><span class="text-small">专业信用 · 近 90 天</span></div>
-        <div class="system-stat"><strong class="status-good">在任</strong><span class="text-small">权限状态 · 可休眠</span></div>
       </div>
     </header>
 
