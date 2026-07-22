@@ -556,6 +556,7 @@
         <div class="rule-block">
           <h3>有效行为如何计算</h3>
           <div class="list">
+            <div class="list-row"><i data-lucide="route" aria-hidden="true"></i><div class="list-copy"><strong>奖励统一为贡献值或徽章</strong><span class="text-small">可累计、推动成长的结果结算贡献值；首次、阶段、身份和专项成就发放徽章或累计徽章进度。</span></div></div>
             <div class="list-row"><i data-lucide="database" aria-hidden="true"></i><div class="list-copy"><strong>资料共建</strong><span class="text-small">提交先记任务进度；资料达到可展示、可交易或系列补全结果后，再按难度与缺口系数结算贡献值。</span></div></div>
             <div class="list-row"><i data-lucide="messages-square" aria-hidden="true"></i><div class="list-copy"><strong>社区内容</strong><span class="text-small">首次发帖用于入门；LV2 的有效内容计活跃；Score &gt; 3，或被收藏、引用、有效讨论后，计入贡献。</span></div></div>
             <div class="list-row"><i data-lucide="heart" aria-hidden="true"></i><div class="list-copy"><strong>互动与关注</strong><span class="text-small">点赞、评论、分享用于活跃和质量辅助判断，不直接等同贡献值；异常互动与刷量不计入。</span></div></div>
@@ -567,6 +568,7 @@
           <div class="list">
             <div class="list-row"><i data-lucide="history" aria-hidden="true"></i><div class="list-copy"><strong>历史贡献永久保留</strong><span class="text-small">贡献值用于记录已经完成并被认可的有效贡献，只增不减；它不等同于当前仍然拥有管理权限。</span></div></div>
             <div class="list-row"><i data-lucide="badge-check" aria-hidden="true"></i><div class="list-copy"><strong>管理员标签单独授予</strong><span class="text-small">“角色名＋管理员”由贡献门槛、专业信用和当前任职共同决定；信用不足、休眠或撤权时可取消标签，但不扣除历史贡献值。</span></div></div>
+            <div class="list-row"><i data-lucide="shield-check" aria-hidden="true"></i><div class="list-copy"><strong>专业信用不是奖励</strong><span class="text-small">审核和复核结果可更新专业信用，但升级行为的前台奖励仍只显示贡献值或徽章；专业信用只用于管理员资格判断。</span></div></div>
             <div class="list-row"><i data-lucide="gift" aria-hidden="true"></i><div class="list-copy"><strong>等级与权限分离</strong><span class="text-small">资料范围、专业信用和在任状态共同决定当前编辑、审核与治理权限。</span></div></div>
             <div class="list-row"><i data-lucide="shield-alert" aria-hidden="true"></i><div class="list-copy"><strong>在任、休眠与撤权</strong><span class="text-small">没时间维护时进入休眠且保留荣誉；专业信用不足时缩小权限；仅严重错误、造假或滥权才撤权。</span></div></div>
             <div class="list-row"><i data-lucide="award" aria-hidden="true"></i><div class="list-copy"><strong>徽章独立计算</strong><span class="text-small">徽章用于记录成就和活动经历，可自动佩戴和更换；获得徽章不等于用户等级升级。</span></div></div>
@@ -707,42 +709,40 @@
       const actualLevel=2;
       const behaviorByLevel=[
         [
-          {name:'提交资料线索',desc:'上传图片、官方来源或报告资料缺失',score:'记录',meta:'无需理解 SPU'},
-          {name:'首次有效纠错',desc:'错误被确认后获得资料初探徽章',score:'获得徽章',meta:''},
-          {name:'首次发布内容',desc:'完成首次有效内容发布',score:'获得徽章',meta:''},
-          {name:'首次获得互动',desc:'内容首次获得真实互动',score:'获得徽章',meta:''},
-          {name:'兴趣标记',desc:'记录拥有 · 玩过 · 去过 · 看过',score:'记录',meta:''}
+          {name:'首次资料线索被采纳',desc:'图片、官方来源或缺失线索经确认后生效',score:'获得徽章',meta:'资料初探'},
+          {name:'首次有效纠错',desc:'错误被确认并完成修正',score:'获得徽章',meta:'纠错新手'},
+          {name:'首次发布有效内容',desc:'完成首次符合基础质量要求的内容发布',score:'获得徽章',meta:'首次发声'},
+          {name:'首次获得真实互动',desc:'内容首次获得有效回应',score:'获得徽章',meta:'初次回应'},
+          {name:'首次完成兴趣标记',desc:'首次记录拥有 · 玩过 · 去过 · 看过',score:'获得徽章',meta:'兴趣启程'}
         ],
         [
-          {name:'资料微任务',desc:'补图片、别名、来源等低风险字段，被保留后结算',score:'+1',meta:'结果结算'},
-          {name:'缺口任务',desc:'完成当前系列缺失项，按缺口系数结算',score:'+2',meta:'难度加权'},
-          {name:'发布有效内容',desc:'持续发布真实、有效的内容',score:'活跃记录',meta:''},
-          {name:'获得有效互动',desc:'内容获得真实点赞、评论或分享',score:'活跃记录',meta:''},
-          {name:'兴趣标记',desc:'记录拥有 · 玩过 · 去过 · 看过',score:'记录',meta:''}
+          {name:'资料微任务',desc:'图片、别名、来源等低风险字段被保留',score:'+1',meta:'结果结算'},
+          {name:'系列缺口任务',desc:'完成当前系列缺失项，按难度加权',score:'+2',meta:'基础奖励'},
+          {name:'发布有效内容',desc:'内容达到基础质量条件并被保留',score:'+2',meta:'质量结算'},
+          {name:'有效回答被采纳',desc:'回答或评论解决真实问题并被采纳',score:'+1',meta:'结果结算'},
+          {name:'兴趣标记里程碑',desc:'累计完成阶段数量的兴趣标记',score:'徽章进度 +1',meta:'兴趣成就'}
         ],
         [
           {name:'建立可交易 SPU',desc:'关键字段齐全且复核通过后结算',score:'+4',meta:'结果结算'},
+          {name:'补齐交易关键字段',desc:'关键交易字段补充后通过复核',score:'+2',meta:'结果结算'},
           {name:'补全系列缺口',desc:'完成系统推荐的角色或字段任务',score:'+3',meta:'缺口加权'},
-          {name:'专业信用样本',desc:'提交或复核结果通过后更新近 90 天准确率',score:'信用',meta:'不等同贡献值'},
-          {name:'优质内容',desc:'内容获高质量评价、收藏或引用',score:'+3',meta:''},
-          {name:'内容获得有效互动',desc:'内容持续获得真实互动',score:'+1',meta:''},
-          {name:'兴趣标记',desc:'记录拥有 · 玩过 · 去过 · 看过',score:'记录',meta:''}
+          {name:'处理严重重复资料',desc:'发现、核对并正确合并重复 SPU',score:'+3',meta:'风险贡献'},
+          {name:'完成角色资料',desc:'参与使单个角色达到完整标准',score:'+5',meta:'角色共建徽章 +1'},
+          {name:'完成系列资料',desc:'参与使整个系列达到完整标准',score:'+8',meta:'系列共建徽章 +1'}
         ],
         [
-          {name:'范围审核',desc:'仅审核已认证的品类、角色或字段',score:'信用',meta:'抽检后更新'},
-          {name:'系列补全项目',desc:'拆分缺口并带队完成阶段目标',score:'+8',meta:'团队结果'},
-          {name:'见习辅导',desc:'复核任务样本并帮助贡献者进阶',score:'+3',meta:'治理贡献'},
-          {name:'专业内容',desc:'专业内容通过审核或被采纳',score:'+3',meta:''},
-          {name:'专业内容互动',desc:'专业内容持续获得真实互动',score:'+1',meta:''},
-          {name:'兴趣标记',desc:'记录专业偏好、进度与策展',score:'记录',meta:''}
+          {name:'范围审核通过抽检',desc:'仅审核认证范围，抽检结果同时更新专业信用',score:'+3',meta:'审核结算'},
+          {name:'带队完成系列补全',desc:'拆分缺口并带队完成阶段目标',score:'+8',meta:'团队结果'},
+          {name:'辅导见习管理员',desc:'帮助见习用户完成合格任务样本',score:'+3',meta:'治理贡献'},
+          {name:'资料规范被采用',desc:'制定的字段或审核规范正式投入使用',score:'+5',meta:'专业贡献'},
+          {name:'专项审核里程碑',desc:'持续完成正确审核并通过抽检',score:'徽章进度 +1',meta:'审核专家'}
         ],
         [
-          {name:'资料新增',desc:'在 PC 批量新增资料并通过审核',score:'+3',meta:''},
-          {name:'资料字段编辑',desc:'在 PC 批量编辑资料，内容审核后被保留',score:'+1',meta:''},
-          {name:'资料审核',desc:'审核他人提交的资料并通过',score:'+3',meta:''},
-          {name:'代表性内容',desc:'内容带来真实、有效的传播',score:'影响力',meta:'认证指标'},
-          {name:'有效粉丝与互动',desc:'真实粉丝与互动达到认证要求',score:'影响力',meta:'认证指标'},
-          {name:'兴趣标记',desc:'形成公开可识别的兴趣记录',score:'记录',meta:''}
+          {name:'代表性资料专题',desc:'专题被平台或多个社区正式采用',score:'+10',meta:'代表性贡献'},
+          {name:'跨系列治理项目',desc:'主导多个系列完成结构或质量治理',score:'+15',meta:'治理结果'},
+          {name:'资料规范跨岛采用',desc:'规范被多个岛用于资料共建',score:'+10',meta:'跨岛贡献'},
+          {name:'年度社区治理',desc:'完成年度治理目标并通过复盘',score:'获得徽章',meta:'年度治理'},
+          {name:'官方合作与代表经历',desc:'完成官方合作或社区代表任务',score:'获得徽章',meta:'限定成就'}
         ]
       ];
       const badges = [
