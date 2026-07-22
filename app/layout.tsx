@@ -13,8 +13,8 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "岛内成长体系交互原型",
-  description: "千岛岛内成长体系交互原型。",
+  title: "岛内成长体系 · 资料库困境方案",
+  description: "对照体验 DEMO 现状版与资料库困境版：用任务系统承担完整性，以专业信用决定权限。",
   icons: {
     icon: "/favicon.svg",
     shortcut: "/favicon.svg",

@@ -1,8 +1,30 @@
 <div id="island-growth-interaction">
   <style>
-    #island-growth-interaction { color:var(--foreground); width:100%; max-width:920px; margin-inline:auto; }
+    #island-growth-interaction { color:var(--foreground); width:100%; max-width:1080px; margin-inline:auto; }
+    #island-growth-interaction .demo-switcher { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; gap:12px; padding:10px 12px; border:1px solid var(--border); border-radius:var(--radius); background:var(--card); }
+    #island-growth-interaction .demo-switcher-nav { display:flex; gap:6px; }
+    #island-growth-interaction .demo-switcher a { text-decoration:none; }
+    #island-growth-interaction .system-strip { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; margin:0 16px 10px; }
+    #island-growth-interaction .system-stat { padding:9px; border:1px solid var(--border); border-radius:var(--radius); background:var(--card); }
+    #island-growth-interaction .system-stat strong, #island-growth-interaction .system-stat span { display:block; }
+    #island-growth-interaction .system-stat span { margin-top:3px; color:var(--muted-foreground); }
+    #island-growth-interaction .status-good { color:var(--viz-series-3); }
+    #island-growth-interaction .library-hero { display:grid; gap:10px; }
+    #island-growth-interaction .library-progress { height:10px; overflow:hidden; border-radius:999px; background:var(--muted); }
+    #island-growth-interaction .library-progress span { display:block; height:100%; border-radius:inherit; background:var(--primary); }
+    #island-growth-interaction .task-card { display:grid; gap:9px; padding:12px 0; border-top:1px solid var(--border); }
+    #island-growth-interaction .task-card:first-child { border-top:0; }
+    #island-growth-interaction .task-head, #island-growth-interaction .task-meta { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    #island-growth-interaction .task-tags { display:flex; gap:5px; flex-wrap:wrap; }
+    #island-growth-interaction .task-tags span { padding:3px 6px; border-radius:999px; background:var(--muted); color:var(--muted-foreground); }
+    #island-growth-interaction .state-legend { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:8px; }
+    #island-growth-interaction .state-legend div { padding:9px; border-radius:var(--radius); background:var(--muted); }
+    #island-growth-interaction .state-legend strong, #island-growth-interaction .state-legend span { display:block; }
     #island-growth-interaction .prototype-layout { display:grid; grid-template-columns:minmax(0,430px) minmax(230px,1fr); gap:18px; align-items:start; }
-    #island-growth-interaction .phone-screen { width:100%; max-width:430px; min-width:0; }
+    #island-growth-interaction .phone-screen { position:relative; width:100%; max-width:430px; min-width:0; height:min(844px,100svh); display:grid; grid-template-rows:minmax(0,1fr) auto; overflow:hidden; }
+    #island-growth-interaction .phone-screen.has-dialog::before { content:""; position:absolute; inset:0; z-index:20; background:color-mix(in srgb,var(--background) 72%,transparent); }
+    #island-growth-interaction .app-page { min-height:0; overflow-y:auto; overscroll-behavior:contain; scrollbar-width:none; }
+    #island-growth-interaction .app-page::-webkit-scrollbar { display:none; }
     #island-growth-interaction .side-rail { display:grid; gap:18px; min-width:0; }
     #island-growth-interaction .decision-panel { position:static; display:grid; gap:14px; }
     #island-growth-interaction .decision-panel h3, #island-growth-interaction .decision-panel p { margin:0; }
@@ -27,6 +49,7 @@
     #island-growth-interaction .flow-overview { display:grid; gap:14px; }
     #island-growth-interaction .flow-overview h3, #island-growth-interaction .flow-overview p { margin:0; }
     #island-growth-interaction .overview-flow { display:grid; gap:6px; padding-top:10px; border-top:1px solid var(--border); }
+    #island-growth-interaction .overview-flow-head { display:flex; justify-content:space-between; align-items:center; gap:10px; }
     #island-growth-interaction .overview-flow-track { display:flex; align-items:center; gap:5px; flex-wrap:wrap; }
     #island-growth-interaction .overview-node { padding:4px 7px; border-radius:999px; background:var(--muted); color:var(--foreground); }
     #island-growth-interaction .overview-arrow { color:var(--muted-foreground); }
@@ -39,11 +62,11 @@
     #island-growth-interaction .island-name { display:flex; align-items:center; gap:8px; }
     #island-growth-interaction .shell { display:block; }
     #island-growth-interaction main { min-width:0; margin-top:14px; }
-    #island-growth-interaction .growth-header { display:grid; gap:12px; padding-bottom:10px; }
-    #island-growth-interaction .growth-person { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; text-align:left; }
-    #island-growth-interaction .growth-person .avatar-wrap { width:48px; height:48px; }
-    #island-growth-interaction .growth-person .avatar { width:36px; height:36px; }
-    #island-growth-interaction .growth-person h2 { margin:0 0 3px; font-size:1rem; }
+    #island-growth-interaction .growth-header { display:grid; gap:8px; padding:0 16px 8px; }
+    #island-growth-interaction .growth-person { display:grid; grid-template-columns:auto minmax(0,1fr); gap:12px; align-items:center; text-align:left; }
+    #island-growth-interaction .growth-person .avatar-wrap { width:56px; height:56px; }
+    #island-growth-interaction .growth-person .avatar { width:42px; height:42px; }
+    #island-growth-interaction .growth-person h2 { margin:0; font-size:1.35rem; }
     #island-growth-interaction .growth-person p { margin:0; color:var(--muted-foreground); }
     #island-growth-interaction .avatar-wrap { position:relative; width:58px; height:58px; margin:0; display:grid; place-items:center; }
     #island-growth-interaction .avatar { width:44px; height:44px; border-radius:50%; background:var(--muted); display:grid; place-items:center; color:var(--muted-foreground); }
@@ -54,12 +77,34 @@
     #island-growth-interaction .hero-row { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:14px; align-items:start; }
     #island-growth-interaction .hero-row h2 { margin:0; }
     #island-growth-interaction .hero-row p { margin:4px 0 0; color:var(--muted-foreground); }
-    #island-growth-interaction .meters { display:grid; grid-template-columns:1fr; gap:10px; margin:18px 0; }
+    #island-growth-interaction .growth-header .ladder { margin:8px 0 4px; }
+    #island-growth-interaction .meters { position:relative; display:grid; grid-template-columns:1fr; gap:6px; margin:18px 0 4px; }
+    #island-growth-interaction .current-progress-pointer { position:absolute; left:50%; top:-24px; width:0; height:22px; border-left:2px solid currentColor; color:var(--viz-series-3); transform:translateX(-50%); transition:left .2s ease,color .2s ease; }
+    #island-growth-interaction .current-progress-pointer::before { content:""; position:absolute; left:-5px; top:-1px; border-right:4px solid transparent; border-bottom:6px solid currentColor; border-left:4px solid transparent; }
+    #island-growth-interaction #page-growth main { margin-top:4px; }
     #island-growth-interaction .meter-head { display:flex; justify-content:space-between; align-items:baseline; gap:12px; margin-bottom:6px; }
-    #island-growth-interaction .meter-track { height:9px; overflow:hidden; border-radius:999px; background:var(--muted); }
-    #island-growth-interaction .meter-fill { display:block; height:100%; width:0; border-radius:inherit; background:var(--viz-series-1); transition:width .25s ease; }
-    #island-growth-interaction .meter-fill.contribution { background:var(--viz-series-2); }
-    #island-growth-interaction .metric-note { margin-top:6px; color:var(--muted-foreground); }
+    #island-growth-interaction .meter-segments, #island-growth-interaction .meter-scale { display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); }
+    #island-growth-interaction .meter-segments { position:relative; overflow:hidden; border-radius:999px; }
+    #island-growth-interaction .meter-segment { position:relative; height:10px; overflow:hidden; border-right:1px solid var(--card); background:var(--muted); }
+    #island-growth-interaction .meter-segment:nth-child(5) { border-right:0; }
+    #island-growth-interaction .meter-segment:nth-child(1) { color:var(--viz-series-1); background:color-mix(in srgb,var(--viz-series-1) 18%,var(--muted)); }
+    #island-growth-interaction .meter-segment:nth-child(2) { color:var(--viz-series-2); background:color-mix(in srgb,var(--viz-series-2) 18%,var(--muted)); }
+    #island-growth-interaction .meter-segment:nth-child(3) { color:var(--viz-series-3); background:color-mix(in srgb,var(--viz-series-3) 18%,var(--muted)); }
+    #island-growth-interaction .meter-segment:nth-child(4) { color:var(--viz-series-4); background:color-mix(in srgb,var(--viz-series-4) 18%,var(--muted)); }
+    #island-growth-interaction .meter-segment:nth-child(5) { color:var(--viz-series-5); background:color-mix(in srgb,var(--viz-series-5) 18%,var(--muted)); }
+    #island-growth-interaction .meter-segment.is-selected { box-shadow:inset 0 0 0 2px var(--foreground); }
+    #island-growth-interaction .meter-segment-fill { display:block; height:100%; transition:width .25s ease; }
+    #island-growth-interaction .meter-segments.is-playing .meter-segment-fill { opacity:0; }
+    #island-growth-interaction .meter-playback { position:absolute; inset:0; z-index:2; display:none; grid-template-columns:repeat(5,minmax(0,1fr)); pointer-events:none; clip-path:inset(0 var(--sweep-end) 0 0); }
+    #island-growth-interaction .meter-playback span:nth-child(1) { background:var(--viz-series-1); }
+    #island-growth-interaction .meter-playback span:nth-child(2) { background:var(--viz-series-2); }
+    #island-growth-interaction .meter-playback span:nth-child(3) { background:var(--viz-series-3); }
+    #island-growth-interaction .meter-playback span:nth-child(4) { background:var(--viz-series-4); }
+    #island-growth-interaction .meter-playback span:nth-child(5) { background:var(--viz-series-5); }
+    #island-growth-interaction .meter-playback.is-playing { display:grid; animation:progress-sweep .9s ease-out forwards; }
+    @keyframes progress-sweep { from { clip-path:inset(0 100% 0 0); } to { clip-path:inset(0 var(--sweep-end) 0 0); } }
+    @media (prefers-reduced-motion:reduce) { #island-growth-interaction .meter-playback.is-playing { animation:none; } }
+    #island-growth-interaction .meter-scale { margin-top:7px; color:var(--muted-foreground); text-align:right; }
     #island-growth-interaction .marking-head { display:flex; justify-content:space-between; align-items:center; gap:12px; flex-wrap:wrap; margin:2px 0 8px; }
     #island-growth-interaction .marking-head h3 { margin:0; }
     #island-growth-interaction .marking-summary { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:12px; padding:12px 0; border-block:1px solid var(--border); }
@@ -74,17 +119,27 @@
     #island-growth-interaction .stage.is-upcoming { opacity:.42; filter:saturate(.35); }
     #island-growth-interaction .section-grid { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px; margin-top:18px; }
     #island-growth-interaction .section-title { display:flex; align-items:center; gap:8px; margin:0 0 10px; }
+    #island-growth-interaction .section-heading { display:flex; align-items:center; justify-content:space-between; gap:10px; }
+    #island-growth-interaction .section-heading .section-title { margin-bottom:10px; }
+    #island-growth-interaction .rule-block + .rule-block { margin-top:18px; }
+    #island-growth-interaction .benefit-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-auto-rows:1fr; gap:8px; }
+    #island-growth-interaction .benefit-card { display:flex; min-width:0; min-height:70px; padding:3px 2px; flex-direction:column; align-items:center; text-align:center; transition:opacity .2s ease,filter .2s ease; }
+    #island-growth-interaction .benefit-card.is-locked { opacity:.38; filter:saturate(.2); }
+    #island-growth-interaction .benefit-icon { display:block; margin-bottom:5px; color:var(--foreground); }
+    #island-growth-interaction .benefit-icon svg { width:28px; height:28px; }
+    #island-growth-interaction .benefit-card strong, #island-growth-interaction .benefit-card > span.text-small { display:block; }
+    #island-growth-interaction .benefit-card > span:not(.benefit-icon) { display:block; width:100%; margin-top:1px; overflow:hidden; font-size:11px; text-overflow:ellipsis; white-space:nowrap; color:var(--muted-foreground); }
     #island-growth-interaction .list { display:grid; gap:0; }
     #island-growth-interaction .list-row { display:grid; grid-template-columns:auto minmax(0,1fr) auto; gap:10px; align-items:center; padding:10px 0; border-bottom:1px solid var(--border); }
     #island-growth-interaction .list-row:last-child { border-bottom:0; }
     #island-growth-interaction .list-copy strong { display:block; font-weight:500; }
     #island-growth-interaction .list-copy span { display:block; color:var(--muted-foreground); }
+    #island-growth-interaction #upgrade-list .list-copy span { margin-top:3px; font-size:11px; line-height:1.35; }
     #island-growth-interaction .list-value { text-align:right; white-space:nowrap; }
     #island-growth-interaction .list-value strong, #island-growth-interaction .list-value span { display:block; }
     #island-growth-interaction .list-value span { color:var(--muted-foreground); }
     #island-growth-interaction .behavior-progress { grid-column:2/-1; height:6px; overflow:hidden; border-radius:999px; background:var(--muted); }
     #island-growth-interaction .behavior-progress span { display:block; height:100%; border-radius:inherit; background:var(--viz-series-1); }
-    #island-growth-interaction .growth-intro { grid-template-columns:1fr; }
     #island-growth-interaction .badge-toolbar { display:grid; gap:8px; margin:0 0 14px; }
     #island-growth-interaction .badge-toolbar .viz-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; }
     #island-growth-interaction .badge-toolbar .btn { width:100%; min-width:0; justify-content:center; padding-inline:4px; }
@@ -162,7 +217,11 @@
     #island-growth-interaction .island-post-cover { width:100%; aspect-ratio:3/4; display:grid; place-items:center; margin-bottom:7px; border-radius:var(--radius); background:var(--muted); color:var(--muted-foreground); }
     #island-growth-interaction .island-post strong { display:-webkit-box; width:100%; overflow:hidden; -webkit-box-orient:vertical; -webkit-line-clamp:2; }
     #island-growth-interaction .island-post > .text-small { display:block; width:100%; margin-top:4px; color:var(--muted-foreground); }
-    #island-growth-interaction .island-action-result { margin:12px 0 0; padding-top:10px; border-top:1px solid var(--border); color:var(--muted-foreground); }
+    #island-growth-interaction .feedback-dialog { position:absolute; inset:auto; top:50%; left:50%; z-index:30; width:calc(100% - 32px); max-width:340px; margin:0; padding:16px; transform:translate(-50%,-50%); color:var(--foreground); background:var(--popover); border:1px solid var(--border); border-radius:var(--radius); }
+    #island-growth-interaction .feedback-dialog h3, #island-growth-interaction .feedback-dialog p { margin:0; }
+    #island-growth-interaction .feedback-dialog p { margin-top:8px; color:var(--muted-foreground); }
+    #island-growth-interaction .feedback-actions { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; margin-top:16px; }
+    #island-growth-interaction .feedback-actions .btn { width:100%; justify-content:center; }
     #island-growth-interaction .profile-cover { min-height:170px; padding:14px; display:flex; justify-content:space-between; align-items:flex-start; background:var(--muted); color:var(--muted-foreground); }
     #island-growth-interaction .profile-cover-actions { display:flex; gap:6px; }
     #island-growth-interaction .profile-body { padding:14px; }
@@ -214,7 +273,7 @@
     #island-growth-interaction .context-avatar.medium { width:34px; height:34px; }
     #island-growth-interaction .context-avatar.small { width:20px; height:20px; }
     #island-growth-interaction .context-avatar .avatar-frame { inset:-3px; border-style:solid; border-color:var(--viz-series-1); }
-    #island-growth-interaction .inline-wear-chip { display:inline-flex; align-items:center; padding:2px 6px; border-radius:999px; background:var(--accent); color:var(--accent-foreground); }
+    #island-growth-interaction .inline-wear-chip { display:inline-flex; align-items:center; padding:2px 6px; border:0; border-radius:999px; font:inherit; cursor:pointer; background:var(--accent); color:var(--accent-foreground); }
     #island-growth-interaction .post-placeholder { aspect-ratio:4/5; display:grid; place-items:center; margin:12px 0; border-radius:var(--radius); background:var(--muted); color:var(--muted-foreground); }
     #island-growth-interaction .comment-list { display:grid; gap:16px; margin-top:14px; }
     #island-growth-interaction .comment { display:grid; grid-template-columns:auto minmax(0,1fr); gap:10px; }
@@ -237,10 +296,17 @@
     #island-growth-interaction .message-copy strong, #island-growth-interaction .message-copy span { display:block; }
     #island-growth-interaction .message-copy span { margin-top:3px; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; color:var(--muted-foreground); }
     #island-growth-interaction .message-time { align-self:start; color:var(--muted-foreground); white-space:nowrap; }
-    #island-growth-interaction .app-tabbar { position:sticky; bottom:0; z-index:10; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:3px; margin-top:8px; padding:8px 6px; background:var(--popover); border-top:1px solid var(--border); }
-    #island-growth-interaction .app-tabbar .btn { min-width:0; display:grid; justify-items:center; gap:3px; padding-inline:2px; color:var(--muted-foreground); }
-    #island-growth-interaction .app-tabbar .btn span { display:block; }
+    #island-growth-interaction .app-tabbar { position:static; z-index:10; display:grid; grid-template-columns:repeat(5,minmax(0,1fr)); gap:3px; margin-top:0; padding:8px 6px; background:var(--popover); border-top:1px solid var(--border); }
+    #island-growth-interaction .app-tabbar .btn { width:100%; min-width:0; display:grid; place-items:center; justify-content:center; gap:3px; padding-inline:2px; text-align:center; color:var(--muted-foreground); }
+    #island-growth-interaction .app-tabbar .btn span { display:block; width:100%; text-align:center; }
     #island-growth-interaction .app-tabbar .btn.is-active { color:var(--foreground); background:var(--accent); }
+    #island-growth-interaction[data-active-page="post"] .app-tabbar,
+    #island-growth-interaction[data-active-page="global"] .app-tabbar,
+    #island-growth-interaction[data-active-page="participate"] .app-tabbar,
+    #island-growth-interaction[data-active-page="earned"] .app-tabbar,
+    #island-growth-interaction[data-active-page="interest"] .app-tabbar,
+    #island-growth-interaction[data-active-page="rules"] .app-tabbar,
+    #island-growth-interaction[data-active-page="growth"] .app-tabbar { display:none; }
     #island-growth-interaction .mini-badge { display:grid; place-items:center; width:52px; height:52px; border:2px dashed var(--muted-foreground); border-radius:50%; background:var(--muted); color:var(--muted-foreground); }
     #island-growth-interaction .hidden { display:none; }
     @media (min-width:1000px) {
@@ -276,17 +342,17 @@
   </style>
 
   <div class="prototype-layout">
+  <header class="demo-switcher"><div><strong>DEMO 资料库困境版</strong><span class="text-small"> · 完整性由任务系统承担，权限由专业信用决定</span></div><nav class="demo-switcher-nav" aria-label="切换演示版本"><a class="btn" href="/island-growth-current.html">DEMO 现状版</a><a class="btn btn-primary" href="/">DEMO 资料库困境版</a></nav></header>
   <div class="phone-screen">
   <section id="page-island" class="app-page hidden">
     <section class="card island-hero">
       <div class="island-cover">
-        <div class="island-cover-top"><button type="button" class="btn btn-ghost" data-page-target="participate"><i data-lucide="chevron-left" aria-hidden="true"></i>返回</button><div class="profile-cover-actions"><button type="button" class="btn btn-ghost" aria-label="分享"><i data-lucide="share-2" aria-hidden="true"></i></button><button type="button" class="btn btn-ghost" aria-label="更多"><i data-lucide="ellipsis" aria-hidden="true"></i></button></div></div>
+        <div class="island-cover-top"><span></span><div class="profile-cover-actions"><button type="button" class="btn btn-ghost" aria-label="分享"><i data-lucide="share-2" aria-hidden="true"></i></button><button type="button" class="btn btn-ghost" aria-label="更多"><i data-lucide="ellipsis" aria-hidden="true"></i></button></div></div>
         <div class="island-cover-bottom"><span class="island-logo">岛图</span><div class="island-summary"><h2>Labubu 岛</h2><p>16.7 万成员 · 贡献榜</p></div><button type="button" class="btn btn-primary">已加入</button></div>
       </div>
       <div class="island-body">
-        <div class="island-shortcuts" aria-label="岛内功能"><button type="button" class="btn" data-island-action="浏览图鉴">图鉴</button><button type="button" class="btn" data-island-action="查看角色">角色</button><button type="button" class="btn" data-island-action="使用工具">地图小抄</button><button type="button" class="btn" data-island-action="贡献资料">资料库</button></div>
+        <div class="island-shortcuts" aria-label="岛内功能"><button type="button" class="btn" data-island-action="浏览图鉴">图鉴</button><button type="button" class="btn" data-island-action="兴趣标记">标记</button><button type="button" class="btn" data-island-action="查看角色">角色</button><button type="button" class="btn" data-island-action="使用工具">地图小抄</button><button type="button" class="btn btn-primary" data-page-target="library">资料任务</button></div>
         <div class="island-products home-section" aria-label="岛内商品横滑"><div class="island-product"><div class="island-product-cover">款式</div><strong>最新款式</strong><span class="text-small">36 个想要</span></div><div class="island-product"><div class="island-product-cover">商品</div><strong>春日系列</strong><span class="text-small">128 个想要</span></div><div class="island-product"><div class="island-product-cover">商品</div><strong>Baby Molly</strong><span class="text-small">86 个想要</span></div><div class="island-product"><div class="island-product-cover">商品</div><strong>潮玩系列</strong><span class="text-small">63 个想要</span></div></div>
-        <p class="island-action-result text-small" id="island-action-result">浏览、发帖、互动、使用工具和资料共建均可形成有效行为。</p>
       </div>
     </section>
     <section class="card home-section">
@@ -305,7 +371,7 @@
       <div class="profile-body">
         <div class="profile-identity">
           <button type="button" class="btn btn-ghost avatar-wrap" id="profile-wear-entry" data-page-target="global" aria-label="当前佩戴角色生日徽章头像框，查看徽章墙"><span class="avatar"><i data-lucide="user-round" aria-hidden="true"></i></span><span class="avatar-frame" data-wear-frame aria-hidden="true"></span><span class="profile-frame-chip text-small" id="worn-badge-chip">角色生日徽章</span></button>
-          <div class="profile-identity-copy"><h2>活性氧</h2><p>上海 · 9 小时前来过</p><button type="button" class="btn profile-admin level-tag level-3" id="profile-growth-label" data-page-target="growth">Labubu 岛 · LV3 贡献用户</button></div>
+          <div class="profile-identity-copy"><h2>活性氧</h2><p>上海 · 9 小时前来过</p><button type="button" class="btn profile-admin level-tag level-3" id="profile-growth-label" data-page-target="growth">Labubu 岛 · LV3 贡献用户</button><p class="text-small status-good">见习资料管理员 · 在任</p></div>
         </div>
         <p class="profile-signature">2026 放我一马，不是放马过来</p>
         <button type="button" class="btn btn-ghost interest-preview" data-interest-type="拥有">
@@ -340,7 +406,7 @@
     <section class="card">
       <div class="post-author">
         <span class="context-avatar large"><i data-lucide="user-round" aria-hidden="true"></i><span class="avatar-frame" data-wear-frame aria-hidden="true"></span></span>
-        <div class="post-author-copy"><div class="post-author-name"><strong>活性氧</strong><span class="inline-wear-chip text-small" data-inline-wear></span><span class="viz-badge">贡献用户</span></div><span class="text-small">正文作者 · 42px 头像显示头像框</span></div>
+        <div class="post-author-copy"><div class="post-author-name"><strong>活性氧</strong><button type="button" class="inline-wear-chip text-small" data-inline-wear data-wear-entry></button><span class="viz-badge">贡献用户</span></div><span class="text-small">正文作者 · 42px 头像显示头像框</span></div>
       </div>
       <div class="post-placeholder">正文图片</div>
       <h3>入坑晚了，慢慢补上</h3><p>正文内容示例。头像大于等于 24px，佩戴徽章以头像框形式露出。</p>
@@ -348,8 +414,44 @@
     <section class="card home-section">
       <h3>评论</h3>
       <div class="comment-list">
-        <div class="comment"><span class="context-avatar medium"><i data-lucide="user-round" aria-hidden="true"></i><span class="avatar-frame" aria-hidden="true"></span></span><div><div class="post-author-name"><strong>Sereno</strong></div><p>拍得真好，谢谢分享。</p><span class="text-small">一级评论 · 34px 头像支持显示头像框</span><div class="reply"><span class="context-avatar small"><i data-lucide="user-round" aria-hidden="true"></i></span><div><div class="post-author-name"><strong>活性氧</strong><span class="inline-wear-chip text-small" data-inline-wear></span></div><p>好哒</p><span class="text-small">回复 · 20px 头像不显示头像框</span></div></div></div></div>
+        <div class="comment"><span class="context-avatar medium"><i data-lucide="user-round" aria-hidden="true"></i><span class="avatar-frame" aria-hidden="true"></span></span><div><div class="post-author-name"><strong>Sereno</strong></div><p>拍得真好，谢谢分享。</p><span class="text-small">一级评论 · 34px 头像支持显示头像框</span><div class="reply"><span class="context-avatar small"><i data-lucide="user-round" aria-hidden="true"></i></span><div><div class="post-author-name"><strong>活性氧</strong><button type="button" class="inline-wear-chip text-small" data-inline-wear data-wear-entry></button></div><p>好哒</p><span class="text-small">回复 · 20px 头像不显示头像框</span></div></div></div></div>
         <div class="comment"><span class="context-avatar medium"><i data-lucide="user-round" aria-hidden="true"></i><span class="avatar-frame" aria-hidden="true"></span></span><div><div class="post-author-name"><strong>蕾蕾</strong></div><p>好看！</p><span class="text-small">一级评论 · 34px 头像支持显示头像框</span></div></div>
+      </div>
+    </section>
+  </section>
+
+  <section id="page-library" class="app-page hidden">
+    <div class="topbar"><button type="button" class="btn btn-ghost" data-page-target="island"><i data-lucide="chevron-left" aria-hidden="true"></i>Labubu 岛</button><strong>资料补全任务</strong><span class="viz-badge">团队共建</span></div>
+    <section class="card library-hero">
+      <div class="hero-row"><div><h2>春日野餐系列</h2><p>不要求单个管理员包办全系列，由系统拆分缺口并分配给合适的人。</p></div><strong>68%</strong></div>
+      <div class="library-progress" aria-label="系列完整度 68%"><span style="width:68%"></span></div>
+      <div class="system-strip">
+        <div class="system-stat"><strong>17 / 24</strong><span class="text-small">角色已覆盖</span></div>
+        <div class="system-stat"><strong>41 / 60</strong><span class="text-small">SPU 可交易</span></div>
+        <div class="system-stat"><strong>12</strong><span class="text-small">待领取缺口</span></div>
+      </div>
+    </section>
+    <section class="card home-section">
+      <div class="section-heading"><h3 class="section-title"><i data-lucide="list-checks" aria-hidden="true"></i>推荐给你的任务</h3><span class="text-small">按偏好与能力匹配</span></div>
+      <div class="task-card">
+        <div class="task-head"><strong>补齐 Labubu 野餐徽章款</strong><span class="viz-badge">关键缺口 ×2</span></div>
+        <p class="text-small">你熟悉 Labubu，只需补版本、官方图和发售批次；其他角色由团队成员负责。</p>
+        <div class="task-tags text-small"><span>预计 8 分钟</span><span>SPU 字段</span><span>复核后结算</span></div>
+        <div class="task-meta"><span class="text-small">结果奖励：贡献值 +4 · 信用样本 +1</span><button type="button" class="btn btn-primary" data-claim-task="Labubu 野餐徽章款">领取任务</button></div>
+      </div>
+      <div class="task-card">
+        <div class="task-head"><strong>确认 Zimomo 地区限定来源</strong><span class="viz-badge">来源考据</span></div>
+        <p class="text-small">不要求建完整词条，只需提交可复核的官方来源；通过后由系列管理员合并。</p>
+        <div class="task-tags text-small"><span>预计 5 分钟</span><span>低风险权限</span><span>缺口系数 ×1.5</span></div>
+        <div class="task-meta"><span class="text-small">结果奖励：贡献值 +3 · 考据进度 +1</span><button type="button" class="btn" data-claim-task="Zimomo 地区限定来源">领取任务</button></div>
+      </div>
+    </section>
+    <section class="card home-section">
+      <h3>资料进入交易前的状态</h3>
+      <div class="state-legend">
+        <div><strong>待补充</strong><span class="text-small">可协作，不进入交易</span></div>
+        <div><strong>可交易</strong><span class="text-small">关键字段齐全并复核</span></div>
+        <div><strong>有争议</strong><span class="text-small">保留记录，暂停新关联</span></div>
       </div>
     </section>
   </section>
@@ -384,7 +486,7 @@
 
   <section id="page-earned" class="app-page hidden">
     <div class="topbar"><span></span><strong>获得徽章</strong><span class="viz-badge">通知已同步</span></div>
-    <section class="card acquisition-hero"><span class="acquisition-mark"><i data-lucide="sparkles" aria-hidden="true"></i></span><div><span class="viz-badge">已获得 · 自动佩戴</span><h2 id="earned-badge-name">徽章名称</h2><p>已自动应用到个人主页、成长档案与符合尺寸规则的社区头像。</p></div><div class="acquisition-actions"><button type="button" class="btn" data-page-target="home">返回主页</button><button type="button" class="btn btn-primary" data-page-target="global">查看徽章墙</button></div><button type="button" class="btn btn-block" data-page-target="messages">在消息中查看获得记录</button></section>
+    <section class="card acquisition-hero"><span class="acquisition-mark"><i data-lucide="sparkles" aria-hidden="true"></i></span><div><span class="viz-badge">已获得 · 自动佩戴</span><h2 id="earned-badge-name">徽章名称</h2><p>已自动应用到个人主页、成长档案与符合尺寸规则的社区头像。</p><p class="decision-current" id="earned-next-step">下一阶段：继续完成有效行为，解锁下一枚里程碑徽章。</p></div><div class="acquisition-actions"><button type="button" class="btn" data-page-target="home">返回主页</button><button type="button" class="btn btn-primary" data-page-target="global">查看徽章墙</button></div><button type="button" class="btn btn-block" data-page-target="messages">在消息中查看获得记录</button></section>
   </section>
 
   <section id="page-messages" class="app-page hidden">
@@ -396,9 +498,8 @@
         <button type="button" class="btn btn-ghost message-row"><span class="message-avatar"><i data-lucide="ticket-percent" aria-hidden="true"></i></span><span class="message-copy"><strong>优惠活动</strong><span>猜你喜欢，4 件商品闪购上新</span></span><span class="message-time text-small">今天 18:12</span></button>
         <button type="button" class="btn btn-ghost message-row" data-page-target="island"><span class="message-avatar"><i data-lucide="calendar-heart" aria-hidden="true"></i></span><span class="message-copy"><strong>社区活动</strong><span>[系统] Labubu 岛角色生日活动开启</span></span><span class="message-time text-small">今天 16:45</span></button>
         <button type="button" class="btn btn-ghost message-row"><span class="message-avatar"><i data-lucide="store" aria-hidden="true"></i></span><span class="message-copy"><strong>卖家活动</strong><span>[系统] 拍品征集活动正在进行</span></span><span class="message-time text-small">周三 19:02</span></button>
-        <button type="button" class="btn btn-ghost message-row" data-page-target="growth"><span class="message-avatar"><i data-lucide="shield-check" aria-hidden="true"></i></span><span class="message-copy"><strong>社区管理员</strong><span>[系统] 你的岛内贡献进度已更新</span></span><span class="message-time text-small">周二 15:38</span></button>
+        <button type="button" class="btn btn-ghost message-row" data-page-target="growth"><span class="message-avatar"><i data-lucide="shield-check" aria-hidden="true"></i></span><span class="message-copy"><strong>社区管理员</strong><span>[系统] 资料已被采纳，贡献值 +3</span></span><span class="message-time text-small">周二 15:38</span></button>
       </div>
-      <button type="button" class="btn btn-block home-section" data-page-target="home">返回个人主页</button>
     </section>
   </section>
 
@@ -419,6 +520,42 @@
     </div>
   </section>
 
+  <section id="page-rules" class="app-page hidden">
+    <div class="topbar"><button type="button" class="btn btn-ghost" data-page-target="growth"><i data-lucide="chevron-left" aria-hidden="true"></i>岛内成长</button><strong>规则说明</strong><span></span></div>
+    <main>
+      <section class="card">
+        <div class="rule-block">
+          <h2>岛内用户体系</h2>
+          <p>以单个岛为维度记录用户参与和共建。不同岛可以使用自己的等级称号，但等级判断遵循同一套五阶段结构。</p>
+          <div class="list">
+            <div class="list-row"><i data-lucide="footprints" aria-hidden="true"></i><div class="list-copy"><strong>LV1 · 普通用户 · 0-100</strong><span class="text-small">完成首次互动、发帖、资料提交或兴趣标记，开始形成岛内档案。</span></div></div>
+            <div class="list-row"><i data-lucide="activity" aria-hidden="true"></i><div class="list-copy"><strong>LV2 · 活跃用户 · 100-1000</strong><span class="text-small">按近 30 天有效参与判断；长期不活跃可回落，历史贡献值保留。</span></div></div>
+            <div class="list-row"><i data-lucide="star" aria-hidden="true"></i><div class="list-copy"><strong>LV3 · 贡献用户 · 1000-5000</strong><span class="text-small">记录被审核、采用或认可的有效贡献；贡献值只增不减。</span></div></div>
+            <div class="list-row"><i data-lucide="badge-check" aria-hidden="true"></i><div class="list-copy"><strong>LV4 · 专业用户 · 5000-10000</strong><span class="text-small">达到贡献门槛后，还需完成专业能力认证与人工审核。</span></div></div>
+            <div class="list-row"><i data-lucide="crown" aria-hidden="true"></i><div class="list-copy"><strong>LV5 · 名人用户 · 10000-50000</strong><span class="text-small">综合代表性内容、有效粉丝、传播和治理经历，由平台人工认证或邀请。</span></div></div>
+          </div>
+        </div>
+        <div class="rule-block">
+          <h3>有效行为如何计算</h3>
+          <div class="list">
+            <div class="list-row"><i data-lucide="database" aria-hidden="true"></i><div class="list-copy"><strong>资料共建</strong><span class="text-small">提交先记任务进度；资料达到可展示、可交易或系列补全结果后，再按难度与缺口系数结算贡献值。</span></div></div>
+            <div class="list-row"><i data-lucide="messages-square" aria-hidden="true"></i><div class="list-copy"><strong>社区内容</strong><span class="text-small">首次发帖用于入门；LV2 的有效内容计活跃；Score &gt; 3，或被收藏、引用、有效讨论后，计入贡献。</span></div></div>
+            <div class="list-row"><i data-lucide="heart" aria-hidden="true"></i><div class="list-copy"><strong>互动与关注</strong><span class="text-small">点赞、评论、分享用于活跃和质量辅助判断，不直接等同贡献值；异常互动与刷量不计入。</span></div></div>
+            <div class="list-row"><i data-lucide="bookmark" aria-hidden="true"></i><div class="list-copy"><strong>兴趣标记</strong><span class="text-small">拥有、玩过、去过、看过均保留为有效行为；具体贡献权重由品类和岛规则配置。</span></div></div>
+          </div>
+        </div>
+        <div class="rule-block">
+          <h3>权益、认证与状态变化</h3>
+          <div class="list">
+            <div class="list-row"><i data-lucide="gift" aria-hidden="true"></i><div class="list-copy"><strong>等级与权限分离</strong><span class="text-small">等级承认历史贡献；资料范围、专业信用和在任状态共同决定当前编辑、审核与治理权限。</span></div></div>
+            <div class="list-row"><i data-lucide="shield-alert" aria-hidden="true"></i><div class="list-copy"><strong>在任、休眠与撤权</strong><span class="text-small">没时间维护时进入休眠且保留荣誉；专业信用不足时缩小权限；仅严重错误、造假或滥权才撤权。</span></div></div>
+            <div class="list-row"><i data-lucide="award" aria-hidden="true"></i><div class="list-copy"><strong>徽章独立计算</strong><span class="text-small">徽章用于记录成就和活动经历，可自动佩戴和更换；获得徽章不等于用户等级升级。</span></div></div>
+          </div>
+        </div>
+      </section>
+    </main>
+  </section>
+
   <section id="page-growth" class="app-page hidden">
 
   <div class="topbar">
@@ -428,52 +565,56 @@
   </div>
 
   <div class="shell">
-    <header class="card growth-header">
+    <header class="growth-header">
       <div class="growth-person">
         <div class="avatar-wrap" aria-label="用户小头像与当前佩戴漏出">
           <div class="avatar"><i data-lucide="user-round" aria-hidden="true"></i></div>
           <div class="avatar-frame" id="avatar-frame" data-wear-frame aria-hidden="true"></div>
         </div>
         <div>
-          <h2>Labubu 岛 · 管理员 0721</h2>
+          <h2>活性氧 · 贡献用户</h2>
         </div>
-        <span class="viz-badge" id="profile-level">贡献用户</span>
+      </div>
+      <div class="ladder" aria-label="切换岛内身份等级">
+        <button type="button" class="btn stage level-1" data-level="0"><span data-level-label>普通用户</span></button>
+        <button type="button" class="btn stage level-2" data-level="1"><span data-level-label>活跃用户</span></button>
+        <button type="button" class="btn stage btn-primary level-3" data-level="2" aria-pressed="true"><span data-level-label>贡献用户</span></button>
+        <button type="button" class="btn stage level-4" data-level="3"><span data-level-label>专业用户</span></button>
+        <button type="button" class="btn stage level-5" data-level="4"><span data-level-label>名人用户</span></button>
+      </div>
+      <div class="meters">
+        <span class="current-progress-pointer" id="level-progress-pointer" aria-label="正在查看贡献用户对应区间"></span>
+        <div>
+          <div class="meter-head"><strong>当前贡献值 3200</strong><span>再涨 1800 可达 LV4 专业用户</span></div>
+          <div class="meter-segments" aria-label="当前贡献值 3200，位于 LV3 贡献用户区间">
+            <span class="meter-segment" data-progress-level="0" aria-label="LV1 0 到 100，已完成"><span class="meter-segment-fill level-1" style="width:100%"></span></span>
+            <span class="meter-segment" data-progress-level="1" aria-label="LV2 100 到 1000，已完成"><span class="meter-segment-fill level-2" style="width:100%"></span></span>
+            <span class="meter-segment is-selected" data-progress-level="2" aria-label="LV3 1000 到 5000，当前完成 55%"><span class="meter-segment-fill level-3" style="width:55%"></span></span>
+            <span class="meter-segment" data-progress-level="3" aria-label="LV4 5000 到 10000，未开始"><span class="meter-segment-fill level-4" style="width:0%"></span></span>
+            <span class="meter-segment" data-progress-level="4" aria-label="LV5 10000 到 50000，未开始"><span class="meter-segment-fill level-5" style="width:0%"></span></span>
+            <span class="meter-playback" id="meter-playback" aria-hidden="true"><span></span><span></span><span></span><span></span><span></span></span>
+          </div>
+          <div class="meter-scale text-small"><span>100</span><span>1000</span><span>5000</span><span>10000</span><span>50000</span></div>
+        </div>
+      </div>
+      <div class="system-strip" aria-label="资料库管理员三项状态">
+        <div class="system-stat"><strong>3200</strong><span class="text-small">历史贡献 · 永久保留</span></div>
+        <div class="system-stat"><strong class="status-good">96%</strong><span class="text-small">专业信用 · 近 90 天</span></div>
+        <div class="system-stat"><strong class="status-good">在任</strong><span class="text-small">权限状态 · 可休眠</span></div>
       </div>
     </header>
 
     <main>
-      <section id="growth-panel" class="card" aria-live="polite">
-        <div class="hero-row growth-intro">
-          <div><p id="level-desc">我正在通过资料和内容共建，为本岛留下可沉淀的价值。</p></div>
-        </div>
+      <section id="growth-panel" aria-live="polite">
 
-        <div class="meters">
-          <div>
-            <div class="meter-head"><strong>圈内影响力 · 贡献值</strong><span id="contribution-text">3200 / 5000</span></div>
-            <div class="meter-track"><span class="meter-fill contribution" id="contribution-fill"></span></div>
-            <div class="metric-note text-small" id="contribution-note">由我在 Labubu 圈内的有效共建与认可长期累计，只增不减。</div>
-          </div>
-        </div>
-
-        <div class="ladder" aria-label="五级岛内用户体系">
-          <button type="button" class="btn stage level-1" data-level="0"><span data-level-label>LV1 普通用户</span></button>
-          <button type="button" class="btn stage level-2" data-level="1"><span data-level-label>LV2 活跃用户</span></button>
-          <button type="button" class="btn stage btn-primary level-3" data-level="2" aria-pressed="true"><span data-level-label>LV3 贡献用户</span></button>
-          <button type="button" class="btn stage level-4" data-level="3"><span data-level-label>LV4 专业用户</span></button>
-          <button type="button" class="btn stage level-5" data-level="4"><span data-level-label>LV5 名人用户</span></button>
-        </div>
-
-        <div class="section-grid">
-          <div>
-            <h3 class="section-title"><i data-lucide="arrow-up-circle" aria-hidden="true"></i>我的有效行为</h3>
-            <div class="list" id="upgrade-list"></div>
-          </div>
-          <div>
-            <h3 class="section-title"><i data-lucide="unlock" aria-hidden="true"></i>升级后获得</h3>
-            <div class="list" id="benefit-list"></div>
-          </div>
-        </div>
-
+        <section class="card home-section">
+          <div class="section-heading"><h3 class="section-title"><i data-lucide="sparkles" aria-hidden="true"></i><span id="benefit-section-title">当前等级权益</span></h3><button type="button" class="btn btn-ghost" data-page-target="rules">规则说明 <i data-lucide="chevron-right" aria-hidden="true"></i></button></div>
+          <div class="benefit-grid" id="benefit-list"></div>
+        </section>
+        <section class="card home-section">
+          <div class="section-heading"><h3 class="section-title"><i data-lucide="arrow-up-circle" aria-hidden="true"></i>升级行为</h3></div>
+          <div class="list" id="upgrade-list"></div>
+        </section>
       </section>
 
     </main>
@@ -486,13 +627,18 @@
     <button type="button" class="btn btn-ghost" data-page-target="messages" data-root-tab="messages"><i data-lucide="message-square" aria-hidden="true"></i><span class="text-small">消息</span></button>
     <button type="button" class="btn btn-ghost" data-page-target="home" data-root-tab="home"><i data-lucide="circle-user-round" aria-hidden="true"></i><span class="text-small">我的</span></button>
   </nav>
+  <dialog class="feedback-dialog" id="feedback-dialog" aria-labelledby="feedback-title"><h3 id="feedback-title">操作完成</h3><p id="feedback-copy">系统正在处理。</p><div class="feedback-actions"><button type="button" class="btn" id="feedback-close">知道了</button><button type="button" class="btn btn-primary" id="feedback-primary">查看成长进度</button></div></dialog>
   </div>
 
   <div class="side-rail">
   <aside class="card decision-panel" aria-label="产品方案待讨论">
     <span class="decision-link decision-link-profile" aria-hidden="true"></span>
     <span class="decision-link decision-link-levels" aria-hidden="true"></span>
-    <span class="viz-badge">待讨论</span>
+    <span class="viz-badge">困境解法 · 方案落位</span>
+    <details class="decision-question" open>
+      <summary>这版如何解决两个困境</summary>
+      <div class="benefit-ladder"><div class="benefit-level"><strong>完整性</strong><span>从个人义务改为系列项目指标，系统把缺口拆成多人可领取的微任务。</span></div><div class="benefit-level"><strong>低龄参与</strong><span>身份荣誉可以永久保留，高风险权限由专业信用和在任状态控制。</span></div><div class="benefit-level"><strong>交易安全</strong><span>草稿可以协作，但只有关键字段齐全并复核的 SPU 才进入交易。</span></div></div>
+    </details>
     <details class="decision-question" open>
       <summary>1. 用户体系标签是否统一</summary>
       <p class="text-small decision-current">这是产品方案说明，不属于 App 页面交互。</p>
@@ -521,11 +667,12 @@
   <section class="card flow-overview" aria-label="所有交互流程总览">
     <span class="viz-badge">交互总览</span>
     <div><h3>从动作到结果的完整闭环</h3><p class="text-small">独立于手机页面，用于评审前置触发、获得反馈与终态露出。</p></div>
-    <div class="overview-flow"><strong class="text-small">1. 岛内成长</strong><div class="overview-flow-track"><span class="overview-node">进入岛</span><span class="overview-arrow">→</span><span class="overview-node">产生有效行为</span><span class="overview-arrow">→</span><span class="overview-node">系统校验</span><span class="overview-arrow">→</span><span class="overview-node">贡献值与进度更新</span><span class="overview-arrow">→</span><span class="overview-node">达到阈值</span><span class="overview-arrow">→</span><span class="overview-node">等级 / 权益</span></div></div>
-    <div class="overview-flow"><strong class="text-small">2. 徽章参加与获得</strong><div class="overview-flow-track"><span class="overview-node">徽章墙</span><span class="overview-arrow">→</span><span class="overview-node">条件页</span><span class="overview-arrow">→</span><span class="overview-node">岛内首页 / 对应场景</span><span class="overview-arrow">→</span><span class="overview-node">完成动作</span><span class="overview-arrow">→</span><span class="overview-node">系统校验</span><span class="overview-arrow">→</span><span class="overview-node">获得页</span><span class="overview-arrow">→</span><span class="overview-node">自动佩戴</span></div></div>
-    <div class="overview-flow"><strong class="text-small">3. 佩戴与露出</strong><div class="overview-flow-track"><span class="overview-node">≥24px 显示头像框</span><span class="overview-arrow">/</span><span class="overview-node">&lt;24px 昵称右显示徽章</span><span class="overview-arrow">→</span><span class="overview-node">点击进入徽章墙</span><span class="overview-arrow">→</span><span class="overview-node">更换 / 卸下</span><span class="overview-arrow">→</span><span class="overview-node">全场景同步</span></div></div>
-    <div class="overview-flow"><strong class="text-small">4. 个人主页分流</strong><div class="overview-flow-track"><span class="overview-node">用户体系标签 → 岛内成长</span><span class="overview-node">头像框 → 全平台徽章墙</span><span class="overview-node">拥有 / 玩过 / 去过 / 看过 → 兴趣档案</span><span class="overview-node">帖子 → Post 详情</span></div></div>
-    <div class="overview-flow"><strong class="text-small">5. 通知与回访</strong><div class="overview-flow-track"><span class="overview-node">达成条件</span><span class="overview-arrow">→</span><span class="overview-node">场内获得页</span><span class="overview-arrow">→</span><span class="overview-node">系统消息留存</span><span class="overview-arrow">→</span><span class="overview-node">回到徽章 / 成长详情</span></div></div>
+    <div class="overview-flow"><div class="overview-flow-head"><strong class="text-small">1. 岛内成长</strong><button type="button" class="btn btn-ghost" data-page-target="island">开始体验</button></div><div class="overview-flow-track"><span class="overview-node">进入岛</span><span class="overview-arrow">→</span><span class="overview-node">产生有效行为</span><span class="overview-arrow">→</span><span class="overview-node">系统校验</span><span class="overview-arrow">→</span><span class="overview-node">贡献值与进度更新</span><span class="overview-arrow">→</span><span class="overview-node">达到阈值</span><span class="overview-arrow">→</span><span class="overview-node">等级 / 权益</span></div></div>
+    <div class="overview-flow"><div class="overview-flow-head"><strong class="text-small">资料完整性闭环</strong><button type="button" class="btn btn-ghost" data-page-target="library">查看任务</button></div><div class="overview-flow-track"><span class="overview-node">系列缺口</span><span class="overview-arrow">→</span><span class="overview-node">系统拆分任务</span><span class="overview-arrow">→</span><span class="overview-node">按偏好与能力推荐</span><span class="overview-arrow">→</span><span class="overview-node">多人协作</span><span class="overview-arrow">→</span><span class="overview-node">复核达到可交易</span><span class="overview-arrow">→</span><span class="overview-node">贡献与信用结算</span></div></div>
+    <div class="overview-flow"><div class="overview-flow-head"><strong class="text-small">2. 徽章参加与获得</strong><button type="button" class="btn btn-ghost" data-page-target="global">开始体验</button></div><div class="overview-flow-track"><span class="overview-node">徽章墙</span><span class="overview-arrow">→</span><span class="overview-node">条件页</span><span class="overview-arrow">→</span><span class="overview-node">岛内首页 / 对应场景</span><span class="overview-arrow">→</span><span class="overview-node">完成动作</span><span class="overview-arrow">→</span><span class="overview-node">系统校验</span><span class="overview-arrow">→</span><span class="overview-node">获得页</span><span class="overview-arrow">→</span><span class="overview-node">自动佩戴</span></div></div>
+    <div class="overview-flow"><div class="overview-flow-head"><strong class="text-small">3. 佩戴与露出</strong><button type="button" class="btn btn-ghost" data-page-target="home">开始体验</button></div><div class="overview-flow-track"><span class="overview-node">≥24px 显示头像框</span><span class="overview-arrow">/</span><span class="overview-node">&lt;24px 昵称右显示徽章</span><span class="overview-arrow">→</span><span class="overview-node">点击进入徽章墙</span><span class="overview-arrow">→</span><span class="overview-node">更换 / 卸下</span><span class="overview-arrow">→</span><span class="overview-node">全场景同步</span></div></div>
+    <div class="overview-flow"><div class="overview-flow-head"><strong class="text-small">4. 个人主页分流</strong><button type="button" class="btn btn-ghost" data-page-target="home">开始体验</button></div><div class="overview-flow-track"><span class="overview-node">用户体系标签 → 岛内成长</span><span class="overview-node">头像框 → 全平台徽章墙</span><span class="overview-node">拥有 / 玩过 / 去过 / 看过 → 兴趣档案</span><span class="overview-node">帖子 → Post 详情</span></div></div>
+    <div class="overview-flow"><div class="overview-flow-head"><strong class="text-small">5. 通知与回访</strong><button type="button" class="btn btn-ghost" data-page-target="messages">开始体验</button></div><div class="overview-flow-track"><span class="overview-node">达成条件</span><span class="overview-arrow">→</span><span class="overview-node">场内获得页</span><span class="overview-arrow">→</span><span class="overview-node">系统消息留存</span><span class="overview-arrow">→</span><span class="overview-node">回到徽章 / 成长详情</span></div></div>
   </section>
   </div>
   </div>
@@ -534,14 +681,54 @@
     (() => {
       const root = document.getElementById('island-growth-interaction');
       const levels = [
-        {name:'普通用户',desc:'LV1 阶段已完成，五类岛内有效行为均已开始积累。',c:'1000 / 1000',cp:100,up:[['社区活跃','访问 · 发帖 · 互动 · 分享','20 / 20',100],['工具使用','心测 · 地图小抄 · 拼豆图纸','5 / 5',100],['资料贡献','贡献词条并审核通过','5 / 5',100],['兴趣标记','拥有 · 玩过 · 去过 · 看过','10 / 10',100],['交易挂单','有效发布交易挂单','2 / 2',100]],benefits:[['成长记录','开启本岛贡献值与升级进度'],['新手推荐','根据首次行为推荐内容和工具'],['活动提醒','订阅本岛活动与限定信息']],note:''},
-        {name:'活跃用户',desc:'LV2 阶段已完成，我在社区、工具、资料、标记和交易中保持持续参与。',c:'1000 / 1000',cp:100,up:[['社区活跃','访问 · 发帖 · 互动 · 分享','50 / 50',100],['工具使用','心测 · 地图小抄 · 拼豆图纸','15 / 15',100],['资料贡献','贡献词条并审核通过','15 / 15',100],['兴趣标记','拥有 · 玩过 · 去过 · 看过','40 / 40',100],['交易挂单','有效发布交易挂单','8 / 8',100]],benefits:[['活跃身份','在本岛场景展示活跃用户标签'],['同好推荐','根据行为推荐兴趣相近的岛民'],['内容曝光','有效内容获得基础曝光加权']],note:''},
-        {name:'贡献用户',desc:'贡献值按岛累计我的利他与利己行为，用来表达我在这个 IP 圈内的投入和影响力。',c:'3200 / 5000',cp:64,up:[['社区活跃','访问 · 发帖 · 互动 · 分享 · 内容被使用','74 / 100',74],['工具使用','心测 · 地图小抄 · 拼豆图纸','18 / 30',60],['资料贡献','贡献词条并审核通过','42 / 50',84],['兴趣标记','拥有 · 玩过 · 去过 · 看过','86 / 100',86],['交易挂单','有效发布交易挂单','12 / 20',60]],benefits:[['贡献展示','突出展示被认可的优质贡献'],['资料共建','扩大可编辑的资料范围'],['内容分发','有效内容获得额外曝光']],note:'访问、内容、互动、工具、资料、标记与挂单等有效行为都会增加岛内贡献值。'},
-        {name:'专业用户',desc:'下一阶段继续累计五类有效行为，并通过专业能力认证。',c:'7600 / 10000',cp:76,up:[['社区活跃','高质量内容与真实互动','120 / 180',67],['工具使用','持续使用与产出工具内容','38 / 60',63],['资料贡献','高质量词条与资料审核','72 / 100',72],['兴趣标记','深度、偏好与进度标记','146 / 200',73],['交易挂单','稳定、有效的交易记录','28 / 50',56]],benefits:[['专业认证','完成认证后展示专业身份'],['审核申请','申请资料审核与纠错角色'],['策展申请','申请专题整理、置顶与加精协作']],note:'贡献值达到门槛后，仍需完成专业认证。'},
-        {name:'名人用户',desc:'',c:'16800 / 50000',cp:34,up:[['社区活跃','代表内容与广泛真实互动','180 / 500',36],['工具使用','工具共创与高频有效使用','60 / 200',30],['资料贡献','专业词条与长期资料治理','100 / 300',33],['兴趣标记','形成公开可识别的兴趣资产','200 / 500',40],['交易挂单','长期可信的交易贡献','50 / 150',33]],benefits:[['代表身份','展示稀缺的圈内代表身份'],['官方合作','参与官方活动与内容共创'],['治理提名','进入岛内治理角色候选范围']],note:''}
+        {name:'普通用户',metric:'该等级贡献值',desc:'进入本岛后，通过兴趣标记、缺失举报和资料线索开始参与，不要求理解复杂 SPU。',c:'100 / 100',cp:100,up:[['首次有效发帖','发布非违规内容；获得入门徽章','1 / 1',100],['首次真实互动','获得或产生一次真实互动','1 / 1',100],['首次资料线索','提交图片、来源或缺失线索','0 / 1',0],['兴趣标记','拥有 · 玩过 · 去过 · 看过','1 / 1',100]],benefits:[['内容推荐','根据兴趣推荐内容'],['资料线索','报错 · 缺失 · 上传素材'],['普通活动','参与岛内普通活动']],status:[['等级状态','无降级'],['贡献值','尚未开始累计']]},
+        {name:'活跃用户',metric:'该等级贡献值',desc:'近期持续参与本岛；可领取低风险微任务，把偏爱单一角色转化为可用资料。',c:'1000 / 1000',cp:100,up:[['有效内容','发布通过基础质量判断的内容','6 / 8',75],['真实互动','有效点赞、评论、分享','24 / 30',80],['资料微任务','图片、别名、来源等被保留','8 / 10',80],['兴趣标记','持续补充拥有 · 玩过 · 去过 · 看过','16 / 20',80]],benefits:[['基础流量','活跃内容获得反馈'],['低风险编辑','图片 · 别名 · 资料纠错'],['补全任务','领取偏好匹配任务']],status:[['保级状态','近期活跃，状态正常'],['长期不活跃','可回到普通用户；历史贡献值保留']]},
+        {name:'贡献用户',metric:'历史贡献值',desc:'历史贡献永久保留；见习管理员身份还需通过考试、任务样本和专业信用门槛。',c:'3200 / 5000',cp:64,up:[['交易关键字段','复核通过并达到可交易状态','18 / 20',90],['缺口微任务','按难度和缺口系数结果结算','42 / 50',84],['系列协作','参与角色或系列阶段补全','7 / 10',70],['专业信用','近 90 天有效样本准确率','96 / 95',100]],benefits:[['流量扶持','6000曝光/月'],['范围编辑','按认证范围扩大字段'],['任务共建','参与系列补全项目'],['身份展示','见习管理员 · 在任']],status:[['贡献值','历史累计，只增不减'],['专业信用','96% · 近 90 天'],['权限状态','在任 · 可主动休眠']]},
+        {name:'专业用户',metric:'历史贡献值',desc:'通过专业认证后获得有范围的审核权，不要求每位管理员覆盖整个 IP。',c:'3200 / 10000',cp:32,up:[['审核抽检准确率','后验抽检正确才形成信用样本','19 / 20',95],['专业认证','SPU、来源或系列方向认证','3 / 5',60],['系列补全任务','带队完成阶段性缺口','2 / 4',50],['规范与培训','参与规则维护和见习辅导','6 / 8',75]],benefits:[['流量扶持','8000曝光/月'],['范围审核','按认证品类或字段审核'],['系列管理','拆分任务 · 处理缺口'],['在任机制','休眠保留荣誉与履历']],status:[['专业认证','SPU 结构 · Labubu'],['专业信用','滚动抽检决定权限'],['权限状态','可因失活进入休眠']]},
+        {name:'名人用户',metric:'该等级贡献值',desc:'综合圈内影响力、有效粉丝、传播范围和治理经历，由平台人工认证或邀请。',c:'3200 / 50000',cp:6.4,up:[['代表性内容','内容带来有效传播','18 / 30',60],['有效粉丝','排除异常账号与短期刷量','3200 / 5000',64],['治理参与','重要议题、活动和共建决策','6 / 10',60],['兴趣标记','形成公开可识别的兴趣资产','200 / 250',80]],benefits:[['流量扶持','10000曝光/月'],['内容方向','更高维内容方向'],['资料决策','资料规范与方向'],['岛内治理','高阶管理 · 议题决策']],status:[['认证状态','影响力达标后人工认证 / 邀请'],['治理权','可因不活跃或违规撤销'],['专属权益','重要活动优先资格与治理通知']]}
       ];
-      const stageLabels=['LV1 普通用户','LV2 活跃用户','LV3 贡献用户','LV4 专业用户','LV5 名人用户'];
+      const stageLabels=['普通用户','活跃用户','贡献用户','专业用户','名人用户'];
       const actualLevel=2;
+      const behaviorByLevel=[
+        [
+          {name:'提交资料线索',desc:'上传图片、官方来源或报告资料缺失',score:'记录',meta:'无需理解 SPU'},
+          {name:'首次有效纠错',desc:'错误被确认后获得资料初探徽章',score:'获得徽章',meta:''},
+          {name:'首次发布内容',desc:'完成首次有效内容发布',score:'获得徽章',meta:''},
+          {name:'首次获得互动',desc:'内容首次获得真实互动',score:'获得徽章',meta:''},
+          {name:'兴趣标记',desc:'记录拥有 · 玩过 · 去过 · 看过',score:'记录',meta:''}
+        ],
+        [
+          {name:'资料微任务',desc:'补图片、别名、来源等低风险字段，被保留后结算',score:'+1',meta:'结果结算'},
+          {name:'缺口任务',desc:'完成当前系列缺失项，按缺口系数结算',score:'+2',meta:'难度加权'},
+          {name:'发布有效内容',desc:'持续发布真实、有效的内容',score:'活跃记录',meta:''},
+          {name:'获得有效互动',desc:'内容获得真实点赞、评论或分享',score:'活跃记录',meta:''},
+          {name:'兴趣标记',desc:'记录拥有 · 玩过 · 去过 · 看过',score:'记录',meta:''}
+        ],
+        [
+          {name:'建立可交易 SPU',desc:'关键字段齐全且复核通过后结算',score:'+4',meta:'结果结算'},
+          {name:'补全系列缺口',desc:'完成系统推荐的角色或字段任务',score:'+3',meta:'缺口加权'},
+          {name:'专业信用样本',desc:'提交或复核结果通过后更新近 90 天准确率',score:'信用',meta:'不等同贡献值'},
+          {name:'优质内容',desc:'内容获高质量评价、收藏或引用',score:'+3',meta:''},
+          {name:'内容获得有效互动',desc:'内容持续获得真实互动',score:'+1',meta:''},
+          {name:'兴趣标记',desc:'记录拥有 · 玩过 · 去过 · 看过',score:'记录',meta:''}
+        ],
+        [
+          {name:'范围审核',desc:'仅审核已认证的品类、角色或字段',score:'信用',meta:'抽检后更新'},
+          {name:'系列补全项目',desc:'拆分缺口并带队完成阶段目标',score:'+8',meta:'团队结果'},
+          {name:'见习辅导',desc:'复核任务样本并帮助贡献者进阶',score:'+3',meta:'治理贡献'},
+          {name:'专业内容',desc:'专业内容通过审核或被采纳',score:'+3',meta:''},
+          {name:'专业内容互动',desc:'专业内容持续获得真实互动',score:'+1',meta:''},
+          {name:'兴趣标记',desc:'记录专业偏好、进度与策展',score:'记录',meta:''}
+        ],
+        [
+          {name:'资料新增',desc:'在 PC 批量新增资料并通过审核',score:'+3',meta:''},
+          {name:'资料字段编辑',desc:'在 PC 批量编辑资料，内容审核后被保留',score:'+1',meta:''},
+          {name:'资料审核',desc:'审核他人提交的资料并通过',score:'+3',meta:''},
+          {name:'代表性内容',desc:'内容带来真实、有效的传播',score:'影响力',meta:'认证指标'},
+          {name:'有效粉丝与互动',desc:'真实粉丝与互动达到认证要求',score:'影响力',meta:'认证指标'},
+          {name:'兴趣标记',desc:'形成公开可识别的兴趣记录',score:'记录',meta:''}
+        ]
+      ];
       const badges = [
         {name:'角色生日徽章',type:'event',eventCategory:'年度限定',source:'labubu',status:'已获得',icon:'cake-slice'},
         {name:'头部画师合作徽章',type:'event',eventCategory:'画师限定',source:'labubu',status:'官方联动',icon:'brush'},
@@ -588,6 +775,7 @@
       let wornBadge='角色生日徽章';
       let selectedBadge=wornBadge;
       let pathBadgeName=null;
+      let feedbackNext=null;
       function badgeState(b){
         if(b.status.includes('已获得'))return {key:'earned',label:'已获得'};
         if(/\d[\d,]*\s*\/\s*\d|\d+%|升级|参与记录可置换/.test(b.status))return {key:'progress',label:'进度中'};
@@ -621,6 +809,25 @@
         showPage('participate');
       }
       function row(items,icon){return items.map(x=>`<div class="list-row"><i data-lucide="${icon}" aria-hidden="true"></i><div class="list-copy"><strong>${x[0]}</strong><span class="text-small">${x[1]}</span></div>${x[2]?`<div class="list-value"><strong>${x[2]}</strong><span class="text-small">完成度</span></div><div class="behavior-progress" aria-label="${x[0]}完成度 ${x[3]}%"><span style="width:${x[3]}%"></span></div>`:'<i data-lucide="chevron-right" aria-hidden="true"></i>'}</div>`).join('');}
+      function contributionRows(items){return items.map(item=>{const scored=item.score.startsWith('+');return `<div class="list-row"><i data-lucide="${scored?'plus-circle':item.score==='记录'?'bookmark':'badge-check'}" aria-hidden="true"></i><div class="list-copy"><strong>${item.name}</strong><span class="text-small">${item.desc}</span></div><div class="list-value"><strong>${scored?`${item.score} 贡献值`:item.score}</strong>${item.meta?`<span class="text-small">${item.meta}</span>`:''}</div></div>`;}).join('');}
+      function simpleRows(items,icon){return items.map(x=>`<div class="list-row"><i data-lucide="${icon}" aria-hidden="true"></i><div class="list-copy"><strong>${x[0]}</strong><span class="text-small">${x[1]}</span></div></div>`).join('');}
+      function benefitCards(items,unlocked){const icons=['rocket','wand-sparkles','shield-check','gem'];return items.map((x,index)=>`<div class="benefit-card${unlocked?'':' is-locked'}"><span class="benefit-icon"><i data-lucide="${icons[index%icons.length]}" aria-hidden="true"></i></span><strong class="text-small">${x[0]}</strong><span class="text-small">${x[1]}</span></div>`).join('');}
+      let progressPlaybackTimer;
+      function stopProgressPlayback(){
+        const bar=root.querySelector('.meter-segments'),playback=root.querySelector('#meter-playback');
+        clearTimeout(progressPlaybackTimer);
+        bar.classList.remove('is-playing');
+        playback.classList.remove('is-playing');
+      }
+      function playProgressTo(level){
+        const bar=root.querySelector('.meter-segments'),playback=root.querySelector('#meter-playback');
+        stopProgressPlayback();
+        const target=level===0?20:level===1?40:51;
+        playback.style.setProperty('--sweep-end',`${100-target}%`);
+        void root.offsetWidth;
+        bar.classList.add('is-playing'); playback.classList.add('is-playing');
+        progressPlaybackTimer=setTimeout(()=>{bar.classList.remove('is-playing');playback.classList.remove('is-playing');},950);
+      }
       function renderLevel(i){
         const d=levels[i];
         root.querySelectorAll('[data-level]').forEach((b,n)=>{
@@ -629,14 +836,18 @@
           b.classList.toggle('is-current',current);
           b.classList.toggle('is-complete',complete);
           b.classList.toggle('is-upcoming',upcoming);
-          b.querySelector('[data-level-label]').textContent=(complete?'✓ ':'')+stageLabels[n];
+          b.querySelector('[data-level-label]').textContent=stageLabels[n];
           b.setAttribute('aria-pressed',String(viewing));
         });
-        root.querySelector('#profile-level').textContent=levels[actualLevel].name;
-        const levelDesc=root.querySelector('#level-desc'); levelDesc.textContent=d.desc; levelDesc.closest('.growth-intro').classList.toggle('hidden',!d.desc);
-        root.querySelector('#contribution-text').textContent=d.c; root.querySelector('#contribution-fill').style.width=d.cp+'%';
-        root.querySelector('#contribution-note').textContent=i===4?'贡献值、影响力和治理权限分别判断，最终身份需人工认证。':i===3?'贡献值达到门槛后，仍需完成专业认证。':'由我在 Labubu 圈内的有效共建与认可长期累计，只增不减。';
-        root.querySelector('#upgrade-list').innerHTML=row(d.up,'circle-plus'); root.querySelector('#benefit-list').innerHTML=row(d.benefits,'sparkles');
+        root.querySelectorAll('[data-progress-level]').forEach((segment,n)=>segment.classList.toggle('is-selected',n===i));
+        const pointer=root.querySelector('#level-progress-pointer');
+        pointer.style.left=`${10+i*20}%`;
+        pointer.style.color=`var(--viz-series-${i+1})`;
+        pointer.setAttribute('aria-label',`正在查看${d.name}对应区间`);
+        if(i===actualLevel) playProgressTo(i);
+        else stopProgressPlayback();
+        root.querySelector('#benefit-section-title').textContent=i===actualLevel?'当前等级权益':`${d.name}等级权益`;
+        root.querySelector('#upgrade-list').innerHTML=contributionRows(behaviorByLevel[i]); root.querySelector('#benefit-list').innerHTML=benefitCards(d.benefits,i<=actualLevel);
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
       }
       function renderGlobalBadges(){
@@ -651,7 +862,7 @@
       }
       function updateWearUI(){
         root.querySelectorAll('[data-wear-frame]').forEach(frame=>frame.classList.toggle('hidden',!wornBadge));
-        root.querySelectorAll('[data-inline-wear]').forEach(chip=>{chip.classList.toggle('hidden',!wornBadge);chip.textContent=wornBadge||'';});
+        root.querySelectorAll('[data-inline-wear]').forEach(chip=>{chip.classList.toggle('hidden',!wornBadge);chip.textContent=wornBadge||'';chip.setAttribute('aria-label',wornBadge?`查看${wornBadge}详情`:'');});
         const chip=root.querySelector('#worn-badge-chip'); chip.classList.toggle('hidden',!wornBadge); chip.textContent=wornBadge||'';
         root.querySelector('#profile-wear-entry').setAttribute('aria-label',wornBadge?`当前佩戴${wornBadge}头像框，查看徽章墙`:'当前未佩戴徽章，查看徽章墙');
         root.querySelector('#wear-selection').textContent=selectedBadge||'选择一枚已获得徽章';
@@ -673,6 +884,7 @@
         root.querySelectorAll('[data-profile-tab]').forEach(btn=>{const on=btn.dataset.profileTab===type;btn.classList.toggle('btn-primary',on);btn.setAttribute('aria-pressed',String(on));});
       }
       root.querySelectorAll('[data-page-target]').forEach(btn=>btn.addEventListener('click',()=>showPage(btn.dataset.pageTarget)));
+      root.querySelectorAll('[data-wear-entry]').forEach(btn=>btn.addEventListener('click',()=>{if(!wornBadge)return;selectedBadge=wornBadge;globalFilter=badges.find(b=>b.name===wornBadge)?.type||'achievement';root.querySelectorAll('[data-global-filter]').forEach(filter=>{const on=filter.dataset.globalFilter===globalFilter;filter.classList.toggle('btn-primary',on);filter.setAttribute('aria-pressed',String(on));});renderGlobalBadges();updateWearUI();showPage('global');setFlowState('wall');}));
       root.querySelectorAll('[data-level]').forEach((b,i)=>b.addEventListener('click',()=>renderLevel(i)));
       root.querySelectorAll('[data-interest-type]').forEach(btn=>btn.addEventListener('click',()=>renderInterest(btn.dataset.interestType)));
       root.querySelectorAll('[data-profile-tab]').forEach(btn=>btn.addEventListener('click',()=>renderProfileFeed(btn.dataset.profileTab)));
@@ -684,18 +896,37 @@
         const b=badges.find(item=>item.name===pathBadgeName); if(!b)return;
         b.status='已获得'; selectedBadge=b.name; wornBadge=b.name;
         root.querySelector('#earned-badge-name').textContent=b.name;
+        const nextSteps={资料库:'下一阶段：继续完成资料新增与编辑，解锁更高阶段的词条贡献徽章。',社区:'下一阶段：继续发布有效内容，解锁下一阶段社区里程碑。',标记:'下一阶段：继续补充兴趣标记，解锁深度、偏好或进度成就。',交易:'下一阶段：继续完成有效交易行为，解锁下一阶段交易成就。',开放平台:'下一阶段：继续创建和维护小程序，解锁开发者进阶成就。'};
+        root.querySelector('#earned-next-step').textContent=nextSteps[b.category]||'下一阶段：查看活动页或本岛其他可参与任务。';
         root.querySelector('#badge-earned-message-copy').textContent=`[系统] 恭喜获得「${b.name}」，已自动佩戴`;
         renderGlobalBadges(); updateWearUI(); showPage('earned'); setFlowState('applied');
       }
+      function openFeedback(title,copy,next,label='查看成长进度'){
+        root.querySelector('#feedback-title').textContent=title;
+        root.querySelector('#feedback-copy').textContent=copy;
+        root.querySelector('#feedback-primary').textContent=label;
+        feedbackNext=next;
+        root.querySelector('.phone-screen').classList.add('has-dialog');
+        root.querySelector('#feedback-dialog').show();
+      }
+      function closeFeedback(){root.querySelector('#feedback-dialog').close();root.querySelector('.phone-screen').classList.remove('has-dialog');}
+      root.querySelector('#feedback-close').addEventListener('click',closeFeedback);
+      root.querySelector('#feedback-primary').addEventListener('click',()=>{closeFeedback();const next=feedbackNext;feedbackNext=null;if(next)next();});
+      root.querySelectorAll('[data-claim-task]').forEach(btn=>btn.addEventListener('click',()=>{
+        const task=btn.dataset.claimTask;
+        btn.disabled=true; btn.textContent='已领取';
+        openFeedback('任务已领取',`「${task}」已加入你的任务。提交后先进入复核，达到目标状态后再结算贡献值并更新专业信用。`,()=>showPage('growth'),'查看成长状态');
+      }));
       root.querySelectorAll('[data-island-action]').forEach(btn=>btn.addEventListener('click',()=>{
-        root.querySelector('#island-action-result').textContent=`已记录「${btn.dataset.islandAction}」；通过有效性校验后更新贡献值或徽章进度。`;
         const current=badges.find(item=>item.name===pathBadgeName);
-        if(btn.dataset.islandAction==='贡献资料'&&current?.category==='资料库')awardCurrentBadge();
+        const earns=btn.dataset.islandAction==='贡献资料'&&current?.category==='资料库';
+        const copies={浏览图鉴:'本次浏览用于近期活跃判断，不直接增加贡献值。',查看角色:'本次浏览用于兴趣推荐，不直接增加贡献值。',使用工具:'工具使用已记录为有效参与，用于近期活跃判断。',兴趣标记:'兴趣标记帮助系统推荐你熟悉的角色任务，不要求你负责整个系列。',贡献资料:'资料已进入复核；达到可展示或可交易状态后，按难度与缺口系数结算。'};
+        openFeedback('行为已记录',copies[btn.dataset.islandAction]||'行为已记录。',earns?awardCurrentBadge:()=>showPage('growth'),earns?'查看徽章结果':'查看成长进度');
       }));
       root.querySelector('#island-publish-post').addEventListener('click',()=>{
-        root.querySelector('#island-action-result').textContent='帖子发布成功；系统正在校验内容质量并更新贡献值与徽章进度。';
         const current=badges.find(item=>item.name===pathBadgeName);
-        if(current?.category==='社区'||current?.type==='event')awardCurrentBadge();
+        const earns=current?.category==='社区'||current?.type==='event';
+        openFeedback('帖子发布成功','普通发帖不直接增加贡献值；Score > 3，或被收藏、引用、有效讨论后，贡献值 +3。',earns?awardCurrentBadge:()=>showPage('growth'),earns?'查看徽章结果':'查看成长进度');
       });
       renderLevel(2); renderGlobalBadges(); renderProfileFeed('帖子'); updateWearUI(); showPage('home');
     })();

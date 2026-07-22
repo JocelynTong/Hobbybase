@@ -29,9 +29,15 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
-    if (url.pathname === "/") {
+    if (url.pathname === "/" || url.pathname === "/library-dilemma") {
       return env.ASSETS.fetch(
         new Request(new URL("/island-growth-interaction.html", request.url), request),
+      );
+    }
+
+    if (url.pathname === "/current") {
+      return env.ASSETS.fetch(
+        new Request(new URL("/island-growth-current.html", request.url), request),
       );
     }
 
