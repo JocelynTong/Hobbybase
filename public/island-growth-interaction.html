@@ -142,6 +142,9 @@
     #island-growth-interaction .rule-block + .rule-block { margin-top:18px; }
     #island-growth-interaction .benefit-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); grid-auto-rows:1fr; gap:8px; }
     #island-growth-interaction .benefit-card { display:flex; min-width:0; min-height:70px; padding:3px 2px; flex-direction:column; align-items:center; text-align:center; transition:opacity .2s ease,filter .2s ease; }
+    #island-growth-interaction button.benefit-card { width:100%; border:0; border-radius:10px; background:transparent; color:inherit; cursor:pointer; }
+    #island-growth-interaction button.benefit-card:hover { background:var(--muted); }
+    #island-growth-interaction button.benefit-card .benefit-icon { color:var(--view-level-color,var(--primary)); }
     #island-growth-interaction .benefit-card.is-locked { opacity:.38; filter:saturate(.2); }
     #island-growth-interaction .benefit-icon { display:block; margin-bottom:5px; color:var(--foreground); }
     #island-growth-interaction .benefit-icon svg { width:28px; height:28px; }
@@ -159,6 +162,10 @@
     #island-growth-interaction .behavior-progress { grid-column:2/-1; height:6px; overflow:hidden; border-radius:999px; background:var(--muted); }
     #island-growth-interaction .behavior-progress span { display:block; height:100%; border-radius:inherit; background:var(--viz-series-1); }
     #island-growth-interaction .badge-toolbar { display:grid; gap:8px; margin:0 0 14px; }
+    #island-growth-interaction .badge-context { display:grid; grid-template-columns:minmax(0,1fr) auto; gap:10px; align-items:center; margin:12px 0; padding:10px; border:1px solid var(--border); border-radius:var(--radius); background:var(--accent); }
+    #island-growth-interaction .badge-context strong, #island-growth-interaction .badge-context span { display:block; }
+    #island-growth-interaction .badge-view-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:8px; }
+    #island-growth-interaction .badge-level-group.is-context { padding:10px; border:1px solid var(--primary); border-radius:var(--radius); background:color-mix(in srgb,var(--primary) 7%,transparent); }
     #island-growth-interaction .badge-toolbar .viz-controls { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); width:100%; }
     #island-growth-interaction .badge-toolbar .btn { width:100%; min-width:0; justify-content:center; padding-inline:4px; }
     #island-growth-interaction .badge-grid { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:10px; }
@@ -476,17 +483,19 @@
 
   <section id="page-global" class="app-page hidden">
     <div class="topbar">
-      <button type="button" class="btn btn-ghost" data-page-target="home"><i data-lucide="chevron-left" aria-hidden="true"></i>个人主页</button>
+      <button type="button" class="btn btn-ghost" id="badge-wall-back"><i data-lucide="chevron-left" aria-hidden="true"></i><span id="badge-wall-back-copy">个人主页</span></button>
       <span class="viz-badge">全平台资产</span>
     </div>
     <div class="card">
       <div class="hero-row"><div><h2>徽章墙</h2><p id="badge-wall-desc">由有效行为解锁的成就</p></div><strong id="badge-count">22 枚</strong></div>
+      <div class="badge-context hidden" id="badge-level-context"><div><strong id="badge-context-title">贡献用户等级徽章</strong><span class="text-small" id="badge-context-progress">可获得 6 枚</span></div><button type="button" class="btn" id="show-all-level-badges">查看全部徽章</button></div>
       <div class="badge-toolbar">
         <div class="viz-controls" role="group" aria-label="全平台徽章类型">
           <button type="button" class="btn btn-primary" data-global-filter="achievement" aria-pressed="true">成就徽章</button>
           <button type="button" class="btn" data-global-filter="event" aria-pressed="false">活动限定</button>
         </div>
         <div class="badge-legend text-small" aria-label="徽章状态图例"><span class="earned"><i></i>已获得</span><span class="progress"><i></i>进度中</span><span><i></i>未获得</span></div>
+        <div class="badge-view-controls" role="group" aria-label="成就徽章组织方式"><button type="button" class="btn btn-primary" data-badge-view="business" aria-pressed="true">按业务类型</button><button type="button" class="btn" data-badge-view="level" aria-pressed="false">按成长等级</button></div>
       </div>
       <div class="wear-action" aria-live="polite"><div><strong id="wear-selection">角色生日徽章</strong><span class="text-small" id="wear-current">当前佩戴：角色生日徽章</span></div><button type="button" class="btn" id="wear-action-btn">卸下</button></div>
       <div class="badge-grid" id="global-badge-grid"></div>
@@ -709,11 +718,11 @@
       const actualLevel=2;
       const behaviorByLevel=[
         [
-          {name:'首次资料线索被采纳',desc:'图片、官方来源或缺失线索经确认后生效',score:'获得徽章',meta:'资料初探'},
-          {name:'首次有效纠错',desc:'错误被确认并完成修正',score:'获得徽章',meta:'纠错新手'},
-          {name:'首次发布有效内容',desc:'完成首次符合基础质量要求的内容发布',score:'获得徽章',meta:'首次发声'},
-          {name:'首次获得真实互动',desc:'内容首次获得有效回应',score:'获得徽章',meta:'初次回应'},
-          {name:'首次完成兴趣标记',desc:'首次记录拥有 · 玩过 · 去过 · 看过',score:'获得徽章',meta:'兴趣启程'}
+          {name:'资料线索被采纳',desc:'图片、官方来源或缺失线索经确认后生效',score:'+3',meta:'首次另得「资料初探」徽章'},
+          {name:'完成有效纠错',desc:'错误被确认并完成修正',score:'+3',meta:'首次另得「纠错新手」徽章'},
+          {name:'发布有效内容',desc:'内容符合基础质量要求并被保留',score:'+3',meta:'首次另得「首次发声」徽章'},
+          {name:'有效回答被采纳',desc:'回答或评论解决真实问题并被采纳',score:'+2',meta:'首次另得「初次回应」徽章'},
+          {name:'兴趣标记里程碑',desc:'每完成 10 个拥有 · 玩过 · 去过 · 看过标记',score:'+1',meta:'兴趣徽章进度 +1'}
         ],
         [
           {name:'资料微任务',desc:'图片、别名、来源等低风险字段被保留',score:'+1',meta:'结果结算'},
@@ -773,7 +782,31 @@
         {name:'明日香单推',type:'achievement',category:'标记',source:'labubu',status:'72%',icon:'star'},
         {name:'高分情感本品鉴师',type:'achievement',category:'标记',source:'labubu',status:'68%',icon:'chart-no-axes-column-increasing'},
         {name:'《琳琅》首车玩家',type:'achievement',category:'标记',source:'labubu',status:'已获得',icon:'flag'},
-        {name:'开发者徽章',type:'achievement',category:'开放平台',source:'platform',status:'未获得',icon:'code-xml'}
+        {name:'开发者徽章',type:'achievement',category:'开放平台',source:'platform',status:'未获得',icon:'code-xml'},
+        {name:'资料初探',type:'achievement',category:'资料库',unlockLevel:0,source:'labubu',status:'已获得',icon:'search-check'},
+        {name:'纠错新手',type:'achievement',category:'资料库',unlockLevel:0,source:'labubu',status:'已获得',icon:'file-check-2'},
+        {name:'首次发声',type:'achievement',category:'社区',unlockLevel:0,source:'labubu',status:'已获得',icon:'message-circle'},
+        {name:'初次回应',type:'achievement',category:'社区',unlockLevel:0,source:'labubu',status:'1 / 1',icon:'messages-square'},
+        {name:'兴趣启程',type:'achievement',category:'标记',unlockLevel:0,source:'labubu',status:'8 / 10',icon:'bookmark-check'},
+        {name:'微任务参与者',type:'achievement',category:'资料库',unlockLevel:1,source:'labubu',status:'已获得',icon:'list-checks'},
+        {name:'缺口协作者',type:'achievement',category:'资料库',unlockLevel:1,source:'labubu',status:'6 / 10',icon:'puzzle'},
+        {name:'持续活跃者',type:'achievement',category:'社区',unlockLevel:1,source:'labubu',status:'18 / 30',icon:'activity'},
+        {name:'兴趣记录者',type:'achievement',category:'标记',unlockLevel:1,source:'labubu',status:'4 / 10',icon:'notebook-tabs'},
+        {name:'SPU 建设者',type:'achievement',category:'资料库',unlockLevel:2,source:'labubu',status:'18 / 20',icon:'database'},
+        {name:'查重专家',type:'achievement',category:'资料库',unlockLevel:2,source:'labubu',status:'7 / 10',icon:'copy-check'},
+        {name:'角色共建者',type:'achievement',category:'资料库',unlockLevel:2,source:'labubu',status:'3 / 5',icon:'user-round-check'},
+        {name:'系列共建者',type:'achievement',category:'资料库',unlockLevel:2,source:'labubu',status:'2 / 5',icon:'blocks'},
+        {name:'资料考据员',type:'achievement',category:'资料库',unlockLevel:2,source:'labubu',status:'8 / 10',icon:'book-open-check'},
+        {name:'稳定贡献者',type:'achievement',category:'资料库',unlockLevel:2,source:'labubu',status:'已获得',icon:'badge-check'},
+        {name:'可靠审核员',type:'achievement',category:'资料库',unlockLevel:3,source:'labubu',status:'规划中',icon:'shield-check'},
+        {name:'系列项目负责人',type:'achievement',category:'资料库',unlockLevel:3,source:'labubu',status:'规划中',icon:'network'},
+        {name:'见习导师',type:'achievement',category:'资料库',unlockLevel:3,source:'labubu',status:'规划中',icon:'graduation-cap'},
+        {name:'规范制定者',type:'achievement',category:'资料库',unlockLevel:3,source:'labubu',status:'规划中',icon:'scroll-text'},
+        {name:'审核专家',type:'achievement',category:'资料库',unlockLevel:3,source:'labubu',status:'规划中',icon:'clipboard-check'},
+        {name:'跨系列治理者',type:'achievement',category:'资料库',unlockLevel:4,source:'labubu',status:'规划中',icon:'waypoints'},
+        {name:'社区代表',type:'achievement',category:'社区',unlockLevel:4,source:'labubu',status:'规划中',icon:'crown'},
+        {name:'年度治理者',type:'achievement',category:'资料库',unlockLevel:4,source:'labubu',status:'规划中',icon:'calendar-check'},
+        {name:'官方合作伙伴',type:'achievement',category:'社区',unlockLevel:4,source:'labubu',status:'规划中',icon:'handshake'}
       ];
       const categoryNotes={年度限定:'角色生日 · 年度报告',画师限定:'官方画师合作',功能推广:'心测 · 扩列名片等', 'QDF & 小程序':'参与联动活动',特殊活动参与:'有效参与记录可置换',资料库:'新晋管理员 → 贡献达人 → 人形图鉴',社区:'存图 · 发帖 · 活动 · 回答 · 互动 · 纠察',交易:'接单 · 购买 · 公审审核',标记:'深度 · 偏好 · 进度 · 节点',开放平台:'完成千岛第一小程序时创建'};
       const interestData={
@@ -788,6 +821,9 @@
         想要:[['Zimomo 限定款','18 人想要'],['SKULLPANDA 联名','42 人想要'],['画师合作徽章','活动限定'],['年度报告限定','待解锁']]
       };
       let globalFilter='achievement';
+      let badgeView='business';
+      let levelBadgeContext=null;
+      let viewedGrowthLevel=actualLevel;
       let wornBadge='角色生日徽章';
       let selectedBadge=wornBadge;
       let pathBadgeName=null;
@@ -827,7 +863,15 @@
       function row(items,icon){return items.map(x=>`<div class="list-row"><i data-lucide="${icon}" aria-hidden="true"></i><div class="list-copy"><strong>${x[0]}</strong><span class="text-small">${x[1]}</span></div>${x[2]?`<div class="list-value"><strong>${x[2]}</strong><span class="text-small">完成度</span></div><div class="behavior-progress" aria-label="${x[0]}完成度 ${x[3]}%"><span style="width:${x[3]}%"></span></div>`:'<i data-lucide="chevron-right" aria-hidden="true"></i>'}</div>`).join('');}
       function contributionRows(items){return items.map(item=>{const scored=item.score.startsWith('+');return `<div class="list-row"><i data-lucide="${scored?'plus-circle':item.score==='记录'?'bookmark':'badge-check'}" aria-hidden="true"></i><div class="list-copy"><strong>${item.name}</strong><span class="text-small">${item.desc}</span></div><div class="list-value"><strong>${scored?`${item.score} 贡献值`:item.score}</strong>${item.meta?`<span class="text-small">${item.meta}</span>`:''}</div></div>`;}).join('');}
       function simpleRows(items,icon){return items.map(x=>`<div class="list-row"><i data-lucide="${icon}" aria-hidden="true"></i><div class="list-copy"><strong>${x[0]}</strong><span class="text-small">${x[1]}</span></div></div>`).join('');}
-      function benefitCards(items,unlocked){const icons=['rocket','wand-sparkles','shield-check','gem'];return items.map((x,index)=>`<div class="benefit-card${unlocked?'':' is-locked'}"><span class="benefit-icon"><i data-lucide="${icons[index%icons.length]}" aria-hidden="true"></i></span><strong class="text-small">${x[0]}</strong><span class="text-small">${x[1]}</span></div>`).join('');}
+      const levelBadgeCounts=[5,4,6,5,4];
+      function benefitCards(items,unlocked,levelIndex){const icons=['rocket','wand-sparkles','shield-check','gem'];const cards=items.map((x,index)=>`<div class="benefit-card${unlocked?'':' is-locked'}"><span class="benefit-icon"><i data-lucide="${icons[index%icons.length]}" aria-hidden="true"></i></span><strong class="text-small">${x[0]}</strong><span class="text-small">${x[1]}</span></div>`).join('');const badgeCard=`<button type="button" class="benefit-card${unlocked?'':' is-locked'}" data-level-badge-entry="${levelIndex}" aria-label="查看${stageLabels[levelIndex]}可获得的 ${levelBadgeCounts[levelIndex]} 枚徽章"><span class="benefit-icon"><i data-lucide="award" aria-hidden="true"></i></span><strong class="text-small">等级徽章</strong><span class="text-small">可获得 ${levelBadgeCounts[levelIndex]} 枚</span></button>`;return cards+badgeCard;}
+      function openLevelBadgeWall(levelIndex){
+        globalFilter='achievement';
+        badgeView='level'; levelBadgeContext=levelIndex;
+        root.querySelectorAll('[data-global-filter]').forEach(filter=>{const on=filter.dataset.globalFilter==='achievement';filter.classList.toggle('btn-primary',on);filter.setAttribute('aria-pressed',String(on));});
+        renderGlobalBadges(); showPage('global');
+        requestAnimationFrame(()=>root.querySelector(`[data-level-badge-group="${levelIndex}"]`)?.scrollIntoView({behavior:'smooth',block:'start'}));
+      }
       let progressPlaybackTimer;
       function stopProgressPlayback(){
         const bar=root.querySelector('.meter-segments'),playback=root.querySelector('#meter-playback');
@@ -845,6 +889,7 @@
         progressPlaybackTimer=setTimeout(()=>{bar.classList.remove('is-playing');playback.classList.remove('is-playing');},950);
       }
       function renderLevel(i){
+        viewedGrowthLevel=i;
         const d=levels[i];
         const attainedCopies=['已达 100 贡献值的普通用户','已达 1000 贡献值的活跃用户'];
         const growthHeader=root.querySelector('.growth-header');
@@ -868,15 +913,25 @@
         if(i===actualLevel) playProgressTo(i);
         else stopProgressPlayback();
         root.querySelector('#benefit-section-title').textContent=i===actualLevel?'当前等级权益':`${d.name}等级权益`;
-        root.querySelector('#upgrade-list').innerHTML=contributionRows(behaviorByLevel[i]); root.querySelector('#benefit-list').innerHTML=benefitCards(d.benefits,i<=actualLevel);
+        root.querySelector('#upgrade-list').innerHTML=contributionRows(behaviorByLevel[i]); root.querySelector('#benefit-list').innerHTML=benefitCards(d.benefits,i<=actualLevel,i);
+        root.querySelector('[data-level-badge-entry]')?.addEventListener('click',event=>openLevelBadgeWall(Number(event.currentTarget.dataset.levelBadgeEntry)));
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
       }
       function renderGlobalBadges(){
-        const visible=badges.map((b,i)=>({...b,i})).filter(b=>globalFilter==='all'||b.type===globalFilter);
+        const allVisible=badges.map((b,i)=>({...b,i})).filter(b=>globalFilter==='all'||b.type===globalFilter);
+        const levelMode=globalFilter==='achievement'&&badgeView==='level';
+        const visible=levelMode&&levelBadgeContext!==null?allVisible.filter(b=>b.unlockLevel===levelBadgeContext):allVisible;
         root.querySelector('#global-badge-grid').className='badge-groups';
-        root.querySelector('#global-badge-grid').innerHTML=groupedBadgeMarkup(visible,globalFilter);
+        if(levelMode){
+          const groups=levelBadgeContext===null?[0,1,2,3,4]:[levelBadgeContext];
+          root.querySelector('#global-badge-grid').innerHTML=groups.map(levelIndex=>{const group=allVisible.filter(b=>b.unlockLevel===levelIndex);if(!group.length)return '';const earned=group.filter(b=>badgeState(b).key==='earned').length;return `<section class="badge-group badge-level-group${levelBadgeContext===levelIndex?' is-context':''}" data-level-badge-group="${levelIndex}"><div class="badge-group-head"><strong>${stageLabels[levelIndex]} · ${group.length} 枚</strong><span class="text-small">已获得 ${earned} 枚</span></div><div class="badge-grid">${group.map(b=>badgeMarkup(b)).join('')}</div></section>`;}).join('');
+        }else root.querySelector('#global-badge-grid').innerHTML=groupedBadgeMarkup(visible,globalFilter);
         root.querySelector('#badge-count').textContent=visible.length+' 枚';
-        root.querySelector('#badge-wall-desc').textContent=globalFilter==='achievement'?'由有效行为解锁的成就':'来自活动、联动与年度限定';
+        root.querySelector('#badge-wall-desc').textContent=levelMode?'按成长等级查看可获得的成就徽章':globalFilter==='achievement'?'由有效行为解锁的成就':'来自活动、联动与年度限定';
+        const context=root.querySelector('#badge-level-context');context.classList.toggle('hidden',levelBadgeContext===null||!levelMode);
+        if(levelBadgeContext!==null&&levelMode){const group=allVisible.filter(b=>b.unlockLevel===levelBadgeContext),earned=group.filter(b=>badgeState(b).key==='earned').length;root.querySelector('#badge-context-title').textContent=`${stageLabels[levelBadgeContext]}等级徽章`;root.querySelector('#badge-context-progress').textContent=`可获得 ${group.length} 枚 · 已获得 ${earned} 枚`;}
+        root.querySelector('#badge-wall-back-copy').textContent=levelBadgeContext!==null&&levelMode?'岛内成长':'个人主页';
+        root.querySelectorAll('[data-badge-view]').forEach(btn=>{const on=btn.dataset.badgeView===badgeView;btn.classList.toggle('btn-primary',on);btn.setAttribute('aria-pressed',String(on));btn.disabled=globalFilter!=='achievement';});
         root.querySelectorAll('[data-wear-badge]').forEach(btn=>btn.addEventListener('click',()=>{selectedBadge=btn.dataset.wearBadge;renderGlobalBadges();updateWearUI();setFlowState('selected');}));
         root.querySelectorAll('[data-badge-path]').forEach(btn=>btn.addEventListener('click',()=>openBadgePath(btn.dataset.badgePath)));
         if(window.lucide)lucide.createIcons({attrs:{width:16,height:16}});
@@ -905,11 +960,14 @@
         root.querySelectorAll('[data-profile-tab]').forEach(btn=>{const on=btn.dataset.profileTab===type;btn.classList.toggle('btn-primary',on);btn.setAttribute('aria-pressed',String(on));});
       }
       root.querySelectorAll('[data-page-target]').forEach(btn=>btn.addEventListener('click',()=>showPage(btn.dataset.pageTarget)));
-      root.querySelectorAll('[data-wear-entry]').forEach(btn=>btn.addEventListener('click',()=>{if(!wornBadge)return;selectedBadge=wornBadge;globalFilter=badges.find(b=>b.name===wornBadge)?.type||'achievement';root.querySelectorAll('[data-global-filter]').forEach(filter=>{const on=filter.dataset.globalFilter===globalFilter;filter.classList.toggle('btn-primary',on);filter.setAttribute('aria-pressed',String(on));});renderGlobalBadges();updateWearUI();showPage('global');setFlowState('wall');}));
+      root.querySelectorAll('[data-wear-entry]').forEach(btn=>btn.addEventListener('click',()=>{if(!wornBadge)return;selectedBadge=wornBadge;globalFilter=badges.find(b=>b.name===wornBadge)?.type||'achievement';badgeView='business';levelBadgeContext=null;root.querySelectorAll('[data-global-filter]').forEach(filter=>{const on=filter.dataset.globalFilter===globalFilter;filter.classList.toggle('btn-primary',on);filter.setAttribute('aria-pressed',String(on));});renderGlobalBadges();updateWearUI();showPage('global');setFlowState('wall');}));
       root.querySelectorAll('[data-level]').forEach((b,i)=>b.addEventListener('click',()=>renderLevel(i)));
       root.querySelectorAll('[data-interest-type]').forEach(btn=>btn.addEventListener('click',()=>renderInterest(btn.dataset.interestType)));
       root.querySelectorAll('[data-profile-tab]').forEach(btn=>btn.addEventListener('click',()=>renderProfileFeed(btn.dataset.profileTab)));
       root.querySelectorAll('[data-global-filter]').forEach(btn=>btn.addEventListener('click',()=>{globalFilter=btn.dataset.globalFilter;root.querySelectorAll('[data-global-filter]').forEach(b=>{const on=b===btn;b.classList.toggle('btn-primary',on);b.setAttribute('aria-pressed',String(on));});renderGlobalBadges();}));
+      root.querySelectorAll('[data-badge-view]').forEach(btn=>btn.addEventListener('click',()=>{badgeView=btn.dataset.badgeView;if(badgeView==='business')levelBadgeContext=null;renderGlobalBadges();}));
+      root.querySelector('#show-all-level-badges').addEventListener('click',()=>{levelBadgeContext=null;renderGlobalBadges();});
+      root.querySelector('#badge-wall-back').addEventListener('click',()=>{const returnToGrowth=levelBadgeContext!==null&&badgeView==='level'&&globalFilter==='achievement';if(returnToGrowth){const level=levelBadgeContext;levelBadgeContext=null;showPage('growth');renderLevel(level);}else showPage('home');});
       root.querySelector('#wear-action-btn').addEventListener('click',()=>{wornBadge=selectedBadge===wornBadge?null:selectedBadge;renderGlobalBadges();updateWearUI();setFlowState('applied');});
       root.querySelector('#badge-earned-message').addEventListener('click',()=>{globalFilter=badges.find(b=>b.name===selectedBadge)?.type||'achievement';renderGlobalBadges();showPage('global');setFlowState('wall');});
       root.querySelector('#complete-badge-condition').addEventListener('click',()=>showPage('island'));
