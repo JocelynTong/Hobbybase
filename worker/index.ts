@@ -35,7 +35,7 @@ const worker = {
       );
     }
 
-    if (url.pathname === "/current") {
+    if (url.pathname === "/current" || url.pathname === "/island-growth-current") {
       return env.ASSETS.fetch(
         new Request(new URL("/island-growth-current.html", request.url), request),
       );
