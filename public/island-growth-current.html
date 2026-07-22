@@ -796,7 +796,7 @@
         pointer.style.left=`${10+i*20}%`;
         pointer.style.color=`var(--viz-series-${i+1})`;
         pointer.setAttribute('aria-label',`正在查看${d.name}对应区间`);
-        root.querySelector('#attainment-copy').textContent=i<actualLevel?attainedCopies[i]:i===actualLevel?'还差 1800 贡献值升级专业用户':'尚未达到该等级';
+        root.querySelector('#attainment-copy').textContent=i<actualLevel?attainedCopies[i]:'还差 1800 贡献值升级专业用户';
         if(i===actualLevel) playProgressTo(i);
         else stopProgressPlayback();
         root.querySelector('#benefit-section-title').textContent=i===actualLevel?'当前等级权益':`${d.name}等级权益`;
