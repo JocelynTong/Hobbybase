@@ -29,19 +29,21 @@ const worker = {
   async fetch(request: Request, env: Env, ctx: ExecutionContext): Promise<Response> {
     const url = new URL(request.url);
 
-    if (url.pathname === "/" || url.pathname === "/library-dilemma") {
+    // The product homepage is rendered by the App Router. The legacy static
+    // prototype remains available at /library-dilemma when ASSETS is bound.
+    if (url.pathname === "/library-dilemma" && env.ASSETS) {
       return env.ASSETS.fetch(
         new Request(new URL("/island-growth-interaction.html", request.url), request),
       );
     }
 
-    if (url.pathname === "/current" || url.pathname === "/island-growth-current") {
+    if ((url.pathname === "/current" || url.pathname === "/island-growth-current") && env.ASSETS) {
       return env.ASSETS.fetch(
         new Request(new URL("/island-growth-current.html", request.url), request),
       );
     }
 
-    if (url.pathname === "/_vinext/image") {
+    if (url.pathname === "/_vinext/image" && env.ASSETS && env.IMAGES) {
       const allowedWidths = [...DEFAULT_DEVICE_SIZES, ...DEFAULT_IMAGE_SIZES];
       return handleImageOptimization(request, {
         fetchAsset: (path) => env.ASSETS.fetch(new Request(new URL(path, request.url))),
