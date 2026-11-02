@@ -1185,7 +1185,7 @@ html&gt;body{padding:0}&lt;/style&gt;
           &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost avatar-wrap&quot; id=&quot;profile-wear-entry&quot; data-page-target=&quot;global&quot; aria-label=&quot;当前佩戴生日头像框，查看徽章墙&quot;&gt;&lt;span class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;&lt;span class=&quot;avatar-frame&quot; data-wear-frame aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;span class=&quot;profile-frame-chip text-small&quot; id=&quot;worn-badge-chip&quot;&gt;生日头像框&lt;/span&gt;&lt;/button&gt;
           &lt;div class=&quot;profile-identity-copy&quot;&gt;&lt;h2&gt;活性氧&lt;/h2&gt;&lt;p&gt;上海 · 9 小时前来过&lt;/p&gt;&lt;div class=&quot;profile-badge-row&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;inline-wear-chip text-small&quot; data-inline-wear data-wear-entry&gt;&lt;/button&gt;&lt;button type=&quot;button&quot; class=&quot;btn profile-admin level-tag level-3&quot; id=&quot;profile-growth-label&quot; data-page-target=&quot;growth&quot;&gt;LV3 甲级队士&lt;/button&gt;&lt;/div&gt;&lt;/div&gt;
         &lt;/div&gt;
-        &lt;p class=&quot;profile-signature&quot;&gt;2026 放我一马，不是放马过来&lt;/p&gt;
+        &lt;button class=&quot;btn btn-ghost&quot; data-domain-entry&gt;TA 的本岛主页 ›&lt;/button&gt;&lt;p class=&quot;profile-signature&quot;&gt;2026 放我一马，不是放马过来&lt;/p&gt;
         &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost interest-preview&quot; data-interest-type=&quot;拥有&quot;&gt;
           &lt;span class=&quot;interest-preview-head&quot;&gt;&lt;strong&gt;兴趣档案&lt;/strong&gt;&lt;i data-lucide=&quot;chevron-right&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;&lt;/span&gt;
           &lt;span class=&quot;interest-preview-grid&quot;&gt;
@@ -1216,10 +1216,10 @@ html&gt;body{padding:0}&lt;/style&gt;
   
 &lt;section id=&quot;page-domain&quot; class=&quot;app-page hidden&quot;&gt;
   &lt;div class=&quot;topbar&quot;&gt;&lt;button class=&quot;btn btn-ghost&quot; id=&quot;domain-back&quot;&gt;‹ 返回&lt;/button&gt;&lt;strong id=&quot;domain-title&quot;&gt;TA 在鬼灭之刃岛&lt;/strong&gt;&lt;button class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;TA 的主页 ›&lt;/button&gt;&lt;/div&gt;
-  &lt;article class=&quot;card domain-card&quot;&gt;
+  &lt;article class=&quot;card domain-card identity-ribbon level-3&quot;&gt;
     &lt;div class=&quot;domain-kicker&quot;&gt;本岛身份&lt;/div&gt;
     &lt;label class=&quot;domain-picker&quot;&gt;&lt;select id=&quot;domain-island&quot; aria-label=&quot;选择岛&quot;&gt;&lt;option&gt;鬼灭之刃&lt;/option&gt;&lt;option&gt;洛克王国&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
-    &lt;div class=&quot;domain-identity&quot;&gt;&lt;span class=&quot;domain-avatar&quot; aria-hidden=&quot;true&quot;&gt;氧&lt;/span&gt;&lt;h2&gt;活性氧&lt;/h2&gt;&lt;small id=&quot;domain-badge&quot;&gt;&lt;/small&gt;&lt;/div&gt;
+    &lt;div class=&quot;domain-identity&quot;&gt;&lt;div class=&quot;avatar-wrap&quot;&gt;&lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;avatar-frame&quot; data-wear-frame aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;h2&gt;活性氧&lt;/h2&gt;&lt;small id=&quot;domain-badge&quot;&gt;&lt;/small&gt;&lt;/div&gt;&lt;span class=&quot;level-medal level-3&quot; id=&quot;domain-medal&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;level-glyph&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
     &lt;div id=&quot;domain-summary&quot; class=&quot;domain-stats&quot;&gt;&lt;/div&gt;
   &lt;/article&gt;
   &lt;section class=&quot;card home-section&quot;&gt;&lt;h3&gt;TA 在本岛的贡献&lt;/h3&gt;
@@ -1228,7 +1228,7 @@ html&gt;body{padding:0}&lt;/style&gt;
   &lt;/section&gt;
 &lt;/section&gt;
 &lt;style&gt;
-.domain-card{padding:22px;background:linear-gradient(130deg,#393252,#26243b);color:white;border-radius:18px}
+#island-growth-interaction .domain-card{padding:18px;color:white} .domain-identity{min-height:80px}.domain-identity h2{margin:0}.domain-identity #domain-medal{margin-left:auto}.domain-identity .v3-svg path{fill:url(#domain-letter-sheen)!important}
 .domain-identity{display:flex;align-items:center;gap:10px}.domain-identity small{margin-left:auto}.domain-avatar{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#ded4fa;color:#483969;font-weight:700}.domain-stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px;border-top:1px solid #ffffff38;padding-top:14px}.domain-stats strong,.domain-stats span{display:block;text-align:center}.domain-stats strong{font-size:21px}.domain-stats span{font-size:12px;color:#ddd5e8}.domain-kicker{font-size:12px;color:#d5c7e8}.domain-picker select{margin:8px 0 16px;border:1px solid #857499;border-radius:14px;padding:5px 9px;background:#342d46;color:white}.domain-card h2{margin:0}.domain-card small{display:inline-block;font-size:14px;color:#f3dcff;padding:5px 9px;background:#544263;border-radius:10px}.domain-card p{margin:8px 0 0;color:#ddd5e8}
 #domain-tabs{display:flex;gap:6px;margin:10px 0}#domain-feed details{border-top:1px solid #8884;padding:12px 0}#domain-feed summary{cursor:pointer;line-height:1.6}#domain-feed small{display:block;opacity:.7;margin-left:1em}#domain-feed p{margin:8px 1em;line-height:1.6}
 &lt;/style&gt;
@@ -1662,7 +1662,7 @@ html&gt;body{padding:0}&lt;/style&gt;
         const meterScaleShift=40-(i*20);
         root.style.setProperty(&#x27;--meter-item-shift&#x27;,`${meterItemShift}%`);
         root.style.setProperty(&#x27;--meter-scale-shift&#x27;,`${meterScaleShift}%`);
-        const medal=root.querySelector(&#x27;.level-medal&#x27;);
+        const medal=root.querySelector(&#x27;#page-growth .level-medal&#x27;);
         if(medal){
           medal.className=`level-medal level-${i+1}`;
           medal.setAttribute(&#x27;aria-label&#x27;,`LV${i+1} ${d.name}`);
@@ -1815,8 +1815,14 @@ const domainData=[
 ];
 let domainFrom=&#x27;post&#x27;,domainTab=&#x27;全部&#x27;;
 const domainIsland=root.querySelector(&#x27;#domain-island&#x27;);
+const originalMedal=root.querySelector(&#x27;#page-growth .level-medal&#x27;).cloneNode(true);
 function drawDomain(){
  const d=domainData[domainIsland.selectedIndex];
+ const level=domainIsland.selectedIndex===0?3:2;
+ const card=root.querySelector(&#x27;.domain-card&#x27;),mark=root.querySelector(&#x27;#domain-medal&#x27;);
+ card.className=&#x27;card domain-card identity-ribbon level-&#x27;+level;
+ mark.className=&#x27;level-medal level-&#x27;+level;
+ mark.innerHTML=level===3?originalMedal.innerHTML.replaceAll(&#x27;v3-letter-sheen&#x27;,&#x27;domain-letter-sheen&#x27;):&#x27;&lt;span class=&quot;level-glyph&quot;&gt;&#x27;+levelWordmarkMarkup(level)+&#x27;&lt;/span&gt;&#x27;;
  root.querySelector(&#x27;#domain-badge&#x27;).textContent=d.badge;
  root.querySelector(&#x27;#domain-title&#x27;).textContent=&#x27;TA 在&#x27;+domainIsland.value+&#x27;岛&#x27;;
  const stats=root.querySelector(&#x27;#domain-summary&#x27;);stats.replaceChildren();
@@ -1839,7 +1845,7 @@ function enterDomain(){domainFrom=root.dataset.activePage||&#x27;post&#x27;;doma
 domainIsland.onchange=()=&gt;{domainTab=&#x27;全部&#x27;;drawDomain()};
 root.querySelector(&#x27;#domain-back&#x27;).onclick=()=&gt;showPage(domainFrom);
 root.querySelectorAll(&#x27;[data-domain-entry]&#x27;).forEach(b=&gt;b.onclick=enterDomain);
-renderLevel(2,{force:true,instant:true}); requestAnimationFrame(syncLevelFromLadder); renderGlobalBadges(); renderProfileFeed(&#x27;帖子&#x27;); updateWearUI(); showPage(&#x27;post&#x27;);
+renderLevel(2,{force:true,instant:true}); requestAnimationFrame(syncLevelFromLadder); renderGlobalBadges(); renderProfileFeed(&#x27;帖子&#x27;); updateWearUI(); showPage(&#x27;home&#x27;);
     })();
   &lt;/script&gt;
 &lt;/div&gt;
