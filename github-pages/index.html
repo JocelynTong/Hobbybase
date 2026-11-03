@@ -1236,6 +1236,16 @@ html&gt;body{padding:0}&lt;/style&gt;
 #page-domain .domain-picker select{margin:0 0 6px}
 #page-domain #domain-tabs button{border:0;border-radius:0;background:transparent;color:#75717e}#page-domain #domain-tabs button[aria-pressed=true]{color:#342c4a;border-bottom:3px solid #9171d1}
 #page-domain #domain-feed summary{font-weight:650}#page-domain .domain-identity #domain-medal .v3-svg path{fill:url(#domain-letter-sheen)!important}
+
+html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)),#island-growth-interaction[data-active-page=&quot;domain&quot;]{background:#f6f7f9;color-scheme:light}
+#island-growth-interaction[data-active-page=&quot;domain&quot;]{--background:#f6f7f9;--card:#fff;--foreground:#202532;--muted-foreground:#586271;--border:#dee2e7;color:#202532}
+#island-growth-interaction[data-active-page=&quot;domain&quot;] .app-tabbar{display:none}
+#page-domain .topbar,#page-domain .home-section{background:white;color:#202532}
+#page-domain .topbar .btn{color:#475361}
+#island-growth-interaction #page-domain .domain-card{border-radius:0;border:0}
+#page-domain #domain-summary{margin-top:0;border-radius:0;box-shadow:none}
+#page-domain #domain-badge,#page-domain #domain-island{color:color-mix(in srgb,var(--level-color) 36%,#102016);background:color-mix(in srgb,var(--level-color) 18%,white);border:0}
+#page-domain #domain-tabs button[aria-pressed=true]{color:#202532;border-bottom-color:currentColor}
 &lt;/style&gt;
 &lt;section id=&quot;page-post&quot; class=&quot;app-page hidden&quot;&gt;
     &lt;div class=&quot;topbar&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;&lt;strong&gt;Post 详情&lt;/strong&gt;&lt;span class=&quot;viz-badge&quot;&gt;露出示例&lt;/span&gt;&lt;/div&gt;
