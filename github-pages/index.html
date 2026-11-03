@@ -1251,6 +1251,13 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)),#island-
 #domain-feed .domain-post-grid article:nth-child(even){background:#f3f2fa;border-color:#e5e2ee}
 #domain-feed .domain-material-list article{display:block;padding:12px 0;border-top:1px solid #e1e6eb}
 #domain-feed article p{margin:6px 0 0;font-size:13px;color:#586271}
+#domain-feed .material-switch{display:flex;background:#f1f2f4;border-radius:9px;padding:3px;margin:12px 0}
+#domain-feed .material-switch button{flex:1;border:0;padding:7px;background:transparent;color:#606672;font:inherit;cursor:pointer}
+#domain-feed .material-switch button[aria-pressed=true]{border-radius:7px;background:white;color:#1b2029;font-weight:650}
+#domain-feed .domain-material-list .material-record{display:flex;align-items:center;gap:12px;background:#f6f6f8;border:0;border-radius:9px;padding:9px;margin-bottom:7px}
+#domain-feed .material-cover{display:grid;place-items:center;width:48px;height:58px;background:#e6eee8;border-radius:5px;font-size:24px}
+#domain-feed .material-record small{display:block;margin:3px 0;color:#667080}
+#domain-feed .material-status{font-size:11px;background:#e1f5e9;color:#256642;padding:1px 4px;border-radius:3px}
 &lt;/style&gt;
 &lt;section id=&quot;page-post&quot; class=&quot;app-page hidden&quot;&gt;
     &lt;div class=&quot;topbar&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;&lt;strong&gt;Post 详情&lt;/strong&gt;&lt;span class=&quot;viz-badge&quot;&gt;露出示例&lt;/span&gt;&lt;/div&gt;
@@ -1826,16 +1833,35 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)),#island-
 const domainData=[
  {badge:&#x27;LV3 甲级队士&#x27;,score:350,items:[
  [&#x27;帖子&#x27;,&#x27;日轮刀的颜色和持有者对照&#x27;,&#x27;把动画里出现的刀色和对应队士整理在一起，给刚入坑的同好查阅。&#x27;],
- [&#x27;资料&#x27;,&#x27;补全蝴蝶忍角色词条&#x27;,&#x27;新增角色别名，补充首次登场章节。&#x27;],
+ [&#x27;资料&#x27;,&#x27;补全蝴蝶忍角色词条&#x27;,&#x27;新增角色别名，补充首次登场章节。&#x27;,&#x27;创建&#x27;,&#x27;蝴蝶忍&#x27;,&#x27;08-21 00:34&#x27;,&#x27;🦋&#x27;],
  [&#x27;帖子&#x27;,&#x27;入坑晚了，慢慢补上&#x27;,&#x27;整理了自己的动画补番顺序和观看笔记。&#x27;],
- [&#x27;资料&#x27;,&#x27;修订日轮刀图鉴&#x27;,&#x27;校对刀锷造型并补上出处。&#x27;]]},
+ [&#x27;资料&#x27;,&#x27;修订日轮刀图鉴&#x27;,&#x27;校对刀锷造型并补上出处。&#x27;,&#x27;编辑&#x27;,&#x27;日轮刀图鉴&#x27;,&#x27;08-22 12:10&#x27;,&#x27;⚔️&#x27;]]},
  {badge:&#x27;LV2 见习训练师&#x27;,score:240,items:[
- [&#x27;资料&#x27;,&#x27;补全水系精灵图鉴&#x27;,&#x27;补充属性、技能与获取方式。&#x27;],
- [&#x27;资料&#x27;,&#x27;校对精灵进化条件&#x27;,&#x27;修正等级描述，补齐前置条件。&#x27;]]}
+ [&#x27;资料&#x27;,&#x27;补全水系精灵图鉴&#x27;,&#x27;补充属性、技能与获取方式。&#x27;,&#x27;创建&#x27;,&#x27;水系精灵图鉴&#x27;,&#x27;08-20 09:15&#x27;,&#x27;💧&#x27;],
+ [&#x27;资料&#x27;,&#x27;校对精灵进化条件&#x27;,&#x27;修正等级描述，补齐前置条件。&#x27;,&#x27;编辑&#x27;,&#x27;精灵进化条件&#x27;,&#x27;08-21 10:30&#x27;,&#x27;🌱&#x27;]]}
 ];
 let domainFrom=&#x27;post&#x27;,domainTab=&#x27;全部&#x27;;
 const domainIsland=root.querySelector(&#x27;#domain-island&#x27;);
 const originalMedal=root.querySelector(&#x27;#page-growth .level-medal&#x27;).cloneNode(true);
+let materialFilter=&#x27;创建&#x27;;
+function drawMaterials(group,items){
+ const switcher=document.createElement(&#x27;div&#x27;);switcher.className=&#x27;material-switch&#x27;;group.append(switcher);
+ for(const action of [&#x27;创建&#x27;,&#x27;编辑&#x27;]){
+  const btn=document.createElement(&#x27;button&#x27;);btn.type=&#x27;button&#x27;;
+  btn.textContent=action+&#x27; &#x27;+items.filter(item=&gt;item[3]===action).length;
+  btn.setAttribute(&#x27;aria-pressed&#x27;,String(action===materialFilter));
+  btn.onclick=()=&gt;{materialFilter=action;drawDomain()};switcher.append(btn);
+ }
+ const matches=items.filter(item=&gt;item[3]===materialFilter);
+ for(const [, ,note,action,name,date,icon] of matches){
+  const row=document.createElement(&#x27;article&#x27;);row.className=&#x27;material-record&#x27;;
+  const cover=document.createElement(&#x27;span&#x27;);cover.className=&#x27;material-cover&#x27;;cover.textContent=icon;cover.setAttribute(&#x27;aria-hidden&#x27;,&#x27;true&#x27;);
+  const content=document.createElement(&#x27;div&#x27;),heading=document.createElement(&#x27;strong&#x27;),time=document.createElement(&#x27;small&#x27;),status=document.createElement(&#x27;span&#x27;);
+  heading.textContent=action+&#x27;了 &#x27;+name;time.textContent=date;status.textContent=&#x27;✓ 已采纳&#x27;;status.className=&#x27;material-status&#x27;;
+  content.append(heading,time,status);row.append(cover,content);group.append(row);
+ }
+ if(!matches.length)group.append(&#x27;暂无&#x27;+materialFilter+&#x27;记录&#x27;);
+}
 function drawDomain(){
  const d=domainData[domainIsland.selectedIndex];
  const level=domainIsland.selectedIndex===0?3:2;
@@ -1861,6 +1887,7 @@ function drawDomain(){
   if(!items.length) continue;
   const group=document.createElement(&#x27;div&#x27;);
   group.className=kind===&#x27;帖子&#x27;?&#x27;domain-post-grid&#x27;:&#x27;domain-material-list&#x27;;
+  if(kind===&#x27;资料&#x27;){drawMaterials(group,items);feed.append(group);continue}
   for(const [,title,body] of items){
    const row=document.createElement(&#x27;article&#x27;),heading=document.createElement(&#x27;strong&#x27;),description=document.createElement(&#x27;p&#x27;);
    heading.textContent=title;description.textContent=body;
