@@ -1846,7 +1846,7 @@ const domainData=[
  [&#x27;资料&#x27;,&#x27;补全水系精灵图鉴&#x27;,&#x27;补充属性、技能与获取方式。&#x27;,&#x27;创建&#x27;,&#x27;水系精灵图鉴&#x27;,&#x27;08-20 09:15&#x27;,&#x27;💧&#x27;],
  [&#x27;资料&#x27;,&#x27;校对精灵进化条件&#x27;,&#x27;修正等级描述，补齐前置条件。&#x27;,&#x27;编辑&#x27;,&#x27;精灵进化条件&#x27;,&#x27;08-21 10:30&#x27;,&#x27;🌱&#x27;]]}
 ];
-let domainFrom=&#x27;post&#x27;,domainTab=&#x27;全部&#x27;;
+let domainFrom=&#x27;post&#x27;,domainTab=&#x27;帖子&#x27;;
 const domainIsland=root.querySelector(&#x27;#domain-island&#x27;);
 const originalMedal=root.querySelector(&#x27;#page-growth .level-medal&#x27;).cloneNode(true);
 let materialFilter=&#x27;创建&#x27;;
@@ -1883,12 +1883,12 @@ function drawDomain(){
   num.textContent=value;caption.textContent=label;cell.append(num,caption);stats.append(cell);
  }
  const tabs=root.querySelector(&#x27;#domain-tabs&#x27;);tabs.replaceChildren();
- for(const t of [&#x27;全部&#x27;,&#x27;帖子&#x27;,&#x27;资料&#x27;]){
+ for(const t of [&#x27;帖子&#x27;,&#x27;资料&#x27;]){
   const b=document.createElement(&#x27;button&#x27;);b.type=&#x27;button&#x27;;b.className=&#x27;btn &#x27;+(domainTab===t?&#x27;btn-primary&#x27;:&#x27;btn-ghost&#x27;);b.setAttribute(&#x27;aria-pressed&#x27;,String(domainTab===t));b.textContent=t;b.onclick=()=&gt;{domainTab=t;drawDomain()};tabs.append(b)
  }
  const feed=root.querySelector(&#x27;#domain-feed&#x27;);feed.replaceChildren();
  for(const kind of [&#x27;帖子&#x27;,&#x27;资料&#x27;]){
-  if(domainTab!==&#x27;全部&#x27; &amp;&amp; domainTab!==kind) continue;
+  if(domainTab!==kind) continue;
   const items=d.items.filter(item=&gt;item[0]===kind);
   if(!items.length) continue;
   const group=document.createElement(&#x27;div&#x27;);
@@ -1909,11 +1909,17 @@ function drawDomain(){
  }
  if(!feed.childElementCount)feed.textContent=&#x27;还没有在本岛发过帖子&#x27;;
 }
-function enterDomain(){domainFrom=root.dataset.activePage||&#x27;post&#x27;;domainIsland.selectedIndex=0;domainTab=&#x27;全部&#x27;;drawDomain();showPage(&#x27;domain&#x27;)}
-domainIsland.onchange=()=&gt;{domainTab=&#x27;全部&#x27;;drawDomain()};
+function resetDomainTab(){
+ const items=domainData[domainIsland.selectedIndex].items;
+ domainTab=items.some(item=&gt;item[0]===&#x27;帖子&#x27;)?&#x27;帖子&#x27;:&#x27;资料&#x27;;
+ materialFilter=items.some(item=&gt;item[3]===&#x27;创建&#x27;)?&#x27;创建&#x27;:&#x27;编辑&#x27;;
+ drawDomain();
+}
+function enterDomain(){domainFrom=root.dataset.activePage||&#x27;post&#x27;;domainIsland.selectedIndex=0;resetDomainTab();showPage(&#x27;domain&#x27;)}
+domainIsland.onchange=resetDomainTab;
 root.querySelector(&#x27;#domain-back&#x27;).onclick=()=&gt;showPage(domainFrom);
 root.querySelectorAll(&#x27;[data-domain-entry]&#x27;).forEach(b=&gt;b.onclick=enterDomain);
-renderLevel(2,{force:true,instant:true}); requestAnimationFrame(syncLevelFromLadder); renderGlobalBadges(); renderProfileFeed(&#x27;帖子&#x27;); updateWearUI(); drawDomain(); showPage(&#x27;domain&#x27;);
+renderLevel(2,{force:true,instant:true}); requestAnimationFrame(syncLevelFromLadder); renderGlobalBadges(); renderProfileFeed(&#x27;帖子&#x27;); updateWearUI(); resetDomainTab(); showPage(&#x27;domain&#x27;);
     })();
   &lt;/script&gt;
 &lt;/div&gt;
