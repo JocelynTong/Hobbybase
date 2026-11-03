@@ -1246,6 +1246,11 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)),#island-
 #page-domain #domain-summary{margin-top:0;border-radius:0;box-shadow:none}
 #page-domain #domain-badge,#page-domain #domain-island{color:color-mix(in srgb,var(--level-color) 36%,#102016);background:color-mix(in srgb,var(--level-color) 18%,white);border:0}
 #page-domain #domain-tabs button[aria-pressed=true]{color:#202532;border-bottom-color:currentColor}
+#domain-feed .domain-post-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:12px 0}
+#domain-feed .domain-post-grid article{padding:14px 12px;background:#edf5f1;border:1px solid #dce7e1;border-radius:10px}
+#domain-feed .domain-post-grid article:nth-child(even){background:#f3f2fa;border-color:#e5e2ee}
+#domain-feed .domain-material-list article{display:block;padding:12px 0;border-top:1px solid #e1e6eb}
+#domain-feed article p{margin:6px 0 0;font-size:13px;color:#586271}
 &lt;/style&gt;
 &lt;section id=&quot;page-post&quot; class=&quot;app-page hidden&quot;&gt;
     &lt;div class=&quot;topbar&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;&lt;strong&gt;Post 详情&lt;/strong&gt;&lt;span class=&quot;viz-badge&quot;&gt;露出示例&lt;/span&gt;&lt;/div&gt;
@@ -1850,9 +1855,18 @@ function drawDomain(){
   const b=document.createElement(&#x27;button&#x27;);b.type=&#x27;button&#x27;;b.className=&#x27;btn &#x27;+(domainTab===t?&#x27;btn-primary&#x27;:&#x27;btn-ghost&#x27;);b.setAttribute(&#x27;aria-pressed&#x27;,String(domainTab===t));b.textContent=t;b.onclick=()=&gt;{domainTab=t;drawDomain()};tabs.append(b)
  }
  const feed=root.querySelector(&#x27;#domain-feed&#x27;);feed.replaceChildren();
- for(const [kind,title,body] of d.items.filter(x=&gt;domainTab===&#x27;全部&#x27;||x[0]===domainTab)){
-  const el=document.createElement(&#x27;details&#x27;),head=document.createElement(&#x27;summary&#x27;),hint=document.createElement(&#x27;small&#x27;),copy=document.createElement(&#x27;p&#x27;);
-  head.textContent=title;hint.textContent=kind===&#x27;资料&#x27;?&#x27;资料库 · 已收录&#x27;:&#x27;社区帖子&#x27;;copy.textContent=body;el.append(head,hint,copy);feed.append(el)
+ for(const kind of [&#x27;帖子&#x27;,&#x27;资料&#x27;]){
+  if(domainTab!==&#x27;全部&#x27; &amp;&amp; domainTab!==kind) continue;
+  const items=d.items.filter(item=&gt;item[0]===kind);
+  if(!items.length) continue;
+  const group=document.createElement(&#x27;div&#x27;);
+  group.className=kind===&#x27;帖子&#x27;?&#x27;domain-post-grid&#x27;:&#x27;domain-material-list&#x27;;
+  for(const [,title,body] of items){
+   const row=document.createElement(&#x27;article&#x27;),heading=document.createElement(&#x27;strong&#x27;),description=document.createElement(&#x27;p&#x27;);
+   heading.textContent=title;description.textContent=body;
+   row.append(heading,description);group.append(row);
+  }
+  feed.append(group);
  }
  if(!feed.childElementCount)feed.textContent=&#x27;还没有在本岛发过帖子&#x27;;
 }
