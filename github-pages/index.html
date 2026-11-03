@@ -1261,7 +1261,7 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)),#island-
 #domain-feed .domain-post-grid{align-items:start;gap:10px}
 #domain-feed .domain-post-grid article:nth-child(n){padding:0;background:white;border:0;min-width:0}
 .island-post-cover{position:relative;border-radius:8px;overflow:hidden}.island-post-cover svg{width:100%;height:auto;display:block}
-.post-views,.post-pin{position:absolute;color:white;font-size:11px;padding:1px 5px;border-radius:3px}.post-views{bottom:6px;left:6px;background:#0009}.post-pin{top:6px;left:6px;background:#7861ec}
+.post-views{position:absolute;color:white;font-size:11px;padding:1px 5px;border-radius:3px}.post-views{bottom:6px;left:6px;background:#0009}
 #domain-feed .domain-post-grid strong{display:block;margin:6px 2px;font-size:14px;line-height:1.45}
 #domain-feed .domain-post-grid footer{display:flex;justify-content:space-between;color:#636977;font-size:11px;margin:4px 2px}
 #island-growth-interaction #page-domain .domain-card.level-3{--level-color:#b48abe;background:radial-gradient(ellipse at 78% 48%,#f6e9f5 0%,transparent 52%),linear-gradient(110deg,#e4d4ea,#eddfef);color:#47334c}
@@ -1913,7 +1913,6 @@ function drawDomain(){
    const cover=document.createElement(&#x27;div&#x27;);cover.className=&#x27;island-post-cover&#x27;;
    cover.innerHTML=first?&#x27;&lt;svg viewBox=&quot;0 0 160 124&quot; aria-hidden=&quot;true&quot;&gt;&lt;path fill=&quot;#245757&quot; d=&quot;M0 0h160v124H0z&quot;/&gt;&lt;circle cx=&quot;130&quot; cy=&quot;20&quot; r=&quot;34&quot; fill=&quot;#f6bc79&quot;/&gt;&lt;path fill=&quot;#436d67&quot; d=&quot;M0 104l47-52 24 18 33-37 56 63v28H0z&quot;/&gt;&lt;path fill=&quot;#e9ece1&quot; d=&quot;M37 101L125 18l-9 20-73 70z&quot;/&gt;&lt;path stroke=&quot;#d6a663&quot; stroke-width=&quot;6&quot; d=&quot;M32 96l17 17&quot;/&gt;&lt;path stroke=&quot;#352f33&quot; stroke-width=&quot;7&quot; d=&quot;M39 105l-16 16&quot;/&gt;&lt;/svg&gt;&#x27;:&#x27;&lt;svg viewBox=&quot;0 0 160 145&quot; aria-hidden=&quot;true&quot;&gt;&lt;path fill=&quot;#dcc2a3&quot; d=&quot;M0 0h160v145H0z&quot;/&gt;&lt;g transform=&quot;rotate(-9 80 70)&quot;&gt;&lt;rect x=&quot;25&quot; y=&quot;19&quot; width=&quot;110&quot; height=&quot;108&quot; rx=&quot;4&quot; fill=&quot;#fff4df&quot;/&gt;&lt;path fill=&quot;#ab6566&quot; d=&quot;M25 19h12v108H25z&quot;/&gt;&lt;path stroke=&quot;#bb9884&quot; stroke-width=&quot;3&quot; d=&quot;M46 74h70M46 85h55M46 96h67&quot;/&gt;&lt;text x=&quot;46&quot; y=&quot;56&quot; font-size=&quot;16&quot; fill=&quot;#593c38&quot;&gt;补番手记&lt;/text&gt;&lt;/g&gt;&lt;/svg&gt;&#x27;;
    const views=document.createElement(&#x27;span&#x27;);views.className=&#x27;post-views&#x27;;views.textContent=first?&#x27;◉ 128&#x27;:&#x27;◉ 64&#x27;;cover.append(views);
-   if(first){const pin=document.createElement(&#x27;b&#x27;);pin.className=&#x27;post-pin&#x27;;pin.textContent=&#x27;置顶&#x27;;cover.append(pin)}
    const footer=document.createElement(&#x27;footer&#x27;);footer.innerHTML=&#x27;&lt;span&gt;●　活性氧&lt;/span&gt;&lt;span&gt;&#x27;+(first?&#x27;♡ 12&#x27;:&#x27;♡ 6&#x27;)+&#x27;&lt;/span&gt;&#x27;;
    row.append(cover,heading,footer);group.append(row);
   }
