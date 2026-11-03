@@ -1217,11 +1217,11 @@ html&gt;body{padding:0}&lt;/style&gt;
 &lt;section id=&quot;page-domain&quot; class=&quot;app-page hidden&quot;&gt;
   &lt;div class=&quot;topbar&quot;&gt;&lt;button class=&quot;btn btn-ghost&quot; id=&quot;domain-back&quot;&gt;‹ 返回&lt;/button&gt;&lt;strong id=&quot;domain-title&quot;&gt;TA 在鬼灭之刃岛&lt;/strong&gt;&lt;button class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;TA 的主页 ›&lt;/button&gt;&lt;/div&gt;
   &lt;article class=&quot;card domain-card identity-ribbon level-3&quot;&gt;
-    &lt;div class=&quot;domain-kicker&quot;&gt;本岛身份&lt;/div&gt;
+
     &lt;label class=&quot;domain-picker&quot;&gt;&lt;select id=&quot;domain-island&quot; aria-label=&quot;选择岛&quot;&gt;&lt;option&gt;鬼灭之刃&lt;/option&gt;&lt;option&gt;洛克王国&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;
     &lt;div class=&quot;domain-identity&quot;&gt;&lt;div class=&quot;avatar-wrap&quot;&gt;&lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;avatar-frame&quot; data-wear-frame aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;h2&gt;活性氧&lt;/h2&gt;&lt;small id=&quot;domain-badge&quot;&gt;&lt;/small&gt;&lt;/div&gt;&lt;span class=&quot;level-medal level-3&quot; id=&quot;domain-medal&quot; aria-hidden=&quot;true&quot;&gt;&lt;span class=&quot;level-glyph&quot;&gt;&lt;/span&gt;&lt;/span&gt;&lt;/div&gt;
-    &lt;div id=&quot;domain-summary&quot; class=&quot;domain-stats&quot;&gt;&lt;/div&gt;
-  &lt;/article&gt;
+    &lt;/article&gt;
+  &lt;div id=&quot;domain-summary&quot; class=&quot;domain-stats&quot;&gt;&lt;/div&gt;
   &lt;section class=&quot;card home-section&quot;&gt;&lt;h3&gt;TA 在本岛的贡献&lt;/h3&gt;
    &lt;div id=&quot;domain-tabs&quot; role=&quot;group&quot; aria-label=&quot;贡献类型&quot;&gt;&lt;/div&gt;
    &lt;div id=&quot;domain-feed&quot; aria-live=&quot;polite&quot;&gt;&lt;/div&gt;
@@ -1231,6 +1231,11 @@ html&gt;body{padding:0}&lt;/style&gt;
 #island-growth-interaction .domain-card{padding:18px;color:white} .domain-identity{min-height:80px}.domain-identity h2{margin:0}.domain-identity #domain-medal{margin-left:auto}.domain-identity .v3-svg path{fill:url(#domain-letter-sheen)!important}
 .domain-identity{display:flex;align-items:center;gap:10px}.domain-identity small{margin-left:auto}.domain-avatar{display:grid;place-items:center;width:42px;height:42px;border-radius:50%;background:#ded4fa;color:#483969;font-weight:700}.domain-stats{display:grid;grid-template-columns:repeat(3,1fr);margin-top:18px;border-top:1px solid #ffffff38;padding-top:14px}.domain-stats strong,.domain-stats span{display:block;text-align:center}.domain-stats strong{font-size:21px}.domain-stats span{font-size:12px;color:#ddd5e8}.domain-kicker{font-size:12px;color:#d5c7e8}.domain-picker select{margin:8px 0 16px;border:1px solid #857499;border-radius:14px;padding:5px 9px;background:#342d46;color:white}.domain-card h2{margin:0}.domain-card small{display:inline-block;font-size:14px;color:#f3dcff;padding:5px 9px;background:#544263;border-radius:10px}.domain-card p{margin:8px 0 0;color:#ddd5e8}
 #domain-tabs{display:flex;gap:6px;margin:10px 0}#domain-feed details{border-top:1px solid #8884;padding:12px 0}#domain-feed summary{cursor:pointer;line-height:1.6}#domain-feed small{display:block;opacity:.7;margin-left:1em}#domain-feed p{margin:8px 1em;line-height:1.6}
+#page-domain .domain-stats{position:relative;margin:-6px 0 14px;border:0;border-radius:0 0 18px 18px;background:white;color:#292637;padding:15px 4px;box-shadow:0 4px 16px #28223610}
+#page-domain .domain-stats span{color:#716e7c}#page-domain .domain-stats&gt;div+div{border-left:1px solid #ecebf0}
+#page-domain .domain-picker select{margin:0 0 6px}
+#page-domain #domain-tabs button{border:0;border-radius:0;background:transparent;color:#75717e}#page-domain #domain-tabs button[aria-pressed=true]{color:#342c4a;border-bottom:3px solid #9171d1}
+#page-domain #domain-feed summary{font-weight:650}#page-domain .domain-identity #domain-medal .v3-svg path{fill:url(#domain-letter-sheen)!important}
 &lt;/style&gt;
 &lt;section id=&quot;page-post&quot; class=&quot;app-page hidden&quot;&gt;
     &lt;div class=&quot;topbar&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;&lt;strong&gt;Post 详情&lt;/strong&gt;&lt;span class=&quot;viz-badge&quot;&gt;露出示例&lt;/span&gt;&lt;/div&gt;
@@ -1845,7 +1850,7 @@ function enterDomain(){domainFrom=root.dataset.activePage||&#x27;post&#x27;;doma
 domainIsland.onchange=()=&gt;{domainTab=&#x27;全部&#x27;;drawDomain()};
 root.querySelector(&#x27;#domain-back&#x27;).onclick=()=&gt;showPage(domainFrom);
 root.querySelectorAll(&#x27;[data-domain-entry]&#x27;).forEach(b=&gt;b.onclick=enterDomain);
-renderLevel(2,{force:true,instant:true}); requestAnimationFrame(syncLevelFromLadder); renderGlobalBadges(); renderProfileFeed(&#x27;帖子&#x27;); updateWearUI(); showPage(&#x27;home&#x27;);
+renderLevel(2,{force:true,instant:true}); requestAnimationFrame(syncLevelFromLadder); renderGlobalBadges(); renderProfileFeed(&#x27;帖子&#x27;); updateWearUI(); drawDomain(); showPage(&#x27;domain&#x27;);
     })();
   &lt;/script&gt;
 &lt;/div&gt;
