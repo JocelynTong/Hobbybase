@@ -749,7 +749,7 @@ html&gt;body{padding:0}#page-domain .rating-notice{display:none!important;}
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;div id=&quot;island-growth-interaction&quot;&gt;&lt;aside class=&quot;demo-controls&quot; aria-label=&quot;演示操作&quot;&gt;&lt;small&gt;跨季度展示 · 对比&lt;/small&gt;&lt;div class=&quot;variant-buttons&quot;&gt;&lt;button data-variant=&quot;A&quot;&gt;A 提示卡&lt;/button&gt;&lt;button data-variant=&quot;B&quot;&gt;B 切换看&lt;/button&gt;&lt;button data-variant=&quot;C&quot;&gt;C 对照看&lt;/button&gt;&lt;/div&gt;&lt;label class=&quot;demo-state-label&quot;&gt;时间状态&lt;select id=&quot;quarter-state&quot;&gt;&lt;option value=&quot;1&quot;&gt;本期 · 下期未公布&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;本期 · 下期已公布&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;7月1日 · 新期生效&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;p class=&quot;demo-explain&quot;&gt;演示用季度及分数，不代表已确定的上线参数。&lt;/p&gt;&lt;button type=&quot;button&quot; id=&quot;rating-next&quot;&gt;&lt;/button&gt;&lt;/aside&gt;
+&lt;div id=&quot;island-growth-interaction&quot;&gt;&lt;aside class=&quot;demo-controls&quot; aria-label=&quot;演示操作&quot;&gt;&lt;small&gt;演示操作 · 不属于页面&lt;/small&gt;&lt;label class=&quot;demo-state-label&quot;&gt;时间状态&lt;select id=&quot;quarter-state&quot;&gt;&lt;option value=&quot;1&quot;&gt;本期 · 下期未公布&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;本期 · 下期已公布&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;7月1日 · 新期生效&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;p class=&quot;demo-explain&quot;&gt;演示用季度及分数，不代表已确定的上线参数。&lt;/p&gt;&lt;button type=&quot;button&quot; id=&quot;rating-next&quot;&gt;&lt;/button&gt;&lt;button type=&quot;button&quot; id=&quot;demo-reset&quot;&gt;重置贡献&lt;/button&gt;&lt;/aside&gt;
   &lt;style&gt;
     #island-growth-interaction { --phone-width:375px; --safe-inset:10px; --content-width:calc(var(--phone-width) - var(--safe-inset) * 2); --stage-width:116px; color:var(--foreground); width:100%; max-width:var(--phone-width); margin-inline:auto; }
     #island-growth-interaction .prototype-layout { display:grid; grid-template-columns:minmax(0,var(--phone-width)); gap:18px; justify-content:center; align-items:start; }
@@ -4261,36 +4261,27 @@ function drawMaterials(group,items){
  }
  if(!matches.length)group.append(&#x27;暂无&#x27;+materialFilter+&#x27;记录&#x27;);
 }
-let ratingStep=1;
-let quarterVariant=&quot;A&quot;,quarterTab=&quot;current&quot;;
+let ratingStep=1,awardCount=0;
 let viewedLevel=null;
 let commentIntroSeen=true;
+function thresholdFor(n,initialLevel,base,future){return future?(n===initialLevel?base+30:n&gt;initialLevel?n*100+100:n*100):n*100}
+function levelFor(score,initialLevel,base,future){let level=0;for(let n=1;n&lt;=5;n++)if(score&gt;=thresholdFor(n,initialLevel,base,future))level=n;return level}
 function renderQuarter({score,level,initialLevel,newLine}){
- const page=root.querySelector(&#x27;#page-domain&#x27;);
- page.dataset.quarterVariant=quarterVariant;page.dataset.quarterTab=quarterTab;
- root.querySelectorAll(&#x27;[data-variant]&#x27;).forEach(b=&gt;{b.setAttribute(&#x27;aria-pressed&#x27;,String(b.dataset.variant===quarterVariant));b.onclick=()=&gt;{quarterVariant=b.dataset.variant;quarterTab=&#x27;current&#x27;;drawDomain()}});
- const state=root.querySelector(&#x27;#quarter-state&#x27;);state.value=String(Math.max(1,ratingStep));state.onchange=()=&gt;{ratingStep=Number(state.value);quarterTab=&#x27;current&#x27;;viewedLevel=null;drawDomain()};
- let panel=root.querySelector(&#x27;#quarter-panel&#x27;);
- if(!panel){panel=document.createElement(&#x27;section&#x27;);panel.id=&#x27;quarter-panel&#x27;;root.querySelector(&#x27;.domain-card&#x27;).append(panel)}
- const known=ratingStep&gt;=2,live=ratingStep===3;
- const target=&#x27;LV&#x27;+initialLevel,nextRank=&#x27;LV&#x27;+(initialLevel+1);
- const currentNext=(initialLevel+1)*100;
- const futureNext=currentNext+100;
- const gap=Math.max(0,newLine-score),upgradeGap=Math.max(0,futureNext-score);
- const progress=(value,max)=&gt;&#x27;&lt;div class=&quot;quarter-bar&quot;&gt;&lt;i style=&quot;width:&#x27;+Math.min(100,value/max*100)+&#x27;%&quot;&gt;&lt;/i&gt;&lt;/div&gt;&#x27;;
- const future=known?&#x27;&lt;strong&gt;按当前累计分，预计 LV&#x27;+(gap&gt;0?initialLevel-1:initialLevel)+&#x27;&lt;/strong&gt;&lt;p&gt;&#x27;+target+&#x27; 门槛 &#x27;+newLine+&#x27; 分 · &#x27;+(gap?&#x27;还差 &#x27;+gap+&#x27; 分&#x27;:&#x27;已达标&#x27;)+&#x27;&lt;/p&gt;&#x27;+progress(score,newLine)+&#x27;&lt;small&gt;&#x27;+nextRank+&#x27; 门槛 &#x27;+futureNext+&#x27; 分，还差 &#x27;+upgradeGap+&#x27; 分&lt;/small&gt;&#x27;:&#x27;&lt;strong&gt;下期门槛待公布&lt;/strong&gt;&lt;p&gt;7月1日按新门槛重新评定。&lt;/p&gt;&lt;small&gt;累计贡献分保留；下期等级与差分暂不可确定。&lt;/small&gt;&#x27;;
- const current=&#x27;&lt;strong&gt;本期 LV&#x27;+initialLevel+&#x27;&lt;/strong&gt;&lt;p&gt;距 &#x27;+nextRank+&#x27; 还差 &#x27;+Math.max(0,currentNext-score)+&#x27; 分&lt;/p&gt;&#x27;+progress(score,currentNext)+&#x27;&lt;small&gt;&#x27;+nextRank+&#x27; 门槛 &#x27;+currentNext+&#x27; 分&lt;/small&gt;&#x27;;
- if(live){panel.innerHTML=&#x27;&lt;div class=&quot;quarter-hint&quot;&gt;&lt;b&gt;7月1日 · 新一期已生效&lt;/b&gt;&lt;p&gt;累计 &#x27;+score+&#x27; 分保留，本期为 LV&#x27;+level+&#x27;。&#x27;+target+&#x27; 门槛 &#x27;+newLine+&#x27; 分&#x27;+(gap?&#x27;，还差 &#x27;+gap+&#x27; 分&#x27;:&#x27;&#x27;)+&#x27;。&lt;/p&gt;&lt;/div&gt;&#x27;;return}
- if(quarterVariant===&#x27;A&#x27;)panel.innerHTML=&#x27;&lt;button class=&quot;quarter-hint quarter-open&quot;&gt;&lt;b&gt;7月1日重新评级&lt;/b&gt;&lt;span&gt;&#x27;+(known?&#x27;下期门槛已公布 · 查看预计等级 ›&#x27;:&#x27;下期门槛待公布 · 了解规则 ›&#x27;)+&#x27;&lt;/span&gt;&lt;/button&gt;&#x27;;
- if(quarterVariant===&#x27;B&#x27;)panel.innerHTML=&#x27;&lt;div class=&quot;quarter-tabs&quot;&gt;&lt;button data-period=&quot;current&quot; aria-pressed=&quot;&#x27;+(quarterTab===&#x27;current&#x27;)+&#x27;&quot;&gt;本期 04.01—06.30&lt;/button&gt;&lt;button data-period=&quot;future&quot; aria-pressed=&quot;&#x27;+(quarterTab===&#x27;future&#x27;)+&#x27;&quot;&gt;下期 07.01—09.30&lt;/button&gt;&lt;/div&gt;&#x27;+(quarterTab===&#x27;future&#x27;?&#x27;&lt;div class=&quot;quarter-future&quot;&gt;&#x27;+future+&#x27;&lt;small class=&quot;prediction-note&quot;&gt;预告，不改变当前等级；以7月1日生效结果为准。&lt;/small&gt;&lt;/div&gt;&#x27;:&#x27;&lt;p class=&quot;quarter-footnote&quot;&gt;上方进度仅适用于本期。下期将按新门槛重评。&lt;/p&gt;&#x27;);
- if(quarterVariant===&#x27;C&#x27;)panel.innerHTML=&#x27;&lt;div class=&quot;quarter-columns&quot;&gt;&lt;div&gt;&lt;h4&gt;本期 · 至06.30&lt;/h4&gt;&#x27;+current+&#x27;&lt;/div&gt;&lt;div&gt;&lt;h4&gt;下期 · 07.01起&lt;/h4&gt;&#x27;+future+&#x27;&lt;/div&gt;&lt;/div&gt;&lt;p class=&quot;quarter-footnote&quot;&gt;同一份累计贡献，对照两期门槛；下期结果仅为预告。&lt;/p&gt;&#x27;;
- panel.querySelectorAll(&#x27;[data-period]&#x27;).forEach(b=&gt;b.onclick=()=&gt;{quarterTab=b.dataset.period;drawDomain()});
- const open=panel.querySelector(&#x27;.quarter-open&#x27;);if(open)open.onclick=()=&gt;{
-  let dialog=root.querySelector(&#x27;#quarter-details&#x27;);if(!dialog){dialog=document.createElement(&#x27;dialog&#x27;);dialog.id=&#x27;quarter-details&#x27;;page.append(dialog)}
-  dialog.innerHTML=&#x27;&lt;h3&gt;下期评级 · 07.01—09.30&lt;/h3&gt;&#x27;+future+&#x27;&lt;p class=&quot;prediction-note&quot;&gt;本期等级不变，累计贡献不清零。&lt;/p&gt;&lt;button&gt;知道了&lt;/button&gt;&#x27;;
-  dialog.querySelector(&#x27;button&#x27;).onclick=()=&gt;dialog.close();dialog.showModal();
+ const page=root.querySelector(&#x27;#page-domain&#x27;);page.dataset.quarterVariant=&#x27;A&#x27;;page.dataset.quarterTab=&#x27;current&#x27;;
+ const state=root.querySelector(&#x27;#quarter-state&#x27;);state.value=String(ratingStep);state.onchange=()=&gt;{ratingStep=Number(state.value);viewedLevel=null;drawDomain()};
+ let panel=root.querySelector(&#x27;#quarter-panel&#x27;);if(!panel){panel=document.createElement(&#x27;section&#x27;);panel.id=&#x27;quarter-panel&#x27;;root.querySelector(&#x27;.domain-card&#x27;).append(panel)}
+ const base=initialLevel===3?350:200, futureLevel=levelFor(score,initialLevel,base,true);
+ const gap=Math.max(0,thresholdFor(level,initialLevel,base,true)-score);
+ const text=ratingStep===3?&#x27;本期标准已更新 · 累计贡献保留&#x27;:ratingStep===1?&#x27;07.01 更新等级标准&#x27;:futureLevel&lt;level?&#x27;07.01 起，按当前贡献将为 LV&#x27;+futureLevel:&#x27;07.01 起，按当前贡献仍为 LV&#x27;+futureLevel;
+ panel.innerHTML=&#x27;&lt;button class=&quot;quarter-inline quarter-open&quot;&gt;&#x27;+text+&#x27; &lt;span&gt;›&lt;/span&gt;&lt;/button&gt;&#x27;;
+ panel.querySelector(&#x27;button&#x27;).onclick=()=&gt;{
+ let dialog=root.querySelector(&#x27;#quarter-details&#x27;);if(!dialog){dialog=document.createElement(&#x27;dialog&#x27;);dialog.id=&#x27;quarter-details&#x27;;page.append(dialog)}
+ const detail=ratingStep===1?&#x27;&lt;p&gt;下期门槛尚未公布，暂不能预测等级。&lt;/p&gt;&#x27;:ratingStep===3?&#x27;&lt;p&gt;累计 &#x27;+score+&#x27; 分已按新标准评为 LV&#x27;+level+&#x27;。&lt;/p&gt;&#x27;:&#x27;&lt;p&gt;累计 &#x27;+score+&#x27; 分，对照下期标准预计为 &lt;strong&gt;LV&#x27;+futureLevel+&#x27;&lt;/strong&gt;。&lt;/p&gt;&#x27;+(gap?&#x27;&lt;p&gt;下期 LV&#x27;+level+&#x27; 门槛 &#x27;+thresholdFor(level,initialLevel,base,true)+&#x27; 分，还差 &#x27;+gap+&#x27; 分。&lt;/p&gt;&#x27;:&#x27;&lt;p&gt;已达到下期 LV&#x27;+futureLevel+&#x27; 门槛。&lt;/p&gt;&#x27;);
+ dialog.innerHTML=&#x27;&lt;h3&gt;&#x27;+(ratingStep===3?&#x27;本期等级标准&#x27;:&#x27;07.01 等级标准更新&#x27;)+&#x27;&lt;/h3&gt;&#x27;+detail+&#x27;&lt;p&gt;累计贡献不清零。本期达到门槛即可升级，不必等到季度结束。&lt;/p&gt;&#x27;+(ratingStep===3?&#x27;&#x27;:&#x27;&lt;small&gt;下期按生效时的累计贡献重新评级；预告不改变当前等级。&lt;/small&gt;&#x27;)+&#x27;&lt;button&gt;知道了&lt;/button&gt;&#x27;;
+ dialog.querySelector(&#x27;button&#x27;).onclick=()=&gt;dialog.close();dialog.showModal();
  };
 }
+
 function drawDomain(){
  let intro=root.querySelector(&#x27;#comment-intro&#x27;);
  if(!intro){
@@ -4305,20 +4296,11 @@ function drawDomain(){
 
  const d=domainData[domainIsland.selectedIndex];
  const initialLevel=domainIsland.selectedIndex===0?3:2;
- const level=initialLevel-(ratingStep===3?1:0);
- const shown=viewedLevel===null?level:viewedLevel;
  const base=initialLevel===3?350:200;
- const score=base+(ratingStep&gt;=1?10:0);
- const oldLine=initialLevel*100, newLine=base+30;
- const target=&#x27;LV&#x27;+initialLevel;
- const headings=[&#x27;本期评级&#x27;,&#x27;评论获赠 · +10 分&#x27;,&#x27;下期门槛已公布&#x27;,&#x27;新一期评级已生效&#x27;];
- const notes=[
-   &#x27;当前 &#x27;+target+&#x27;，本期门槛 &#x27;+oldLine+&#x27; 分。贡献随行为累加，本岛等级按期更新。&#x27;,
-   &#x27;一条评论首次获赠，累计贡献从 &#x27;+base+&#x27; 分增至 &#x27;+score+&#x27; 分。当前仍为 &#x27;+target+&#x27;。&#x27;,
-   &#x27;7 月 1 日起，本岛 &#x27;+target+&#x27; 门槛从 &#x27;+oldLine+&#x27; 分升至 &#x27;+newLine+&#x27; 分。当前 &#x27;+score+&#x27; 分，距下期 &#x27;+target+&#x27; 还差 &#x27;+(newLine-score)+&#x27; 分。&#x27;,
-   &#x27;7 月 1 日评级更新。你的 &#x27;+score+&#x27; 分全部保留。按本岛新门槛，本期为 LV&#x27;+level+&#x27;，距 &#x27;+target+&#x27; 还差 &#x27;+(newLine-score)+&#x27; 分。&#x27;
- ];
- const announced=ratingStep&gt;=2;
+ const score=base+awardCount*10;
+ const level=levelFor(score,initialLevel,base,ratingStep===3);
+ const shown=viewedLevel===null?level:viewedLevel;
+ const newLine=base+30;
  root.querySelector(&#x27;#rating-earned&#x27;).hidden=true;
  root.querySelector(&#x27;#rating-level&#x27;).textContent=&#x27;LV&#x27;+shown;
  const shownLine=ratingStep===3?(shown===initialLevel?newLine:shown&gt;initialLevel?shown*100+100:shown*100):shown*100;
@@ -4328,7 +4310,7 @@ function drawDomain(){
  const lineFor=n=&gt;ratingStep===3?(n===initialLevel?newLine:n&gt;initialLevel?n*100+100:n*100):n*100;
  const nextTarget=score&lt;shownLine?shown:Math.min(5,level+1);
  const remaining=Math.max(0,lineFor(nextTarget)-score);
- root.querySelector(&#x27;#rating-distance&#x27;).textContent=remaining&gt;0?&#x27;距 LV&#x27;+nextTarget+&#x27; 还差 &#x27;+remaining+&#x27; 分&#x27;:shown&lt;level?&#x27;已达标&#x27;:&#x27;已达最高等级&#x27;;
+ root.querySelector(&#x27;#rating-distance&#x27;).textContent=shown&lt;level?&#x27;已达标&#x27;:remaining&gt;0?&#x27;距 LV&#x27;+nextTarget+&#x27; 还差 &#x27;+remaining+&#x27; 分&#x27;:&#x27;已达最高等级&#x27;;
  const points=[100,210,330];
  let position=20;
  if(score&gt;=lineFor(start+2))position=400;
@@ -4353,18 +4335,19 @@ function drawDomain(){
  });
  root.querySelector(&#x27;.rating-orbit svg&#x27;).setAttribute(&#x27;aria-label&#x27;,&#x27;查看各等级要求&#x27;);
  const next=root.querySelector(&#x27;#rating-next&#x27;);
- next.textContent=&#x27;重置为 350 分 / 模拟获赠&#x27;;
- next.onclick=()=&gt;{ratingStep=ratingStep===0?1:0;viewedLevel=null;drawDomain()};
+ next.textContent=&#x27;模拟评论获赠 +10分&#x27;;
+ next.onclick=()=&gt;{awardCount++;viewedLevel=null;drawDomain()};
+ root.querySelector(&#x27;#demo-reset&#x27;).onclick=()=&gt;{awardCount=0;viewedLevel=null;drawDomain()};
  renderQuarter({score,level,initialLevel,newLine});
 
  const card=root.querySelector(&#x27;.domain-card&#x27;),mark=root.querySelector(&#x27;#domain-medal&#x27;);
  card.className=&#x27;card domain-card identity-ribbon level-&#x27;+level;
  mark.className=&#x27;level-medal level-&#x27;+level;
  mark.innerHTML=level===3?originalMedal.innerHTML.replaceAll(&#x27;v3-letter-sheen&#x27;,&#x27;domain-letter-sheen&#x27;):&#x27;&lt;span class=&quot;level-glyph&quot;&gt;&#x27;+levelWordmarkMarkup(level)+&#x27;&lt;/span&gt;&#x27;;
- root.querySelector(&#x27;#domain-badge&#x27;).textContent=ratingStep===3?&#x27;LV&#x27;+level+&#x27; · 本期等级&#x27;:d.badge;
+ root.querySelector(&#x27;#domain-badge&#x27;).textContent=level===initialLevel?d.badge:&#x27;LV&#x27;+level+&#x27; · 本岛贡献等级&#x27;;
  root.querySelector(&#x27;#domain-title&#x27;).textContent=&#x27;TA 在&#x27;+domainIsland.value+&#x27;岛&#x27;;
  const stats=root.querySelector(&#x27;#domain-summary&#x27;);stats.replaceChildren();
- for(const [label,value] of [[&#x27;累计贡献分&#x27;,score],[&#x27;本岛发帖&#x27;,d.items.filter(x=&gt;x[0]===&#x27;帖子&#x27;).length],[&#x27;资料贡献&#x27;,d.items.filter(x=&gt;x[0]===&#x27;资料&#x27;).length],[&#x27;获赠评论&#x27;,ratingStep&gt;=1?1:0]]){
+ for(const [label,value] of [[&#x27;累计贡献分&#x27;,score],[&#x27;本岛发帖&#x27;,d.items.filter(x=&gt;x[0]===&#x27;帖子&#x27;).length],[&#x27;资料贡献&#x27;,d.items.filter(x=&gt;x[0]===&#x27;资料&#x27;).length],[&#x27;获赠评论&#x27;,awardCount]]){
   const cell=document.createElement(&#x27;div&#x27;),num=document.createElement(&#x27;strong&#x27;),caption=document.createElement(&#x27;span&#x27;);
   num.textContent=value;caption.textContent=label;cell.append(num,caption);
   if(label===&#x27;获赠评论&#x27;){
@@ -4380,7 +4363,7 @@ function drawDomain(){
  const feed=root.querySelector(&#x27;#domain-feed&#x27;);feed.replaceChildren();
  if(domainTab===&#x27;评论&#x27;){
   const entry=document.createElement(&#x27;div&#x27;);entry.className=&#x27;domain-comment&#x27;;
-  entry.innerHTML=ratingStep&gt;=1?&#x27;&lt;span class=&quot;comment-award&quot;&gt;获赠 · +10 分&lt;/span&gt;&lt;p&gt;补充一个辨认细节：可以结合刀镡形状和配色，区分不同角色的日轮刀。&lt;/p&gt;&lt;small&gt;评论于「日轮刀的颜色和持有者对照」&lt;/small&gt;&#x27;:&#x27;&lt;p&gt;暂无获赠评论&lt;/p&gt;&lt;small&gt;首次获赠的评论会展示在这里。&lt;/small&gt;&#x27;;
+  entry.innerHTML=awardCount&gt;0?&#x27;&lt;span class=&quot;comment-award&quot;&gt;获赠 · +10 分&lt;/span&gt;&lt;p&gt;补充一个辨认细节：可以结合刀镡形状和配色，区分不同角色的日轮刀。&lt;/p&gt;&lt;small&gt;评论于「日轮刀的颜色和持有者对照」&lt;/small&gt;&#x27;:&#x27;&lt;p&gt;暂无获赠评论&lt;/p&gt;&lt;small&gt;首次获赠的评论会展示在这里。&lt;/small&gt;&#x27;;
   feed.append(entry);
  }
 
@@ -4406,7 +4389,7 @@ function drawDomain(){
  if(!feed.childElementCount)feed.textContent=&#x27;还没有在本岛发过帖子&#x27;;
 }
 function resetDomainTab(){
- ratingStep=0;
+ ratingStep=1;awardCount=0;viewedLevel=null;
  const items=domainData[domainIsland.selectedIndex].items;
  domainTab=items.some(item=&gt;item[0]===&#x27;帖子&#x27;)?&#x27;帖子&#x27;:&#x27;资料&#x27;;
  materialFilter=items.some(item=&gt;item[3]===&#x27;创建&#x27;)?&#x27;创建&#x27;:&#x27;编辑&#x27;;
@@ -4788,6 +4771,8 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)){backgrou
 @media(max-width:360px){#page-domain .domain-identity{grid-template-columns:32px minmax(0,1fr) 136px;gap:6px;}#page-domain .domain-identity .rating-art{width:136px;}#page-domain .domain-identity h2{font-size:18px;}}
 
 #page-domain .domain-nav-picker select,#page-domain .domain-nav-picker select option{color-scheme:light;color:#282238!important;background-color:#fff!important;}#quarter-state,#quarter-state option{color-scheme:light;color:#282238;background-color:#fff;}
+
+#quarter-panel{margin-top:8px}.quarter-inline{width:100%;display:flex;align-items:center;justify-content:space-between;border:0;border-top:1px solid #ffffff16;padding:12px 0 0;background:none;color:#c9c0d8;text-align:left;font-size:11px;cursor:pointer}.quarter-inline span{font-size:18px}.demo-controls #demo-reset{width:100%;margin-top:6px;border:0;background:none;color:#6e627f;padding:6px;cursor:pointer}@media(max-width:800px){#island-growth-interaction{padding-top:160px;}}
 &lt;/style&gt;&lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
