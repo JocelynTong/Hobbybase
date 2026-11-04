@@ -4228,6 +4228,8 @@ function renderQuarter({score,level,initialLevel,newLine}){
  let panel=root.querySelector(&#x27;#quarter-panel&#x27;);if(!panel){panel=document.createElement(&#x27;section&#x27;);panel.id=&#x27;quarter-panel&#x27;;root.querySelector(&#x27;.domain-card&#x27;).append(panel)}
  const base=initialLevel===3?350:200, futureLevel=levelFor(score,initialLevel,base,true);
  const gap=Math.max(0,thresholdFor(level,initialLevel,base,true)-score);
+ panel.hidden=ratingStep!==2||futureLevel===level;
+ if(panel.hidden){panel.replaceChildren();return}
  const text=ratingStep===3?&#x27;本期标准已更新 · 累计贡献保留&#x27;:ratingStep===1?&#x27;07.01 更新等级标准&#x27;:futureLevel&lt;level?&#x27;07.01 起，按当前贡献将为 LV&#x27;+futureLevel:&#x27;07.01 起，按当前贡献仍为 LV&#x27;+futureLevel;
  panel.innerHTML=&#x27;&lt;button class=&quot;quarter-inline quarter-open&quot;&gt;&#x27;+text+&#x27; &lt;span&gt;›&lt;/span&gt;&lt;/button&gt;&#x27;;
  panel.querySelector(&#x27;button&#x27;).onclick=()=&gt;{
