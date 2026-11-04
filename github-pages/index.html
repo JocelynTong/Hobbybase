@@ -749,7 +749,7 @@ html&gt;body{padding:0}#page-domain .rating-notice{display:none!important;}
 &lt;/style&gt;
 &lt;/head&gt;
 &lt;body&gt;
-&lt;div id=&quot;island-growth-interaction&quot;&gt;&lt;aside class=&quot;demo-controls&quot; aria-label=&quot;演示操作&quot;&gt;&lt;small&gt;演示操作&lt;/small&gt;&lt;button type=&quot;button&quot; id=&quot;rating-next&quot;&gt;&lt;/button&gt;&lt;/aside&gt;
+&lt;div id=&quot;island-growth-interaction&quot;&gt;&lt;aside class=&quot;demo-controls&quot; aria-label=&quot;演示操作&quot;&gt;&lt;small&gt;跨季度展示 · 对比&lt;/small&gt;&lt;div class=&quot;variant-buttons&quot;&gt;&lt;button data-variant=&quot;A&quot;&gt;A 提示卡&lt;/button&gt;&lt;button data-variant=&quot;B&quot;&gt;B 切换看&lt;/button&gt;&lt;button data-variant=&quot;C&quot;&gt;C 对照看&lt;/button&gt;&lt;/div&gt;&lt;label class=&quot;demo-state-label&quot;&gt;时间状态&lt;select id=&quot;quarter-state&quot;&gt;&lt;option value=&quot;1&quot;&gt;本期 · 下期未公布&lt;/option&gt;&lt;option value=&quot;2&quot;&gt;本期 · 下期已公布&lt;/option&gt;&lt;option value=&quot;3&quot;&gt;7月1日 · 新期生效&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;p class=&quot;demo-explain&quot;&gt;演示用季度及分数，不代表已确定的上线参数。&lt;/p&gt;&lt;button type=&quot;button&quot; id=&quot;rating-next&quot;&gt;&lt;/button&gt;&lt;/aside&gt;
   &lt;style&gt;
     #island-growth-interaction { --phone-width:375px; --safe-inset:10px; --content-width:calc(var(--phone-width) - var(--safe-inset) * 2); --stage-width:116px; color:var(--foreground); width:100%; max-width:var(--phone-width); margin-inline:auto; }
     #island-growth-interaction .prototype-layout { display:grid; grid-template-columns:minmax(0,var(--phone-width)); gap:18px; justify-content:center; align-items:start; }
@@ -4261,9 +4261,36 @@ function drawMaterials(group,items){
  }
  if(!matches.length)group.append(&#x27;暂无&#x27;+materialFilter+&#x27;记录&#x27;);
 }
-let ratingStep=0;
+let ratingStep=1;
+let quarterVariant=&quot;A&quot;,quarterTab=&quot;current&quot;;
 let viewedLevel=null;
-let commentIntroSeen=false;
+let commentIntroSeen=true;
+function renderQuarter({score,level,initialLevel,newLine}){
+ const page=root.querySelector(&#x27;#page-domain&#x27;);
+ page.dataset.quarterVariant=quarterVariant;page.dataset.quarterTab=quarterTab;
+ root.querySelectorAll(&#x27;[data-variant]&#x27;).forEach(b=&gt;{b.setAttribute(&#x27;aria-pressed&#x27;,String(b.dataset.variant===quarterVariant));b.onclick=()=&gt;{quarterVariant=b.dataset.variant;quarterTab=&#x27;current&#x27;;drawDomain()}});
+ const state=root.querySelector(&#x27;#quarter-state&#x27;);state.value=String(Math.max(1,ratingStep));state.onchange=()=&gt;{ratingStep=Number(state.value);quarterTab=&#x27;current&#x27;;viewedLevel=null;drawDomain()};
+ let panel=root.querySelector(&#x27;#quarter-panel&#x27;);
+ if(!panel){panel=document.createElement(&#x27;section&#x27;);panel.id=&#x27;quarter-panel&#x27;;root.querySelector(&#x27;.domain-card&#x27;).append(panel)}
+ const known=ratingStep&gt;=2,live=ratingStep===3;
+ const target=&#x27;LV&#x27;+initialLevel,nextRank=&#x27;LV&#x27;+(initialLevel+1);
+ const currentNext=(initialLevel+1)*100;
+ const futureNext=currentNext+100;
+ const gap=Math.max(0,newLine-score),upgradeGap=Math.max(0,futureNext-score);
+ const progress=(value,max)=&gt;&#x27;&lt;div class=&quot;quarter-bar&quot;&gt;&lt;i style=&quot;width:&#x27;+Math.min(100,value/max*100)+&#x27;%&quot;&gt;&lt;/i&gt;&lt;/div&gt;&#x27;;
+ const future=known?&#x27;&lt;strong&gt;按当前累计分，预计 LV&#x27;+(gap&gt;0?initialLevel-1:initialLevel)+&#x27;&lt;/strong&gt;&lt;p&gt;&#x27;+target+&#x27; 门槛 &#x27;+newLine+&#x27; 分 · &#x27;+(gap?&#x27;还差 &#x27;+gap+&#x27; 分&#x27;:&#x27;已达标&#x27;)+&#x27;&lt;/p&gt;&#x27;+progress(score,newLine)+&#x27;&lt;small&gt;&#x27;+nextRank+&#x27; 门槛 &#x27;+futureNext+&#x27; 分，还差 &#x27;+upgradeGap+&#x27; 分&lt;/small&gt;&#x27;:&#x27;&lt;strong&gt;下期门槛待公布&lt;/strong&gt;&lt;p&gt;7月1日按新门槛重新评定。&lt;/p&gt;&lt;small&gt;累计贡献分保留；下期等级与差分暂不可确定。&lt;/small&gt;&#x27;;
+ const current=&#x27;&lt;strong&gt;本期 LV&#x27;+initialLevel+&#x27;&lt;/strong&gt;&lt;p&gt;距 &#x27;+nextRank+&#x27; 还差 &#x27;+Math.max(0,currentNext-score)+&#x27; 分&lt;/p&gt;&#x27;+progress(score,currentNext)+&#x27;&lt;small&gt;&#x27;+nextRank+&#x27; 门槛 &#x27;+currentNext+&#x27; 分&lt;/small&gt;&#x27;;
+ if(live){panel.innerHTML=&#x27;&lt;div class=&quot;quarter-hint&quot;&gt;&lt;b&gt;7月1日 · 新一期已生效&lt;/b&gt;&lt;p&gt;累计 &#x27;+score+&#x27; 分保留，本期为 LV&#x27;+level+&#x27;。&#x27;+target+&#x27; 门槛 &#x27;+newLine+&#x27; 分&#x27;+(gap?&#x27;，还差 &#x27;+gap+&#x27; 分&#x27;:&#x27;&#x27;)+&#x27;。&lt;/p&gt;&lt;/div&gt;&#x27;;return}
+ if(quarterVariant===&#x27;A&#x27;)panel.innerHTML=&#x27;&lt;button class=&quot;quarter-hint quarter-open&quot;&gt;&lt;b&gt;7月1日重新评级&lt;/b&gt;&lt;span&gt;&#x27;+(known?&#x27;下期门槛已公布 · 查看预计等级 ›&#x27;:&#x27;下期门槛待公布 · 了解规则 ›&#x27;)+&#x27;&lt;/span&gt;&lt;/button&gt;&#x27;;
+ if(quarterVariant===&#x27;B&#x27;)panel.innerHTML=&#x27;&lt;div class=&quot;quarter-tabs&quot;&gt;&lt;button data-period=&quot;current&quot; aria-pressed=&quot;&#x27;+(quarterTab===&#x27;current&#x27;)+&#x27;&quot;&gt;本期 04.01—06.30&lt;/button&gt;&lt;button data-period=&quot;future&quot; aria-pressed=&quot;&#x27;+(quarterTab===&#x27;future&#x27;)+&#x27;&quot;&gt;下期 07.01—09.30&lt;/button&gt;&lt;/div&gt;&#x27;+(quarterTab===&#x27;future&#x27;?&#x27;&lt;div class=&quot;quarter-future&quot;&gt;&#x27;+future+&#x27;&lt;small class=&quot;prediction-note&quot;&gt;预告，不改变当前等级；以7月1日生效结果为准。&lt;/small&gt;&lt;/div&gt;&#x27;:&#x27;&lt;p class=&quot;quarter-footnote&quot;&gt;上方进度仅适用于本期。下期将按新门槛重评。&lt;/p&gt;&#x27;);
+ if(quarterVariant===&#x27;C&#x27;)panel.innerHTML=&#x27;&lt;div class=&quot;quarter-columns&quot;&gt;&lt;div&gt;&lt;h4&gt;本期 · 至06.30&lt;/h4&gt;&#x27;+current+&#x27;&lt;/div&gt;&lt;div&gt;&lt;h4&gt;下期 · 07.01起&lt;/h4&gt;&#x27;+future+&#x27;&lt;/div&gt;&lt;/div&gt;&lt;p class=&quot;quarter-footnote&quot;&gt;同一份累计贡献，对照两期门槛；下期结果仅为预告。&lt;/p&gt;&#x27;;
+ panel.querySelectorAll(&#x27;[data-period]&#x27;).forEach(b=&gt;b.onclick=()=&gt;{quarterTab=b.dataset.period;drawDomain()});
+ const open=panel.querySelector(&#x27;.quarter-open&#x27;);if(open)open.onclick=()=&gt;{
+  let dialog=root.querySelector(&#x27;#quarter-details&#x27;);if(!dialog){dialog=document.createElement(&#x27;dialog&#x27;);dialog.id=&#x27;quarter-details&#x27;;page.append(dialog)}
+  dialog.innerHTML=&#x27;&lt;h3&gt;下期评级 · 07.01—09.30&lt;/h3&gt;&#x27;+future+&#x27;&lt;p class=&quot;prediction-note&quot;&gt;本期等级不变，累计贡献不清零。&lt;/p&gt;&lt;button&gt;知道了&lt;/button&gt;&#x27;;
+  dialog.querySelector(&#x27;button&#x27;).onclick=()=&gt;dialog.close();dialog.showModal();
+ };
+}
 function drawDomain(){
  let intro=root.querySelector(&#x27;#comment-intro&#x27;);
  if(!intro){
@@ -4294,12 +4321,12 @@ function drawDomain(){
  const announced=ratingStep&gt;=2;
  root.querySelector(&#x27;#rating-earned&#x27;).hidden=true;
  root.querySelector(&#x27;#rating-level&#x27;).textContent=&#x27;LV&#x27;+shown;
- const shownLine=shown===initialLevel&amp;&amp;ratingStep===3?newLine:shown*100;
+ const shownLine=ratingStep===3?(shown===initialLevel?newLine:shown&gt;initialLevel?shown*100+100:shown*100):shown*100;
  root.querySelector(&#x27;#rating-threshold&#x27;).textContent=&#x27;本期门槛 &#x27;+shownLine+&#x27; 分&#x27;;
  root.querySelector(&#x27;#rating-period&#x27;).textContent=ratingStep===3?&#x27;2026.07.01—09.30&#x27;:&#x27;2026.04.01—06.30&#x27;;
  root.querySelector(&#x27;#rating-gap&#x27;).textContent=shown===level?&#x27;当前等级&#x27;:score&gt;=shownLine?&#x27;已达标&#x27;:&#x27;还差 &#x27;+(shownLine-score)+&#x27; 分&#x27;;
  const start=Math.max(1,Math.min(3,shown-1));
- const lineFor=n=&gt;n===initialLevel&amp;&amp;ratingStep===3?newLine:n*100;
+ const lineFor=n=&gt;ratingStep===3?(n===initialLevel?newLine:n&gt;initialLevel?n*100+100:n*100):n*100;
  const nextTarget=score&lt;shownLine?shown:Math.min(5,level+1);
  const remaining=Math.max(0,lineFor(nextTarget)-score);
  root.querySelector(&#x27;#rating-distance&#x27;).textContent=remaining&gt;0?&#x27;距 LV&#x27;+nextTarget+&#x27; 还差 &#x27;+remaining+&#x27; 分&#x27;:shown&lt;level?&#x27;已达标&#x27;:&#x27;已达最高等级&#x27;;
@@ -4327,8 +4354,10 @@ function drawDomain(){
  });
  root.querySelector(&#x27;.rating-orbit svg&#x27;).setAttribute(&#x27;aria-label&#x27;,&#x27;查看各等级要求&#x27;);
  const next=root.querySelector(&#x27;#rating-next&#x27;);
- next.textContent=[&#x27;模拟一次评论获赠&#x27;,&#x27;查看下期评级预告&#x27;,&#x27;查看评级生效后&#x27;,&#x27;重看示例&#x27;][ratingStep];
- next.onclick=()=&gt;{ratingStep=(ratingStep+1)%4;viewedLevel=null;drawDomain()};
+ next.textContent=&#x27;重置为 350 分 / 模拟获赠&#x27;;
+ next.onclick=()=&gt;{ratingStep=ratingStep===0?1:0;viewedLevel=null;drawDomain()};
+ renderQuarter({score,level,initialLevel,newLine});
+
  const card=root.querySelector(&#x27;.domain-card&#x27;),mark=root.querySelector(&#x27;#domain-medal&#x27;);
  card.className=&#x27;card domain-card identity-ribbon level-&#x27;+level;
  mark.className=&#x27;level-medal level-&#x27;+level;
@@ -4741,6 +4770,9 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)){backgrou
 #page-domain .domain-identity{min-height:233px;}#page-domain .domain-identity .rating-art{height:230px;}#page-domain .rating-art&gt;svg{height:155px;width:155px;margin:6px auto 0;}#page-domain .rating-art .rating-orbit{bottom:0;}
 #page-domain .topbar{display:flex;justify-content:flex-start;gap:6px;}#page-domain #domain-back{padding:0;width:26px;min-width:26px;font-size:28px;}#page-domain .domain-nav-picker{position:relative;display:flex;align-items:center;gap:6px;min-width:0;color:#f4efff;cursor:pointer;}#page-domain .domain-nav-picker strong{font-size:15px;white-space:nowrap;}#page-domain .domain-nav-picker select{position:absolute;inset:0;width:100%;height:100%;opacity:0;cursor:pointer;}#page-domain .domain-nav-picker:focus-within{outline:2px solid #ac98d0;outline-offset:3px;border-radius:4px;}#page-domain .topbar&gt;button:last-child{margin-left:auto;padding:4px 0;font-size:12px;white-space:nowrap;}#page-domain .domain-card{padding-top:38px;}
 .demo-controls{position:fixed;left:calc(50% + 203px);top:24px;width:145px;z-index:20;padding:12px;box-sizing:border-box;background:#fff;border:1px solid #e3deeb;border-radius:12px;color:#6e627f;}.demo-controls small{display:block;font-size:12px;margin-bottom:9px;}.demo-controls #rating-next{width:100%;padding:10px 8px;line-height:1.5;font-size:12px;border:0;border-radius:8px;background:#ece5f6;color:#5c467d;cursor:pointer;}#page-domain .rating-demo{display:none;}@media(max-width:730px){#island-growth-interaction{padding-top:82px;}.demo-controls{left:50%;transform:translateX(-50%);top:8px;width:min(375px,calc(100% - 24px));display:flex;align-items:center;gap:12px;padding:10px 12px;}.demo-controls small{margin:0;white-space:nowrap;}.demo-controls #rating-next{width:auto;margin-left:auto;}}
+
+.demo-controls{width:180px;}.variant-buttons{display:flex;gap:4px;margin-bottom:12px;}.variant-buttons button{flex:1;padding:7px 3px;border:1px solid #e1daeb;border-radius:6px;background:#fff;color:#6e627f;font-size:11px;cursor:pointer;}.variant-buttons button[aria-pressed=true]{background:#8064ad;color:#fff;border-color:#8064ad;}.demo-state-label{font-size:11px;display:block;}.demo-state-label select{display:block;width:100%;margin:6px 0 10px;font-size:11px;padding:7px 3px;}.demo-explain{font-size:10px;line-height:1.5;color:#8c8297;}
+#quarter-panel{margin-top:8px;color:#e7e1f1;font-size:12px;}#quarter-panel p{line-height:1.6;margin:7px 0;}#quarter-panel small{display:block;font-size:11px;line-height:1.6;color:#bdb4cf;}.quarter-hint{display:block;width:100%;padding:12px;border:1px solid #554b67;border-radius:10px;background:#ffffff08;color:#e7e1f1;text-align:left;box-sizing:border-box;}.quarter-open{cursor:pointer;}.quarter-hint span{display:block;margin-top:6px;font-size:11px;color:#bdb4cf;}.quarter-tabs{display:flex;border-bottom:1px solid #554b67;}.quarter-tabs button{flex:1;background:none;border:0;padding:10px 0;color:#a79abf;font-size:11px;cursor:pointer;}.quarter-tabs button[aria-pressed=true]{color:#fff;border-bottom:2px solid #a99acb;}.quarter-future{padding:14px 0;}.quarter-columns{display:grid;grid-template-columns:1fr 1fr;gap:12px;}.quarter-columns&gt;div{padding:12px 9px;background:#ffffff08;border-radius:10px;}.quarter-columns h4{font-size:11px;color:#bdb4cf;margin:0 0 10px;}.quarter-columns strong{font-size:13px;}.quarter-bar{height:5px;background:#5a5367;border-radius:6px;margin:10px 0;overflow:hidden;}.quarter-bar i{display:block;height:100%;background:linear-gradient(90deg,#a598cc,#83d9ca);}.quarter-footnote,.prediction-note{font-size:10px;color:#bdb4cf;line-height:1.6;}#page-domain[data-quarter-variant=B][data-quarter-tab=future] .rating-orbit,#page-domain[data-quarter-variant=C] .rating-orbit{visibility:hidden;}#page-domain[data-quarter-variant=C] .domain-identity,#page-domain[data-quarter-variant=B][data-quarter-tab=future] .domain-identity{min-height:170px;}#quarter-details{width:290px;max-width:calc(100% - 48px);border:0;border-radius:18px;background:#fcfaff;padding:22px;color:#342940;}#quarter-details::backdrop{background:#18132399;}#quarter-details p,#quarter-details small{line-height:1.7;font-size:13px;}#quarter-details .prediction-note{color:#81758f;}#quarter-details button{width:100%;border:0;border-radius:8px;background:#8064ad;color:#fff;padding:10px;margin-top:12px;}@media(max-width:800px){#island-growth-interaction{padding-top:174px;}.demo-controls{left:50%;transform:translateX(-50%);top:8px;width:min(375px,calc(100% - 24px));display:block;padding:10px 12px;}.demo-controls .variant-buttons{margin:6px 0;}.demo-state-label select{display:inline-block;width:70%;margin:0 0 5px 8px;}.demo-explain{margin:3px 0;}.demo-controls #rating-next{width:100%;padding:5px;}}
 &lt;/style&gt;&lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
