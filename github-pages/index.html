@@ -1218,7 +1218,7 @@ html&gt;body{padding:0}#page-domain .rating-notice{display:none!important;}
   
 &lt;section id=&quot;page-domain&quot; class=&quot;app-page hidden&quot;&gt;
   &lt;div class=&quot;topbar&quot;&gt;&lt;button class=&quot;btn btn-ghost&quot; id=&quot;domain-back&quot; aria-label=&quot;返回&quot;&gt;‹&lt;/button&gt;&lt;label class=&quot;domain-nav-picker&quot;&gt;&lt;strong id=&quot;domain-title&quot;&gt;TA 在鬼灭之刃岛&lt;/strong&gt;&lt;span aria-hidden=&quot;true&quot;&gt;⌄&lt;/span&gt;&lt;select id=&quot;domain-island&quot; aria-label=&quot;切换岛&quot;&gt;&lt;option value=&quot;鬼灭之刃&quot;&gt;TA 在鬼灭之刃岛&lt;/option&gt;&lt;option value=&quot;洛克王国&quot;&gt;TA 在洛克王国岛&lt;/option&gt;&lt;/select&gt;&lt;/label&gt;&lt;button class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;TA 的主页 ›&lt;/button&gt;&lt;/div&gt;
-  &lt;article class=&quot;card domain-card identity-ribbon level-3&quot;&gt;
+  &lt;article class=&quot;card domain-card identity-ribbon level-3&quot;&gt;&lt;div class=&quot;domain-rules-entry&quot;&gt;&lt;button type=&quot;button&quot; data-page-target=&quot;rules&quot;&gt;等级规则 ⓘ&lt;/button&gt;&lt;/div&gt;
 
     
     &lt;div class=&quot;domain-identity&quot;&gt;&lt;div class=&quot;avatar-wrap&quot;&gt;&lt;div class=&quot;avatar&quot;&gt;&lt;i data-lucide=&quot;user-round&quot;&gt;&lt;/i&gt;&lt;/div&gt;&lt;div class=&quot;avatar-frame&quot; data-wear-frame aria-hidden=&quot;true&quot;&gt;&lt;/div&gt;&lt;/div&gt;&lt;div&gt;&lt;h2&gt;活性氧&lt;/h2&gt;&lt;small id=&quot;domain-badge&quot;&gt;&lt;/small&gt;&lt;/div&gt;&lt;span hidden id=&quot;domain-medal&quot; aria-hidden=&quot;true&quot;&gt;&lt;/span&gt;&lt;div class=&quot;rating-art&quot;&gt;&lt;svg viewBox=&quot;0 0 1164 1351&quot; role=&quot;img&quot; aria-label=&quot;千岛少年与浮岛&quot;&gt;&lt;g id=&quot;mascot-paths&quot;&gt;
@@ -3742,62 +3742,18 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)),#island-
   &lt;/section&gt;
 
   &lt;section id=&quot;page-rules&quot; class=&quot;app-page hidden&quot;&gt;
-    &lt;div class=&quot;topbar&quot;&gt;&lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;growth&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;岛内成长&lt;/button&gt;&lt;strong&gt;规则说明&lt;/strong&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
-    &lt;main class=&quot;rules-doc&quot;&gt;
-      &lt;h2&gt;岛内等级是什么&lt;/h2&gt;
-      &lt;p&gt;岛内等级记录你在这个 IP 岛近 365 天的贡献。每个岛单独计算，所以你在不同岛的等级可能不同。&lt;/p&gt;
-      &lt;table class=&quot;rules-table&quot;&gt;
-        &lt;thead&gt;&lt;tr&gt;&lt;th&gt;等级&lt;/th&gt;&lt;th&gt;代表状态&lt;/th&gt;&lt;th&gt;怎么判断&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-        &lt;tbody&gt;
-          &lt;tr&gt;&lt;td&gt;D1&lt;/td&gt;&lt;td&gt;开始积累&lt;/td&gt;&lt;td&gt;在本岛有过有效贡献。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;D2&lt;/td&gt;&lt;td&gt;稳定贡献&lt;/td&gt;&lt;td&gt;近 365 天持续产出有效内容或资料贡献。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;D3&lt;/td&gt;&lt;td&gt;本岛头部&lt;/td&gt;&lt;td&gt;贡献值进入本岛靠前位置，是更活跃、更有贡献的一批用户。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;D4&lt;/td&gt;&lt;td&gt;高阶候选&lt;/td&gt;&lt;td&gt;贡献进入高阶区，会再看内容质量和异常情况。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;D5&lt;/td&gt;&lt;td&gt;人工认证&lt;/td&gt;&lt;td&gt;通过高阶复核后获得，认证后 365 天有效。&lt;/td&gt;&lt;/tr&gt;
-        &lt;/tbody&gt;
-      &lt;/table&gt;
+&lt;div class=&quot;topbar&quot;&gt;&lt;button class=&quot;btn btn-ghost&quot; data-page-target=&quot;domain&quot; aria-label=&quot;返回岛内主页&quot;&gt;‹&lt;/button&gt;&lt;strong&gt;岛内等级规则&lt;/strong&gt;&lt;span&gt;&lt;/span&gt;&lt;/div&gt;
+&lt;main class=&quot;rules-doc&quot;&gt;
+&lt;h2&gt;贡献积累在本岛，等级代表本岛贡献&lt;/h2&gt;&lt;p&gt;等级为 LV1—LV5，记录你在本岛的累计贡献。各岛单独评定，不代表全平台排名，也不赋予审核、删帖等管理权限。&lt;/p&gt;
+&lt;h3&gt;如何升级&lt;/h3&gt;&lt;p&gt;本期内，累计贡献达到对应等级门槛，即可升级，不必等到季度结束。未达到 LV1 门槛时，不展示等级。&lt;/p&gt;
+&lt;h3&gt;为什么不同岛的门槛不同&lt;/h3&gt;&lt;p&gt;以近90天访问过本岛、且在本岛累计贡献分大于0的用户为比较人群，按他们在本岛的累计贡献分计算分位线。90天用于选择比较人群，不是只统计90天新获得的分数。&lt;/p&gt;&lt;p&gt;每级门槛同时受该级启动分和本岛分位线约束；采用只升不降规则时，还不低于本岛历史已生效门槛。同样的累计分，在不同岛可能对应不同等级。&lt;/p&gt;
+&lt;h3&gt;换季度会发生什么&lt;/h3&gt;&lt;p&gt;本期使用本期门槛；下期标准生效后，用保留的累计贡献重新评定。门槛提高时，即使分数没减少，等级也可能降低。累计分不会因换季度清零或过期。&lt;/p&gt;&lt;p&gt;下期尚未公布时不预测等级；已公布后的预计等级仅供参考，以生效时的累计贡献与门槛为准。&lt;/p&gt;
+&lt;h3&gt;哪些贡献会计分&lt;/h3&gt;&lt;table class=&quot;rules-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;行为&lt;/th&gt;&lt;th&gt;计分条件&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;有效帖子&lt;/td&gt;&lt;td&gt;通过有效内容判定后计分。&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;优质帖子&lt;/td&gt;&lt;td&gt;通过质量与有效互动条件后计分。&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;资料贡献&lt;/td&gt;&lt;td&gt;有效新增、编辑、审核资料均属于贡献。&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;获赠评论&lt;/td&gt;&lt;td&gt;同一评论首次获赠时计分，重复获赠不重复计分；发布评论本身不加分。&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;p&gt;访问、点赞本身不计贡献分。各行为分值及计分上限以正式公布规则为准。&lt;/p&gt;
+&lt;h3&gt;当前演示说明&lt;/h3&gt;&lt;p&gt;本 Demo 使用示意季度、门槛与每条首次获赠 +10 分，便于体验升级和跨期变化，不代表最终上线参数。模拟按钮每次新增一条不同评论的首次获赠。&lt;/p&gt;
+&lt;/main&gt;&lt;/section&gt;
 
-      &lt;h3&gt;哪些行为会加贡献值&lt;/h3&gt;
-      &lt;table class=&quot;rules-table&quot;&gt;
-        &lt;thead&gt;&lt;tr&gt;&lt;th&gt;行为&lt;/th&gt;&lt;th&gt;贡献值&lt;/th&gt;&lt;th&gt;说明&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;
-        &lt;tbody&gt;
-          &lt;tr&gt;&lt;td&gt;发布帖子&lt;/td&gt;&lt;td&gt;+1&lt;/td&gt;&lt;td&gt;内容通过审核后计入。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;优质帖子&lt;/td&gt;&lt;td&gt;+3&lt;/td&gt;&lt;td&gt;帖子获得较多真实互动时额外计入。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;平台加分帖&lt;/td&gt;&lt;td&gt;+5&lt;/td&gt;&lt;td&gt;深度讨论、原创或明显有社区价值的内容，由运营标记后计入。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;新增资料&lt;/td&gt;&lt;td&gt;+3&lt;/td&gt;&lt;td&gt;新增资料通过审核后计入。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;编辑资料&lt;/td&gt;&lt;td&gt;+1&lt;/td&gt;&lt;td&gt;编辑资料被审核保留后计入。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;审核资料&lt;/td&gt;&lt;td&gt;+3&lt;/td&gt;&lt;td&gt;审核资料通过后计入贡献值。&lt;/td&gt;&lt;/tr&gt;
-        &lt;/tbody&gt;
-      &lt;/table&gt;
-
-      &lt;h3&gt;高阶等级规则&lt;/h3&gt;
-      &lt;p class=&quot;rules-note&quot;&gt;D4-D5 会多一道复核，避免搬运、刷分内容影响等级。&lt;/p&gt;
-      &lt;table class=&quot;rules-table rules-table-loose&quot;&gt;
-        &lt;thead&gt;
-          &lt;tr&gt;&lt;th&gt;规则&lt;/th&gt;&lt;th&gt;说明&lt;/th&gt;&lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody&gt;
-          &lt;tr&gt;&lt;td&gt;数据更新&lt;/td&gt;&lt;td&gt;贡献值按近 365 天的有效贡献更新。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;有效期&lt;/td&gt;&lt;td&gt;D4/D5 认证后 365 天有效。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;高阶复核&lt;/td&gt;&lt;td&gt;进入高阶候选后，会再确认内容是否能代表本岛贡献。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;异常处理&lt;/td&gt;&lt;td&gt;搬运、灌水、商业引流或异常互动，可能无法获得或维持高阶身份。&lt;/td&gt;&lt;/tr&gt;
-        &lt;/tbody&gt;
-      &lt;/table&gt;
-
-      &lt;h3&gt;资料贡献说明&lt;/h3&gt;
-      &lt;table class=&quot;rules-table rules-table-loose&quot;&gt;
-        &lt;thead&gt;
-          &lt;tr&gt;&lt;th&gt;方式&lt;/th&gt;&lt;th&gt;说明&lt;/th&gt;&lt;/tr&gt;
-        &lt;/thead&gt;
-        &lt;tbody&gt;
-          &lt;tr&gt;&lt;td&gt;单条贡献&lt;/td&gt;&lt;td&gt;新增或编辑资料，通过审核后会计入贡献值。&lt;/td&gt;&lt;/tr&gt;
-          &lt;tr&gt;&lt;td&gt;批量贡献&lt;/td&gt;&lt;td&gt;通过资料库考试后，可批量新增资料，相关贡献会作为高阶等级参考。&lt;/td&gt;&lt;/tr&gt;
-        &lt;/tbody&gt;
-      &lt;/table&gt;
-    &lt;/main&gt;
-  &lt;/section&gt;
-
-  &lt;section id=&quot;page-growth&quot; class=&quot;app-page hidden&quot;&gt;
+&lt;section id=&quot;page-growth&quot; class=&quot;app-page hidden&quot;&gt;
 
   &lt;div class=&quot;topbar&quot;&gt;
     &lt;button type=&quot;button&quot; class=&quot;btn btn-ghost&quot; data-page-target=&quot;home&quot;&gt;&lt;i data-lucide=&quot;chevron-left&quot; aria-hidden=&quot;true&quot;&gt;&lt;/i&gt;个人主页&lt;/button&gt;
@@ -4362,9 +4318,13 @@ function drawDomain(){
  }
  const feed=root.querySelector(&#x27;#domain-feed&#x27;);feed.replaceChildren();
  if(domainTab===&#x27;评论&#x27;){
-  const entry=document.createElement(&#x27;div&#x27;);entry.className=&#x27;domain-comment&#x27;;
-  entry.innerHTML=awardCount&gt;0?&#x27;&lt;span class=&quot;comment-award&quot;&gt;获赠 · +10 分&lt;/span&gt;&lt;p&gt;补充一个辨认细节：可以结合刀镡形状和配色，区分不同角色的日轮刀。&lt;/p&gt;&lt;small&gt;评论于「日轮刀的颜色和持有者对照」&lt;/small&gt;&#x27;:&#x27;&lt;p&gt;暂无获赠评论&lt;/p&gt;&lt;small&gt;首次获赠的评论会展示在这里。&lt;/small&gt;&#x27;;
-  feed.append(entry);
+  const examples=[&#x27;补充一个辨认细节：可以结合刀镡形状和配色，区分不同角色的日轮刀。&#x27;,&#x27;建议把不同版本的配色差异一起标注，查找时会更方便。&#x27;,&#x27;这份整理很有帮助，也可以补上对应角色的使用场景。&#x27;];
+  if(!awardCount){const empty=document.createElement(&#x27;p&#x27;);empty.textContent=&#x27;暂无获赠评论&#x27;;feed.append(empty)}
+  for(let n=awardCount;n&gt;0;n--){
+   const entry=document.createElement(&#x27;article&#x27;);entry.className=&#x27;domain-comment&#x27;;
+   entry.innerHTML=&#x27;&lt;span class=&quot;comment-award&quot;&gt;首次获赠 · +10 分&lt;/span&gt;&lt;p&gt;&#x27;+examples[(n-1)%examples.length]+&#x27;&lt;/p&gt;&lt;small&gt;评论于「&#x27;+d.items[0][1]+&#x27;」 · 演示评论 &#x27;+n+&#x27;&lt;/small&gt;&#x27;;
+   feed.append(entry);
+  }
  }
 
  for(const kind of [&#x27;帖子&#x27;,&#x27;资料&#x27;]){
@@ -4773,6 +4733,8 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)){backgrou
 #page-domain .domain-nav-picker select,#page-domain .domain-nav-picker select option{color-scheme:light;color:#282238!important;background-color:#fff!important;}#quarter-state,#quarter-state option{color-scheme:light;color:#282238;background-color:#fff;}
 
 #quarter-panel{margin-top:8px}.quarter-inline{width:100%;display:flex;align-items:center;justify-content:space-between;border:0;border-top:1px solid #ffffff16;padding:12px 0 0;background:none;color:#c9c0d8;text-align:left;font-size:11px;cursor:pointer}.quarter-inline span{font-size:18px}.demo-controls #demo-reset{width:100%;margin-top:6px;border:0;background:none;color:#6e627f;padding:6px;cursor:pointer}@media(max-width:800px){#island-growth-interaction{padding-top:160px;}}
+
+.domain-rules-entry{margin:0 0 4px}.domain-rules-entry button{border:0;background:none;color:#c9c0d8;font-size:11px;padding:0;cursor:pointer}#page-domain .domain-comment+.domain-comment{margin-top:10px}#page-rules{background:#fff;color:#292637;min-height:100vh}#page-rules .topbar{background:#fff;color:#292637}#page-rules .topbar button{color:#292637}#page-rules .rules-doc{padding:16px 20px;font-size:13px;line-height:1.75}#page-rules h2{font-size:19px}#page-rules h3{font-size:15px;margin-top:24px}#page-rules .rules-table{font-size:12px;color:#292637}#page-rules .rules-table th,#page-rules .rules-table td{background:#f7f5fa;color:#292637;padding:9px;border-color:#e8e3ee}
 &lt;/style&gt;&lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
