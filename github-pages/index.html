@@ -3590,18 +3590,10 @@ html&gt;body{padding:0}&lt;/style&gt;
 
 
 
-&lt;/g&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;
+&lt;/g&gt;&lt;/svg&gt;&lt;div class=&quot;rating-orbit&quot;&gt;&lt;svg viewBox=&quot;0 0 420 110&quot; role=&quot;img&quot; aria-label=&quot;LV2、LV3、LV4等级进度&quot;&gt;&lt;defs&gt;&lt;linearGradient id=&quot;rating-gradient&quot;&gt;&lt;stop stop-color=&quot;#8877c5&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#70e9d5&quot;/&gt;&lt;/linearGradient&gt;&lt;/defs&gt;&lt;path d=&quot;M20 20 Q210 135 400 20&quot; fill=&quot;none&quot; stroke=&quot;#554968&quot; stroke-width=&quot;4&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;path id=&quot;rating-fill&quot; d=&quot;M20 20 Q210 135 400 20&quot; pathLength=&quot;100&quot; stroke-dasharray=&quot;100 100&quot; fill=&quot;none&quot; stroke=&quot;url(#rating-gradient)&quot; stroke-width=&quot;4&quot; stroke-linecap=&quot;round&quot;/&gt;&lt;g fill=&quot;#a99ac2&quot; font-family=&quot;Arial,sans-serif&quot; font-size=&quot;17&quot; font-style=&quot;italic&quot; text-anchor=&quot;middle&quot;&gt;&lt;text id=&quot;rating-prev-label&quot; x=&quot;100&quot; y=&quot;91&quot;&gt;LV2&lt;/text&gt;&lt;text id=&quot;rating-current-label&quot; x=&quot;210&quot; y=&quot;109&quot; fill=&quot;#fff&quot; font-size=&quot;23&quot; font-style=&quot;normal&quot; font-weight=&quot;bold&quot;&gt;LV3&lt;/text&gt;&lt;text id=&quot;rating-next-label&quot; x=&quot;330&quot; y=&quot;91&quot;&gt;LV4&lt;/text&gt;&lt;/g&gt;&lt;path d=&quot;M210 68v18&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;/&gt;&lt;/svg&gt;&lt;/div&gt;&lt;/div&gt;&lt;/div&gt;
   &lt;section class=&quot;rating-demo&quot; aria-label=&quot;本岛评级&quot;&gt;
 
 
-&lt;div class=&quot;rating-orbit&quot;&gt;
-&lt;svg viewBox=&quot;0 0 400 94&quot; role=&quot;img&quot; aria-label=&quot;累计贡献与等级门槛&quot;&gt;&lt;defs&gt;&lt;linearGradient id=&quot;rating-gradient&quot;&gt;&lt;stop stop-color=&quot;#8272c6&quot;/&gt;&lt;stop offset=&quot;1&quot; stop-color=&quot;#75efd5&quot;/&gt;&lt;/linearGradient&gt;&lt;/defs&gt;
-&lt;path d=&quot;M24 12 Q200 114 376 12&quot; fill=&quot;none&quot; stroke=&quot;#514864&quot; stroke-width=&quot;5&quot; stroke-linecap=&quot;round&quot;/&gt;
-&lt;path id=&quot;rating-fill&quot; d=&quot;M24 12 Q200 114 376 12&quot; fill=&quot;none&quot; stroke=&quot;url(#rating-gradient)&quot; stroke-width=&quot;5&quot; stroke-linecap=&quot;round&quot; pathLength=&quot;100&quot; stroke-dasharray=&quot;58 100&quot;/&gt;
-&lt;g id=&quot;rating-gate&quot;&gt;&lt;path d=&quot;M200 50v22&quot; stroke=&quot;#fff&quot; stroke-width=&quot;2&quot;/&gt;&lt;text x=&quot;200&quot; y=&quot;91&quot; text-anchor=&quot;middle&quot; fill=&quot;#fff&quot; font-size=&quot;14&quot;&gt;本期门槛&lt;/text&gt;&lt;/g&gt;
-&lt;g id=&quot;rating-future&quot;&gt;&lt;path d=&quot;M270 42v22&quot; stroke=&quot;#a5e8da&quot; stroke-width=&quot;2&quot; stroke-dasharray=&quot;3 2&quot;/&gt;&lt;text x=&quot;280&quot; y=&quot;80&quot; text-anchor=&quot;middle&quot; fill=&quot;#a5e8da&quot; font-size=&quot;12&quot;&gt;下期门槛&lt;/text&gt;&lt;/g&gt;
-&lt;circle id=&quot;rating-dot&quot; cx=&quot;230&quot; cy=&quot;62&quot; r=&quot;6&quot; fill=&quot;#c7fff0&quot; stroke=&quot;#30283f&quot; stroke-width=&quot;3&quot;/&gt;
-&lt;/svg&gt;&lt;/div&gt;
 &lt;div class=&quot;rating-reading&quot;&gt;&lt;span id=&quot;rating-earned&quot;&gt;&lt;/span&gt;&lt;strong id=&quot;rating-level&quot;&gt;&lt;/strong&gt;&lt;span id=&quot;rating-gap&quot;&gt;&lt;/span&gt;&lt;/div&gt;
 &lt;div class=&quot;rating-notice&quot; aria-live=&quot;polite&quot;&gt;&lt;b id=&quot;rating-stage&quot;&gt;&lt;/b&gt;&lt;p id=&quot;rating-copy&quot;&gt;&lt;/p&gt;&lt;/div&gt;&lt;button type=&quot;button&quot; id=&quot;rating-next&quot;&gt;&lt;/button&gt;&lt;/section&gt;
   &lt;/article&gt;
@@ -4285,12 +4277,10 @@ function drawDomain(){
  root.querySelector(&#x27;#rating-earned&#x27;).textContent=&#x27;累计 &#x27;+score+&#x27; 分&#x27;;
  root.querySelector(&#x27;#rating-level&#x27;).textContent=&#x27;LV&#x27;+level;
  root.querySelector(&#x27;#rating-gap&#x27;).textContent=announced?&#x27;距 &#x27;+target+&#x27; 差 &#x27;+(newLine-score)+&#x27; 分&#x27;:&#x27;已达本期门槛&#x27;;
- root.querySelector(&#x27;#rating-future&#x27;).style.display=ratingStep===2?&#x27;&#x27;:&#x27;none&#x27;;
- root.querySelector(&#x27;#rating-gate&#x27;).setAttribute(&#x27;transform&#x27;,ratingStep===3?&#x27;translate(70,-8)&#x27;:&#x27;&#x27;);
- root.querySelector(&#x27;#rating-gate text&#x27;).textContent=(ratingStep===3?newLine:oldLine)+&#x27; 分&#x27;;
- root.querySelector(&#x27;#rating-future text&#x27;).textContent=&#x27;下期 &#x27;+newLine+&#x27; 分&#x27;;
- root.querySelector(&#x27;#rating-dot&#x27;).setAttribute(&#x27;cx&#x27;,ratingStep===0?&#x27;215&#x27;:&#x27;230&#x27;);
- root.querySelector(&#x27;#rating-fill&#x27;).setAttribute(&#x27;stroke-dasharray&#x27;,ratingStep===0?&#x27;54 100&#x27;:&#x27;58 100&#x27;);
+ root.querySelector(&#x27;#rating-prev-label&#x27;).textContent=&#x27;LV&#x27;+Math.max(1,level-1);
+ root.querySelector(&#x27;#rating-current-label&#x27;).textContent=&#x27;LV&#x27;+level;
+ root.querySelector(&#x27;#rating-next-label&#x27;).textContent=&#x27;LV&#x27;+Math.min(5,level+1);
+ root.querySelector(&#x27;.rating-orbit svg&#x27;).setAttribute(&#x27;aria-label&#x27;,&#x27;当前 LV&#x27;+level+&#x27;，相邻等级进度&#x27;);
  root.querySelector(&#x27;#rating-stage&#x27;).textContent=headings[ratingStep];
  root.querySelector(&#x27;#rating-copy&#x27;).textContent=notes[ratingStep];
  const next=root.querySelector(&#x27;#rating-next&#x27;);
@@ -4677,6 +4667,15 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)){backgrou
 #page-domain .domain-identity .rating-art{height:190px;top:-12px;width:170px;right:-8px}#page-domain .domain-identity{min-height:190px}
 #page-domain .domain-identity .rating-art{height:190px;top:-12px;width:170px;right:-8px}#page-domain .domain-identity{min-height:190px}
 #page-domain .domain-identity .rating-art{height:190px;top:-12px;width:170px;right:-8px}#page-domain .domain-identity{min-height:190px}
+
+/* Keep the reference orbit attached to the floating island. */
+#page-domain .domain-identity{min-height:230px;padding-right:170px;}
+#page-domain .domain-identity .rating-art{width:190px;height:220px;right:-8px;top:0;overflow:visible;}
+#page-domain .rating-art&gt;svg{display:block;width:100%;height:195px;}
+#page-domain .rating-art .rating-orbit{position:absolute;left:-9px;right:-9px;bottom:-3px;margin:0;z-index:2;}
+#page-domain .rating-art .rating-orbit svg{display:block;width:100%;height:auto;overflow:visible;max-height:none;}
+#page-domain .rating-reading{margin-top:6px;}
+@media(max-width:360px){#page-domain .domain-identity .rating-art{width:165px;right:-12px;}#page-domain .domain-identity{padding-right:140px;}}
 &lt;/style&gt;&lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
