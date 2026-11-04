@@ -4272,8 +4272,7 @@ function drawDomain(){
   root.querySelector(&#x27;#page-domain&#x27;).append(intro);
   intro.querySelector(&#x27;button&#x27;).onclick=()=&gt;intro.close();
   intro.addEventListener(&#x27;click&#x27;,event=&gt;{if(event.target===intro)intro.close()});
-  const info=document.createElement(&#x27;button&#x27;);info.type=&#x27;button&#x27;;info.className=&#x27;comment-rules&#x27;;info.textContent=&#x27;评论获赠 · 规则&#x27;;info.onclick=()=&gt;intro.showModal();
-  root.querySelector(&#x27;.rating-demo&#x27;).append(info);
+
  }
  if(!commentIntroSeen){commentIntroSeen=true;setTimeout(()=&gt;intro.showModal(),0)}
 
@@ -4325,7 +4324,12 @@ function drawDomain(){
  const stats=root.querySelector(&#x27;#domain-summary&#x27;);stats.replaceChildren();
  for(const [label,value] of [[&#x27;累计贡献分&#x27;,score],[&#x27;本岛发帖&#x27;,d.items.filter(x=&gt;x[0]===&#x27;帖子&#x27;).length],[&#x27;资料贡献&#x27;,d.items.filter(x=&gt;x[0]===&#x27;资料&#x27;).length],[&#x27;获赠评论&#x27;,ratingStep&gt;=1?1:0]]){
   const cell=document.createElement(&#x27;div&#x27;),num=document.createElement(&#x27;strong&#x27;),caption=document.createElement(&#x27;span&#x27;);
-  num.textContent=value;caption.textContent=label;cell.append(num,caption);stats.append(cell);
+  num.textContent=value;caption.textContent=label;cell.append(num,caption);
+  if(label===&#x27;获赠评论&#x27;){
+   cell.setAttribute(&#x27;role&#x27;,&#x27;button&#x27;);cell.tabIndex=0;cell.setAttribute(&#x27;aria-label&#x27;,&#x27;获赠评论 &#x27;+value+&#x27; 条，查看规则&#x27;);cell.className=&#x27;comment-rules-stat&#x27;;
+   cell.onclick=()=&gt;intro.showModal();cell.onkeydown=e=&gt;{if(e.key===&#x27;Enter&#x27;||e.key===&#x27; &#x27;){e.preventDefault();intro.showModal()}};
+  }
+  stats.append(cell);
  }
  const tabs=root.querySelector(&#x27;#domain-tabs&#x27;);tabs.replaceChildren();
  for(const t of [&#x27;帖子&#x27;,&#x27;资料&#x27;,&#x27;评论&#x27;]){
@@ -4719,6 +4723,7 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)){backgrou
 
 #page-domain .domain-stats{grid-template-columns:repeat(4,minmax(0,1fr));}#page-domain .domain-stats&gt;div{min-width:0;}#page-domain .domain-stats strong{font-size:25px;}#page-domain .domain-stats span{font-size:11px;white-space:nowrap;}
 #comment-intro{box-sizing:border-box;width:min(330px,calc(100% - 40px));padding:26px 22px;border:0;border-radius:22px;background:#fcfaff;color:#302940;box-shadow:0 16px 70px #17112366;}#comment-intro::backdrop{background:#17132399;}#comment-intro h2{font-size:23px;margin:12px 0;}#comment-intro p,#comment-intro li{font-size:14px;line-height:1.75;}#comment-intro ul{padding-left:18px;color:#6d647c;}#comment-intro button{border:0;width:100%;padding:12px;border-radius:12px;background:#8064be;color:white;font-size:15px;cursor:pointer;}.intro-tag,.comment-award{color:#8064be;font-size:12px;font-weight:600;}.comment-rules{display:block;margin:10px auto 0;border:0;background:none;color:#d1c5e9;font-size:12px;cursor:pointer;}.domain-comment{padding:16px;background:#f4f1f8;border-radius:12px;color:#302940;}.domain-comment p{line-height:1.65;font-size:14px;}.domain-comment small{font-size:12px;color:#8a8295;}
+#page-domain .rating-reading{display:none!important;}#page-domain .comment-rules-stat{cursor:pointer;}#page-domain .comment-rules-stat:focus-visible{outline:2px solid #8064be;outline-offset:-2px;border-radius:6px;}
 &lt;/style&gt;&lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
