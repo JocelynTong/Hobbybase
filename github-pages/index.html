@@ -6,7 +6,7 @@
 <meta name="referrer" content="no-referrer">
 <meta http-equiv="Content-Security-Policy" content="default-src 'none'; script-src 'unsafe-inline' 'unsafe-eval' 'wasm-unsafe-eval' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; style-src 'unsafe-inline' blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; img-src file: blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; font-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; media-src blob: data: https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://esm.sh https://fonts.bunny.net https://fonts.googleapis.com https://fonts.gstatic.com https://unpkg.com; worker-src blob:; connect-src blob: data:; frame-src 'self'; object-src 'none'; base-uri 'none'; form-action 'none'">
 <title>Island Growth Interaction</title>
-<style>:root{color-scheme:light;background:#f6f7f9}html,body{margin:0;min-height:100%}body{box-sizing:border-box;background:inherit}iframe{display:block;width:100%;max-width:960px;height:100vh;min-height:100vh;margin:0 auto;border:0;background:#f6f7f9}</style>
+<style>:root{color-scheme:dark;background:#2c263c}html,body{margin:0;min-height:100%}body{box-sizing:border-box;background:inherit}iframe{display:block;width:100%;max-width:960px;height:100vh;min-height:100vh;margin:0 auto;border:0;background:#2c263c}</style>
 </head>
 <body>
 <iframe sandbox="allow-scripts" referrerpolicy="no-referrer" title="Island Growth Interaction" srcdoc="&lt;!doctype html&gt;
@@ -2253,6 +2253,24 @@ renderLevel(2,{force:true,instant:true}); requestAnimationFrame(syncLevelFromLad
 #page-domain .rating-orbit text{fill:#eee5fa}
 #page-domain .domain-identity .rating-art{height:155px;top:0;overflow:hidden}
 #page-domain .domain-identity .rating-art img{height:auto;object-fit:initial}
+
+html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)){background:#2c263c!important;color-scheme:dark}
+#island-growth-interaction[data-active-page=&quot;domain&quot;]{background:#2c263c;--background:#2c263c;--card:#352e46;--foreground:#f4effb;--muted-foreground:#c3b8d2;--border:#51465f;color:#f4effb}
+#page-domain .topbar,#page-domain .home-section{background:#2c263c;color:#f4effb}
+#page-domain .topbar .btn{color:#d6cbe4}
+#page-domain #domain-summary{background:#2c263c;color:#f4effb}
+#page-domain .domain-stats span{color:#c3b8d2}
+#page-domain .domain-stats&gt;div+div{border-color:#51465f}
+#page-domain #domain-tabs button{color:#c3b8d2}
+#page-domain #domain-tabs button[aria-pressed=true]{color:#b0ebd9;border-bottom-color:#b0ebd9}
+#page-domain #domain-feed .domain-post-grid article:nth-child(n){background:#2c263c;color:#f4effb}
+#page-domain #domain-feed .domain-post-grid footer{color:#c3b8d2}
+#page-domain #domain-feed .material-switch{background:#221d30}
+#page-domain #domain-feed .material-switch button{color:#c3b8d2}
+#page-domain #domain-feed .material-switch button[aria-pressed=true]{background:#514360;color:#fff}
+#page-domain #domain-feed .domain-material-list .material-record{background:#383047;color:#f4effb}
+#page-domain #domain-feed .material-record small{color:#c3b8d2}
+#page-domain #domain-feed .material-status{background:#34594f;color:#c3f5df}
 &lt;/style&gt;&lt;/body&gt;
 &lt;/html&gt;
 "></iframe>
