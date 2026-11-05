@@ -3748,9 +3748,9 @@ html:has(#page-domain:not(.hidden)),body:has(#page-domain:not(.hidden)),#island-
 &lt;h3&gt;如何升级&lt;/h3&gt;&lt;p&gt;本期内，累计贡献达到对应等级门槛，即可升级，不必等到季度结束。未达到 LV1 门槛时，不展示等级。&lt;/p&gt;
 &lt;h3&gt;为什么不同岛的门槛不同&lt;/h3&gt;&lt;p&gt;以近90天访问过本岛、且在本岛累计贡献分大于0的用户为比较人群，按他们在本岛的累计贡献分计算分位线。90天用于选择比较人群，不是只统计90天新获得的分数。&lt;/p&gt;&lt;p&gt;每级门槛同时受该级启动分和本岛分位线约束；采用只升不降规则时，还不低于本岛历史已生效门槛。同样的累计分，在不同岛可能对应不同等级。&lt;/p&gt;
 &lt;h3&gt;换季度会发生什么&lt;/h3&gt;&lt;p&gt;本期使用本期门槛；下期标准生效后，用保留的累计贡献重新评定。门槛提高时，即使分数没减少，等级也可能降低。累计分不会因换季度清零或过期。&lt;/p&gt;&lt;p&gt;下期尚未公布时不预测等级；已公布后的预计等级仅供参考，以生效时的累计贡献与门槛为准。&lt;/p&gt;
-&lt;h3&gt;哪些贡献会计分&lt;/h3&gt;&lt;table class=&quot;rules-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;行为&lt;/th&gt;&lt;th&gt;计分条件&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;有效帖子&lt;/td&gt;&lt;td&gt;通过有效内容判定后计分。&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;优质帖子&lt;/td&gt;&lt;td&gt;通过质量与有效互动条件后计分。&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;资料贡献&lt;/td&gt;&lt;td&gt;有效新增、编辑、审核资料均属于贡献。&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;获赠评论&lt;/td&gt;&lt;td&gt;同一评论首次获赠时计分，重复获赠不重复计分；发布评论本身不加分。&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
+&lt;h3&gt;哪些贡献会计分&lt;/h3&gt;&lt;table class=&quot;rules-table&quot;&gt;&lt;thead&gt;&lt;tr&gt;&lt;th&gt;行为&lt;/th&gt;&lt;th&gt;计分条件&lt;/th&gt;&lt;/tr&gt;&lt;/thead&gt;&lt;tbody&gt;&lt;tr&gt;&lt;td&gt;有效帖子&lt;/td&gt;&lt;td&gt;通过有效内容判定后计分。&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;优质帖子&lt;/td&gt;&lt;td&gt;通过质量与有效互动条件后计分。&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;资料贡献&lt;/td&gt;&lt;td&gt;有效新增、编辑、审核资料均属于贡献。&lt;/td&gt;&lt;/tr&gt;&lt;tr&gt;&lt;td&gt;获赞评论&lt;/td&gt;&lt;td&gt;同一评论首次获赞时计分，重复获赞不重复计分；发布评论本身不加分。&lt;/td&gt;&lt;/tr&gt;&lt;/tbody&gt;&lt;/table&gt;
 &lt;p&gt;访问、点赞本身不计贡献分。各行为分值及计分上限以正式公布规则为准。&lt;/p&gt;
-&lt;h3&gt;当前演示说明&lt;/h3&gt;&lt;p&gt;本 Demo 使用示意季度、门槛与每条首次获赠 +10 分，便于体验升级和跨期变化，不代表最终上线参数。模拟按钮每次新增一条不同评论的首次获赠。&lt;/p&gt;
+&lt;h3&gt;当前演示说明&lt;/h3&gt;&lt;p&gt;本 Demo 使用示意季度、门槛与每条首次获赞 +10 分，便于体验升级和跨期变化，不代表最终上线参数。模拟按钮每次新增一条不同评论的首次获赞。&lt;/p&gt;
 &lt;/main&gt;&lt;/section&gt;
 
 &lt;section id=&quot;page-growth&quot; class=&quot;app-page hidden&quot;&gt;
@@ -4257,7 +4257,7 @@ function drawDomain(){
  let intro=root.querySelector(&#x27;#comment-intro&#x27;);
  if(!intro){
   intro=document.createElement(&#x27;dialog&#x27;);intro.id=&#x27;comment-intro&#x27;;
-  intro.innerHTML=&#x27;&lt;span class=&quot;intro-tag&quot;&gt;新功能&lt;/span&gt;&lt;h2&gt;好评论，也有贡献&lt;/h2&gt;&lt;p&gt;评论首次获赠，即可获得 &lt;strong&gt;10 贡献分&lt;/strong&gt;。&lt;/p&gt;&lt;ul&gt;&lt;li&gt;发布评论本身不加分，获赠后才计入贡献。&lt;/li&gt;&lt;li&gt;同一条评论只在首次获赠时加分。&lt;/li&gt;&lt;li&gt;分数计入对应岛的累计贡献，等级仍按本岛门槛评定。&lt;/li&gt;&lt;/ul&gt;&lt;button type=&quot;button&quot; id=&quot;comment-intro-close&quot;&gt;知道了&lt;/button&gt;&#x27;;
+  intro.innerHTML=&#x27;&lt;span class=&quot;intro-tag&quot;&gt;新功能&lt;/span&gt;&lt;h2&gt;好评论，也有贡献&lt;/h2&gt;&lt;p&gt;评论首次获赞，即可获得 &lt;strong&gt;10 贡献分&lt;/strong&gt;。&lt;/p&gt;&lt;ul&gt;&lt;li&gt;发布评论本身不加分，获赞后才计入贡献。&lt;/li&gt;&lt;li&gt;同一条评论只在首次获赞时加分。&lt;/li&gt;&lt;li&gt;分数计入对应岛的累计贡献，等级仍按本岛门槛评定。&lt;/li&gt;&lt;/ul&gt;&lt;button type=&quot;button&quot; id=&quot;comment-intro-close&quot;&gt;知道了&lt;/button&gt;&#x27;;
   root.querySelector(&#x27;#page-domain&#x27;).append(intro);
   intro.querySelector(&#x27;button&#x27;).onclick=()=&gt;intro.close();
   intro.addEventListener(&#x27;click&#x27;,event=&gt;{if(event.target===intro)intro.close()});
@@ -4308,7 +4308,7 @@ function drawDomain(){
  });
  root.querySelector(&#x27;.rating-orbit svg&#x27;).setAttribute(&#x27;aria-label&#x27;,&#x27;查看各等级要求&#x27;);
  const next=root.querySelector(&#x27;#rating-next&#x27;);
- next.textContent=&#x27;模拟评论获赠 +10分&#x27;;
+ next.textContent=&#x27;模拟评论获赞 +10分&#x27;;
  next.onclick=()=&gt;{awardCount++;viewedLevel=null;drawDomain()};
  root.querySelector(&#x27;#demo-reset&#x27;).onclick=()=&gt;{awardCount=0;viewedLevel=null;drawDomain()};
  renderQuarter({score,level,initialLevel,newLine});
@@ -4329,11 +4329,11 @@ function drawDomain(){
  previousRating={island:islandKey,step:ratingStep,level};
  root.querySelector(&#x27;#domain-title&#x27;).textContent=&#x27;TA 在&#x27;+domainIsland.value+&#x27;岛&#x27;;
  const stats=root.querySelector(&#x27;#domain-summary&#x27;);stats.replaceChildren();
- for(const [label,value] of [[&#x27;累计贡献分&#x27;,score],[&#x27;本岛发帖&#x27;,d.items.filter(x=&gt;x[0]===&#x27;帖子&#x27;).length],[&#x27;资料贡献&#x27;,d.items.filter(x=&gt;x[0]===&#x27;资料&#x27;).length],[&#x27;获赠评论&#x27;,awardCount]]){
+ for(const [label,value] of [[&#x27;累计贡献分&#x27;,score],[&#x27;本岛发帖&#x27;,d.items.filter(x=&gt;x[0]===&#x27;帖子&#x27;).length],[&#x27;资料贡献&#x27;,d.items.filter(x=&gt;x[0]===&#x27;资料&#x27;).length],[&#x27;获赞评论&#x27;,awardCount]]){
   const cell=document.createElement(&#x27;div&#x27;),num=document.createElement(&#x27;strong&#x27;),caption=document.createElement(&#x27;span&#x27;);
   num.textContent=value;caption.textContent=label;cell.append(num,caption);
-  if(label===&#x27;获赠评论&#x27;){
-   cell.setAttribute(&#x27;role&#x27;,&#x27;button&#x27;);cell.tabIndex=0;cell.setAttribute(&#x27;aria-label&#x27;,&#x27;获赠评论 &#x27;+value+&#x27; 条，查看规则&#x27;);cell.className=&#x27;comment-rules-stat&#x27;;
+  if(label===&#x27;获赞评论&#x27;){
+   cell.setAttribute(&#x27;role&#x27;,&#x27;button&#x27;);cell.tabIndex=0;cell.setAttribute(&#x27;aria-label&#x27;,&#x27;获赞评论 &#x27;+value+&#x27; 条，查看规则&#x27;);cell.className=&#x27;comment-rules-stat&#x27;;
    cell.onclick=()=&gt;intro.showModal();cell.onkeydown=e=&gt;{if(e.key===&#x27;Enter&#x27;||e.key===&#x27; &#x27;){e.preventDefault();intro.showModal()}};
   }
   stats.append(cell);
@@ -4345,10 +4345,10 @@ function drawDomain(){
  const feed=root.querySelector(&#x27;#domain-feed&#x27;);feed.replaceChildren();
  if(domainTab===&#x27;评论&#x27;){
   const examples=[&#x27;补充一个辨认细节：可以结合刀镡形状和配色，区分不同角色的日轮刀。&#x27;,&#x27;建议把不同版本的配色差异一起标注，查找时会更方便。&#x27;,&#x27;这份整理很有帮助，也可以补上对应角色的使用场景。&#x27;];
-  if(!awardCount){const empty=document.createElement(&#x27;p&#x27;);empty.textContent=&#x27;暂无获赠评论&#x27;;feed.append(empty)}
+  if(!awardCount){const empty=document.createElement(&#x27;p&#x27;);empty.textContent=&#x27;暂无获赞评论&#x27;;feed.append(empty)}
   for(let n=awardCount;n&gt;0;n--){
    const entry=document.createElement(&#x27;article&#x27;);entry.className=&#x27;domain-comment&#x27;;
-   entry.innerHTML=&#x27;&lt;span class=&quot;comment-award&quot;&gt;首次获赠 · +10 分&lt;/span&gt;&lt;p&gt;&#x27;+examples[(n-1)%examples.length]+&#x27;&lt;/p&gt;&lt;small&gt;评论于「&#x27;+d.items[0][1]+&#x27;」 · 演示评论 &#x27;+n+&#x27;&lt;/small&gt;&#x27;;
+   entry.innerHTML=&#x27;&lt;span class=&quot;comment-award&quot;&gt;首次获赞 · +10 分&lt;/span&gt;&lt;p&gt;&#x27;+examples[(n-1)%examples.length]+&#x27;&lt;/p&gt;&lt;small&gt;评论于「&#x27;+d.items[0][1]+&#x27;」 · 演示评论 &#x27;+n+&#x27;&lt;/small&gt;&#x27;;
    feed.append(entry);
   }
  }
